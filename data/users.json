@@ -1,0 +1,34 @@
+[
+  {
+    "id": "U-01",
+    "name": "Administrador Demo",
+    "email": "admin@londrinalimpa.example",
+    "role": "admin",
+    "job_title": "Administrador",
+    "password_hash": "$argon2id$v=19$m=65536,t=3,p=4$mAWkyc9RFA0S/33jcMMVYw$dEGdo9Ywv88vqLDH93dtf2MCYiWBWV7ZY36qCE31uwc"
+  },
+  {
+    "id": "U-02",
+    "name": "Gestora Demo",
+    "email": "gestor@londrinalimpa.example",
+    "role": "gestor",
+    "job_title": "Gestor — CMTU/CTD",
+    "password_hash": "$argon2id$v=19$m=65536,t=3,p=4$YMZsibPgaMEErtZqYS/Sjw$1DY3TlVfH5sAvdL1YuLg00NTNG2GeAYDZgpmg2T6jdY"
+  },
+  {
+    "id": "U-03",
+    "name": "Técnico Demo",
+    "email": "tecnico@londrinalimpa.example",
+    "role": "tecnico",
+    "job_title": "Técnico de campo",
+    "password_hash": "$argon2id$v=19$m=65536,t=3,p=4$n4n5pV/9ZwI0vIfyWkRK/A$GG916ZYfLvr87TqXLw7LGEd1bh02cI5xbEaOGEraFiM"
+  },
+  {
+    "id": "U-04",
+    "name": "Agente Demo",
+    "email": "defesa@londrinalimpa.example",
+    "role": "defesa_civil",
+    "job_title": "Defesa Civil",
+    "password_hash": "$argon2id$v=19$m=65536,t=3,p=4$d4XAht7viYUYGtWKK7ntFw$WUOPSPy3XO/voqzZtoytOhFqNp0JfZjVDOSpJB9zzQM"
+  }
+]

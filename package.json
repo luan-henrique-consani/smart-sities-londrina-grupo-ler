@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint && node scripts/py.mjs -m ruff check .",
-    "test": "node scripts/py.mjs -m pytest -q"
+    "test": "node scripts/py.mjs -m pytest -q",
+    "data": "node scripts/py.mjs scripts/generate_data.py"
   },
   "dependencies": {
     "next": "16.4.6",

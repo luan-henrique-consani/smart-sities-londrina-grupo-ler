@@ -2,7 +2,7 @@
 
 Plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
 
-> Estado atual: **Fase 1** (base do projeto e primeiro deploy). A página inicial é provisória e só confirma que o site e a API estão no ar.
+> Estado atual: **Fase 2** (dados simulados e modelos de previsão prontos). A página inicial ainda é provisória e só confirma que o site e a API estão no ar.
 
 **No ar:** <https://londrina-limpa.vercel.app> · [saúde da API](https://londrina-limpa.vercel.app/api/health) · [documentação da API](https://londrina-limpa.vercel.app/api/docs)
 
@@ -19,7 +19,7 @@ app/, components/, lib/   frontend Next.js
 api/index.py              entrada da função Python na Vercel
 backend/                  pacote FastAPI (routers, services, repositories, models, core)
 data/                     JSON de seed (dados simulados)
-scripts/                  utilitários (py.mjs, geração de dados)
+scripts/                  py.mjs (roda o Python do .venv) e generate_data.py (dados simulados)
 tests/                    pytest
 docs/                     DECISIONS.md e prompts das fases
 vercel.json               função Python + rewrites de /api/*
@@ -57,7 +57,46 @@ Abra <http://localhost:3000>. Em desenvolvimento, o Next encaminha `/api/*` para
 | `npm run dev:web` / `npm run dev:api` | Sobe só um dos dois |
 | `npm run build` | Build de produção do Next |
 | `npm run lint` | ESLint (frontend) + Ruff (Python) |
-| `npm test` | Testes da API (pytest) |
+| `npm test` | Testes da API, das regras de negócio e dos dados (pytest) |
+| `npm run data` | Regera os dados simulados em `data/` |
+
+## Dados simulados e modelos de previsão
+
+Todos os arquivos de `data/` são **simulados** e gerados por `scripts/generate_data.py` (seed fixo: o resultado é reproduzível; só `meta.generated_at` muda). As coordenadas são **aproximadas** (referência: OpenStreetMap).
+
+```bash
+npm run data
+```
+
+- **Período:** histórico de 01/2022 a 14/11/2026 (data de referência) e previsão até 02/2027. O "início das previsões" é 01/07/2026.
+- **Volume:** 300 pontos de descarte em 17 bairros, cerca de 11 mil episódios, 18 áreas de alagamento e 108 bocas de lobo (≈ 3 MB no total).
+- **Regras de negócio** (em `backend/services/`, Python puro, usadas pelo gerador e pela API):
+
+| Regra | Onde | Resumo |
+| --- | --- | --- |
+| Episódio | `episodes.py` | Relatos a até 150 m e 48 h um do outro viram um episódio |
+| Reincidente crônico | `recurrence.py` | 3 ou mais episódios em 15 dias (limites configuráveis) |
+| Previsão de reaparecimento | `forecast.py` | Intervalo médio do ponto, ajustado por sazonalidade, com faixa de dias e confiança |
+| Sazonalidade | `seasonality.py` | Natal e Ano-Novo, Carnaval, volta às aulas, chuvas de verão, ExpoLondrina, feriados |
+| Risco de alagamento | `flood_risk.py` | Score 0–100: chuva em 3 h e 24 h, histórico, bocas de lobo entupidas, lixo próximo |
+| Indicadores | `kpis.py` | Reincidência, dias limpo, previstos × ocorridos, bocas de lobo antes da chuva, horas economizadas |
+| Sem ação × com plano | `projection.py` | Linha de base histórica do mês e efeito esperado do plano |
+
+- **Arquivos:** `areas`, `points`, `episodes`, `cleanings`, `flood_areas`, `drains`, `flood_events`, `rain`, `forecasts`, `kpis`, `yearly`, `next3months`, `alerts`, `users` e `meta` (todos `.json`).
+- **Importante:** os dados foram calibrados para reproduzir os valores de referência do protótipo (por exemplo, reincidência −34% com o plano e dias limpo de 6 para 11). Eles ilustram o funcionamento do sistema; **não são evidência de resultado real**. Detalhes em [`docs/DECISIONS.md`](docs/DECISIONS.md).
+
+## Usuários de demonstração
+
+Contas fictícias, uma por perfil. Em `data/users.json` ficam só os hashes Argon2. O login entra na Fase 3.
+
+| Perfil | E-mail | Senha |
+| --- | --- | --- |
+| Administrador | `admin@londrinalimpa.example` | `Limpa-Admin-2026` |
+| Gestor (CMTU/CTD) | `gestor@londrinalimpa.example` | `Limpa-Gestor-2026` |
+| Técnico de campo | `tecnico@londrinalimpa.example` | `Limpa-Tecnico-2026` |
+| Defesa Civil | `defesa@londrinalimpa.example` | `Limpa-Defesa-2026` |
+
+Para trocar as senhas, rode o gerador com `DEMO_PASSWORDS="admin=...,gestor=...,tecnico=...,defesa_civil=..."` e atualize esta tabela.
 
 ## Variáveis de ambiente
 

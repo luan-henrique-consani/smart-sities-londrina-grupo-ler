@@ -1,0 +1,164 @@
+[
+  {
+    "id": "A-01",
+    "name": "Lago Igapó — barragem e marginal",
+    "area_id": "igapo",
+    "lat": -23.3275,
+    "lon": -51.17,
+    "radius_m": 600,
+    "approximate": true
+  },
+  {
+    "id": "A-02",
+    "name": "Jardim Quebec — baixada",
+    "area_id": "quebec",
+    "lat": -23.3105,
+    "lon": -51.181,
+    "radius_m": 400,
+    "approximate": true
+  },
+  {
+    "id": "A-03",
+    "name": "Centro — Av. Leste-Oeste e Terminal",
+    "area_id": "centro",
+    "lat": -23.3084,
+    "lon": -51.1609,
+    "radius_m": 450,
+    "approximate": true
+  },
+  {
+    "id": "A-04",
+    "name": "Fundo de vale do Ribeirão Cambé",
+    "area_id": "cambe",
+    "lat": -23.318,
+    "lon": -51.198,
+    "radius_m": 500,
+    "approximate": true
+  },
+  {
+    "id": "A-05",
+    "name": "Córrego Capivara",
+    "area_id": "igapo",
+    "lat": -23.3378,
+    "lon": -51.1616,
+    "radius_m": 400,
+    "approximate": true
+  },
+  {
+    "id": "A-06",
+    "name": "Av. Dez de Dezembro — trecho sul",
+    "area_id": "ouro_branco",
+    "lat": -23.3554,
+    "lon": -51.1495,
+    "radius_m": 400,
+    "approximate": true
+  },
+  {
+    "id": "A-07",
+    "name": "Ribeirão Lindóia",
+    "area_id": "zona_norte",
+    "lat": -23.273,
+    "lon": -51.1644,
+    "radius_m": 450,
+    "approximate": true
+  },
+  {
+    "id": "A-08",
+    "name": "Ribeirão Quati",
+    "area_id": "casoni",
+    "lat": -23.2906,
+    "lon": -51.1495,
+    "radius_m": 400,
+    "approximate": true
+  },
+  {
+    "id": "A-09",
+    "name": "Cinco Conjuntos — Av. Saul Elkind",
+    "area_id": "cinco_conjuntos",
+    "lat": -23.262,
+    "lon": -51.146,
+    "radius_m": 400,
+    "approximate": true
+  },
+  {
+    "id": "A-10",
+    "name": "Gleba Palhano — Av. Madre Leônia",
+    "area_id": "palhano",
+    "lat": -23.333,
+    "lon": -51.186,
+    "radius_m": 400,
+    "approximate": true
+  },
+  {
+    "id": "A-11",
+    "name": "Jardim Bandeirantes",
+    "area_id": "bandeirantes",
+    "lat": -23.303,
+    "lon": -51.204,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-12",
+    "name": "Jardim Leonor",
+    "area_id": "leonor",
+    "lat": -23.2945,
+    "lon": -51.2,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-13",
+    "name": "Vila Casoni",
+    "area_id": "casoni",
+    "lat": -23.3024,
+    "lon": -51.1503,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-14",
+    "name": "Vila Nova — baixada",
+    "area_id": "vila_nova",
+    "lat": -23.2975,
+    "lon": -51.1675,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-15",
+    "name": "Jardim Shangri-lá",
+    "area_id": "shangrila",
+    "lat": -23.2976,
+    "lon": -51.1835,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-16",
+    "name": "Vila Brasil — Av. Duque de Caxias",
+    "area_id": "vila_brasil",
+    "lat": -23.3235,
+    "lon": -51.1551,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-17",
+    "name": "Aeroporto",
+    "area_id": "aeroporto",
+    "lat": -23.3311,
+    "lon": -51.1307,
+    "radius_m": 350,
+    "approximate": true
+  },
+  {
+    "id": "A-18",
+    "name": "Jardim Califórnia",
+    "area_id": "california",
+    "lat": -23.3469,
+    "lon": -51.1166,
+    "radius_m": 350,
+    "approximate": true
+  }
+]

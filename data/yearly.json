@@ -1,0 +1,117 @@
+[
+  {
+    "year": 2022,
+    "partial": false,
+    "full_year": {
+      "debris_episodes": 2305,
+      "recurrences": 1606,
+      "flood_events": 79
+    },
+    "jan_to_ref": {
+      "debris_episodes": 1953,
+      "recurrences": 1373,
+      "flood_events": 65
+    },
+    "jul_to_ref": {
+      "debris_episodes": 816,
+      "recurrences": 578,
+      "flood_events": 26
+    },
+    "avg_days_clean": 5.8,
+    "avg_days_to_clean": 4.3,
+    "drains_before_rain_pct": 38.9,
+    "team_hours": 19040
+  },
+  {
+    "year": 2023,
+    "partial": false,
+    "full_year": {
+      "debris_episodes": 2407,
+      "recurrences": 1670,
+      "flood_events": 72
+    },
+    "jan_to_ref": {
+      "debris_episodes": 2052,
+      "recurrences": 1438,
+      "flood_events": 61
+    },
+    "jul_to_ref": {
+      "debris_episodes": 850,
+      "recurrences": 592,
+      "flood_events": 13
+    },
+    "avg_days_clean": 5.9,
+    "avg_days_to_clean": 4.1,
+    "drains_before_rain_pct": 42.6,
+    "team_hours": 19741
+  },
+  {
+    "year": 2024,
+    "partial": false,
+    "full_year": {
+      "debris_episodes": 2388,
+      "recurrences": 1644,
+      "flood_events": 78
+    },
+    "jan_to_ref": {
+      "debris_episodes": 2018,
+      "recurrences": 1411,
+      "flood_events": 54
+    },
+    "jul_to_ref": {
+      "debris_episodes": 794,
+      "recurrences": 567,
+      "flood_events": 22
+    },
+    "avg_days_clean": 6.1,
+    "avg_days_to_clean": 4.4,
+    "drains_before_rain_pct": 38.0,
+    "team_hours": 20025
+  },
+  {
+    "year": 2025,
+    "partial": false,
+    "full_year": {
+      "debris_episodes": 2418,
+      "recurrences": 1677,
+      "flood_events": 118
+    },
+    "jan_to_ref": {
+      "debris_episodes": 2054,
+      "recurrences": 1435,
+      "flood_events": 110
+    },
+    "jul_to_ref": {
+      "debris_episodes": 828,
+      "recurrences": 578,
+      "flood_events": 25
+    },
+    "avg_days_clean": 6.1,
+    "avg_days_to_clean": 4.2,
+    "drains_before_rain_pct": 40.7,
+    "team_hours": 20232
+  },
+  {
+    "year": 2026,
+    "partial": true,
+    "full_year": {
+      "debris_episodes": 1895,
+      "recurrences": 1296,
+      "flood_events": 51
+    },
+    "jan_to_ref": {
+      "debris_episodes": 1892,
+      "recurrences": 1293,
+      "flood_events": 51
+    },
+    "jul_to_ref": {
+      "debris_episodes": 676,
+      "recurrences": 447,
+      "flood_events": 9
+    },
+    "avg_days_clean": 11.3,
+    "avg_days_to_clean": 1.4,
+    "drains_before_rain_pct": 82.4,
+    "team_hours": 16802
+  }
+]

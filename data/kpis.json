@@ -1,0 +1,56 @@
+{
+  "as_of": "2026-11-14T06:00",
+  "system_start": "2026-07-01",
+  "periods": {
+    "before": {
+      "start": "2025-07-01",
+      "end": "2025-11-14",
+      "label": "jul–nov/2025 (antes das previsões)"
+    },
+    "after": {
+      "start": "2026-07-01",
+      "end": "2026-11-14",
+      "label": "jul–nov/2026 (com as previsões)"
+    }
+  },
+  "map": {
+    "high_risk_areas_72h": 3,
+    "debris_points_next_7d": 32,
+    "chronic_points": 12,
+    "drains_cleaned_before_rain_pct": 82
+  },
+  "impact": {
+    "recurrence": {
+      "before": 578,
+      "after": 447,
+      "change_pct": -22.7,
+      "next_3_months_change_pct": -34
+    },
+    "days_clean": {
+      "before": 6.1,
+      "after": 11.3,
+      "points_considered": 42
+    },
+    "days_to_clean": {
+      "before": 4.2,
+      "after": 1.4
+    },
+    "flood_accuracy": {
+      "occurred": 9,
+      "predicted": 7,
+      "pct": 78
+    },
+    "drains_before_rain": {
+      "before_pct": 41,
+      "after_pct": 82,
+      "heavy_rain_mm": 30.0,
+      "lead_days": 7
+    },
+    "team_hours_saved": {
+      "per_quarter": 1240,
+      "avoided_cleanings": 156,
+      "avg_team_hours_per_cleaning": 7.95,
+      "estimate": true
+    }
+  }
+}

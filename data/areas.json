@@ -1,0 +1,138 @@
+[
+  {
+    "id": "igapo",
+    "name": "Lago Igapó",
+    "lat": -23.327,
+    "lon": -51.172,
+    "radius_m": 1585,
+    "approximate": true
+  },
+  {
+    "id": "quebec",
+    "name": "Jardim Quebec",
+    "lat": -23.31,
+    "lon": -51.18,
+    "radius_m": 1243,
+    "approximate": true
+  },
+  {
+    "id": "centro",
+    "name": "Centro",
+    "lat": -23.3139,
+    "lon": -51.1621,
+    "radius_m": 1585,
+    "approximate": true
+  },
+  {
+    "id": "cambe",
+    "name": "Fundo de vale do Ribeirão Cambé",
+    "lat": -23.318,
+    "lon": -51.198,
+    "radius_m": 1319,
+    "approximate": true
+  },
+  {
+    "id": "bandeirantes",
+    "name": "Jardim Bandeirantes",
+    "lat": -23.3018,
+    "lon": -51.2054,
+    "radius_m": 1243,
+    "approximate": true
+  },
+  {
+    "id": "vila_nova",
+    "name": "Vila Nova",
+    "lat": -23.2971,
+    "lon": -51.1669,
+    "radius_m": 1204,
+    "approximate": true
+  },
+  {
+    "id": "cinco_conjuntos",
+    "name": "Cinco Conjuntos",
+    "lat": -23.2607,
+    "lon": -51.1438,
+    "radius_m": 1585,
+    "approximate": true
+  },
+  {
+    "id": "palhano",
+    "name": "Gleba Palhano",
+    "lat": -23.334,
+    "lon": -51.188,
+    "radius_m": 1243,
+    "approximate": true
+  },
+  {
+    "id": "zona_norte",
+    "name": "Zona Norte",
+    "lat": -23.27,
+    "lon": -51.17,
+    "radius_m": 1703,
+    "approximate": true
+  },
+  {
+    "id": "leonor",
+    "name": "Jardim Leonor",
+    "lat": -23.294,
+    "lon": -51.201,
+    "radius_m": 1121,
+    "approximate": true
+  },
+  {
+    "id": "casoni",
+    "name": "Vila Casoni",
+    "lat": -23.3024,
+    "lon": -51.1503,
+    "radius_m": 1163,
+    "approximate": true
+  },
+  {
+    "id": "shangrila",
+    "name": "Jardim Shangri-lá",
+    "lat": -23.2976,
+    "lon": -51.1835,
+    "radius_m": 1121,
+    "approximate": true
+  },
+  {
+    "id": "vila_brasil",
+    "name": "Vila Brasil",
+    "lat": -23.3275,
+    "lon": -51.1504,
+    "radius_m": 1163,
+    "approximate": true
+  },
+  {
+    "id": "aeroporto",
+    "name": "Aeroporto",
+    "lat": -23.3311,
+    "lon": -51.1307,
+    "radius_m": 1163,
+    "approximate": true
+  },
+  {
+    "id": "ouro_branco",
+    "name": "Parque Ouro Branco",
+    "lat": -23.3616,
+    "lon": -51.145,
+    "radius_m": 1243,
+    "approximate": true
+  },
+  {
+    "id": "uniao_vitoria",
+    "name": "Jardim União da Vitória",
+    "lat": -23.3897,
+    "lon": -51.1173,
+    "radius_m": 1204,
+    "approximate": true
+  },
+  {
+    "id": "california",
+    "name": "Jardim Califórnia",
+    "lat": -23.3469,
+    "lon": -51.1166,
+    "radius_m": 1077,
+    "approximate": true
+  }
+]

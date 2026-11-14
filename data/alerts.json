@@ -1,0 +1,427 @@
+[
+  {
+    "id": "AL-001",
+    "created_at": "2026-11-14T06:00",
+    "type": "flood_high_risk",
+    "severity": "critical",
+    "title": "Risco alto de alagamento — Lago Igapó — barragem e marginal",
+    "message": "Risco 82/100 nas próximas 72 h: chuva prevista de 64 mm em 24 h, 4 de 6 bocas de lobo entupidas e 4 ponto(s) de lixo ativo(s) por perto.",
+    "flood_area_id": "A-01",
+    "horizon": "72h",
+    "score": 82
+  },
+  {
+    "id": "AL-002",
+    "created_at": "2026-11-14T06:00",
+    "type": "flood_high_risk",
+    "severity": "high",
+    "title": "Risco alto de alagamento — Jardim Quebec — baixada",
+    "message": "Risco 76/100 nas próximas 72 h: chuva prevista de 64 mm em 24 h, 3 de 6 bocas de lobo entupidas e 3 ponto(s) de lixo ativo(s) por perto.",
+    "flood_area_id": "A-02",
+    "horizon": "72h",
+    "score": 76
+  },
+  {
+    "id": "AL-003",
+    "created_at": "2026-11-14T06:00",
+    "type": "flood_high_risk",
+    "severity": "high",
+    "title": "Risco alto de alagamento — Centro — Av. Leste-Oeste e Terminal",
+    "message": "Risco 70/100 nas próximas 72 h: chuva prevista de 64 mm em 24 h, 3 de 6 bocas de lobo entupidas e 1 ponto(s) de lixo ativo(s) por perto.",
+    "flood_area_id": "A-03",
+    "horizon": "72h",
+    "score": 70
+  },
+  {
+    "id": "AL-004",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0004 (Zona Norte)",
+    "message": "5 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0004",
+    "area_id": "zona_norte"
+  },
+  {
+    "id": "AL-005",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0004",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0004",
+    "area_id": "zona_norte",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 18h e 22h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-006",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0061 (Jardim Quebec)",
+    "message": "5 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0061",
+    "area_id": "quebec"
+  },
+  {
+    "id": "AL-007",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0061",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0061",
+    "area_id": "quebec",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 23h e 3h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-008",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0101 (Cinco Conjuntos)",
+    "message": "5 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0101",
+    "area_id": "cinco_conjuntos"
+  },
+  {
+    "id": "AL-009",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0101",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0101",
+    "area_id": "cinco_conjuntos",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 17h e 21h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-010",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0122 (Centro)",
+    "message": "5 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0122",
+    "area_id": "centro"
+  },
+  {
+    "id": "AL-011",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0122",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0122",
+    "area_id": "centro",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 1h e 5h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-012",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0186 (Vila Nova)",
+    "message": "5 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0186",
+    "area_id": "vila_nova"
+  },
+  {
+    "id": "AL-013",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0186",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0186",
+    "area_id": "vila_nova",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 0h e 4h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-014",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0272 (Jardim Quebec)",
+    "message": "5 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0272",
+    "area_id": "quebec"
+  },
+  {
+    "id": "AL-015",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0272",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0272",
+    "area_id": "quebec",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 3h e 7h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-016",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0005 (Centro)",
+    "message": "4 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0005",
+    "area_id": "centro"
+  },
+  {
+    "id": "AL-017",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0005",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0005",
+    "area_id": "centro",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 19h e 23h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-018",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0042 (Fundo de vale do Ribeirão Cambé)",
+    "message": "4 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0042",
+    "area_id": "cambe"
+  },
+  {
+    "id": "AL-019",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0042",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0042",
+    "area_id": "cambe",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 18h e 22h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-020",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0107 (Vila Casoni)",
+    "message": "4 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0107",
+    "area_id": "casoni"
+  },
+  {
+    "id": "AL-021",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0107",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0107",
+    "area_id": "casoni",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 17h e 21h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-022",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0110 (Lago Igapó)",
+    "message": "4 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0110",
+    "area_id": "igapo"
+  },
+  {
+    "id": "AL-023",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0110",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0110",
+    "area_id": "igapo",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 3h e 7h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-024",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0227 (Lago Igapó)",
+    "message": "4 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0227",
+    "area_id": "igapo"
+  },
+  {
+    "id": "AL-025",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0227",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0227",
+    "area_id": "igapo",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 2h e 6h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-026",
+    "created_at": "2026-11-14T06:00",
+    "type": "chronic_recurrence",
+    "severity": "high",
+    "title": "Reincidência crônica — ponto D-0239 (Lago Igapó)",
+    "message": "4 episódios em 15 dias (limite: 3). Limpeza sozinha não está resolvendo.",
+    "point_id": "D-0239",
+    "area_id": "igapo"
+  },
+  {
+    "id": "AL-027",
+    "created_at": "2026-11-14T06:00",
+    "type": "awareness",
+    "severity": "medium",
+    "title": "Ação de conscientização sugerida — ponto D-0239",
+    "message": "O ponto voltou a acumular lixo logo após cada limpeza. Combine a limpeza com ações no entorno.",
+    "point_id": "D-0239",
+    "area_id": "igapo",
+    "suggestions": [
+      "Instalar placa informando o ponto de entrega mais próximo",
+      "Ação porta a porta com os moradores e comércios do entorno",
+      "Fiscalização entre 21h e 1h",
+      "Recuperação do espaço (plantio, iluminação, pintura)"
+    ]
+  },
+  {
+    "id": "AL-028",
+    "created_at": "2026-11-14T06:00",
+    "type": "seasonal_event",
+    "severity": "info",
+    "title": "Evento sazonal — Chuvas de verão",
+    "message": "Temporais frequentes de dezembro a março elevam o risco de alagamento. De 01/12/2026 a 31/03/2027.",
+    "starts_on": "2026-12-01",
+    "ends_on": "2027-03-31"
+  },
+  {
+    "id": "AL-029",
+    "created_at": "2026-11-14T06:00",
+    "type": "seasonal_event",
+    "severity": "info",
+    "title": "Evento sazonal — Natal e Ano-Novo",
+    "message": "Festas, reformas e troca de móveis elevam o descarte de entulho. De 15/12/2026 a 06/01/2027.",
+    "starts_on": "2026-12-15",
+    "ends_on": "2027-01-06"
+  },
+  {
+    "id": "AL-030",
+    "created_at": "2026-11-14T06:00",
+    "type": "seasonal_event",
+    "severity": "info",
+    "title": "Evento sazonal — Volta às aulas",
+    "message": "Mais descarte de móveis e materiais no início do ano letivo. De 25/01/2027 a 15/02/2027.",
+    "starts_on": "2027-01-25",
+    "ends_on": "2027-02-15"
+  },
+  {
+    "id": "AL-031",
+    "created_at": "2026-11-14T06:00",
+    "type": "seasonal_event",
+    "severity": "info",
+    "title": "Evento sazonal — Carnaval",
+    "message": "Blocos e feriado prolongado elevam o volume de entulho e lixo nas ruas. De 04/02/2027 a 12/02/2027.",
+    "starts_on": "2027-02-04",
+    "ends_on": "2027-02-12"
+  },
+  {
+    "id": "AL-032",
+    "created_at": "2026-11-14T06:00",
+    "type": "debris_forecast",
+    "severity": "medium",
+    "title": "Entulho previsto — Centro",
+    "message": "5 ponto(s) com acúmulo previsto nos próximos 7 dias.",
+    "area_id": "centro",
+    "points": 5
+  },
+  {
+    "id": "AL-033",
+    "created_at": "2026-11-14T06:00",
+    "type": "debris_forecast",
+    "severity": "medium",
+    "title": "Entulho previsto — Parque Ouro Branco",
+    "message": "4 ponto(s) com acúmulo previsto nos próximos 7 dias.",
+    "area_id": "ouro_branco",
+    "points": 4
+  },
+  {
+    "id": "AL-034",
+    "created_at": "2026-11-14T06:00",
+    "type": "debris_forecast",
+    "severity": "medium",
+    "title": "Entulho previsto — Jardim Quebec",
+    "message": "4 ponto(s) com acúmulo previsto nos próximos 7 dias.",
+    "area_id": "quebec",
+    "points": 4
+  },
+  {
+    "id": "AL-035",
+    "created_at": "2026-11-14T06:00",
+    "type": "debris_forecast",
+    "severity": "medium",
+    "title": "Entulho previsto — Lago Igapó",
+    "message": "4 ponto(s) com acúmulo previsto nos próximos 7 dias.",
+    "area_id": "igapo",
+    "points": 4
+  }
+]

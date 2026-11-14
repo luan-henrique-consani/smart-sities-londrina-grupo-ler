@@ -2,3 +2,4 @@
 uvicorn[standard]==0.54.0
 pytest==9.2.0
 ruff==0.17.5
+numpy==2.4.6

@@ -1,5 +1,41 @@
 {
   "version": "0.1.0",
-  "generated_at": null,
-  "notice": "Dados simulados. Os arquivos definitivos são gerados na Fase 2 por scripts/generate_data.py."
+  "generated_at": "2026-11-14T17:21:38-03:00",
+  "reference_date": "2026-11-14T06:00",
+  "system_start": "2026-07-01",
+  "seed": 20261114,
+  "weather_seed": 20261136,
+  "simulated": true,
+  "notice": "Dados simulados para demonstração. Não representam ocorrências reais.",
+  "coordinates_notice": "Coordenadas aproximadas (referência: OpenStreetMap).",
+  "calibration": [
+    "Londrina produziu em média ~377 t/dia de lixo doméstico em 2025 (Perfil de Londrina/CMTU).",
+    "A CMTU limpou 904 bocas de lobo entre jan e set de 2025."
+  ],
+  "counts": {
+    "areas": 17,
+    "points": 300,
+    "episodes": 11413,
+    "cleanings": 14511,
+    "flood_areas": 18,
+    "drains": 108,
+    "flood_events": 398,
+    "alerts": 35
+  },
+  "files": [
+    "alerts.json",
+    "areas.json",
+    "cleanings.json",
+    "drains.json",
+    "episodes.json",
+    "flood_areas.json",
+    "flood_events.json",
+    "forecasts.json",
+    "kpis.json",
+    "next3months.json",
+    "points.json",
+    "rain.json",
+    "users.json",
+    "yearly.json"
+  ]
 }

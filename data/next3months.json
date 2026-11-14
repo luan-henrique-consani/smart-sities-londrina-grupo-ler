@@ -1,0 +1,89 @@
+{
+  "baseline": "média do mesmo mês nas temporadas 2022/23 a 2025/26 (antes das previsões)",
+  "plan_effects": {
+    "recurrence": 0.34,
+    "flood": 0.3
+  },
+  "months": [
+    {
+      "month": "2026-12",
+      "label": "dez/26",
+      "debris_episodes": {
+        "without_action": 261,
+        "with_plan": 206
+      },
+      "recurrences": {
+        "without_action": 162,
+        "with_plan": 107
+      },
+      "flood_events": {
+        "without_action": 12,
+        "with_plan": 8
+      },
+      "seasonal_events": [
+        "Chuvas de verão",
+        "Natal e Ano-Novo"
+      ]
+    },
+    {
+      "month": "2027-01",
+      "label": "jan/27",
+      "debris_episodes": {
+        "without_action": 212,
+        "with_plan": 160
+      },
+      "recurrences": {
+        "without_action": 152,
+        "with_plan": 100
+      },
+      "flood_events": {
+        "without_action": 16,
+        "with_plan": 11
+      },
+      "seasonal_events": [
+        "Chuvas de verão",
+        "Natal e Ano-Novo",
+        "Volta às aulas"
+      ]
+    },
+    {
+      "month": "2027-02",
+      "label": "fev/27",
+      "debris_episodes": {
+        "without_action": 231,
+        "with_plan": 182
+      },
+      "recurrences": {
+        "without_action": 143,
+        "with_plan": 94
+      },
+      "flood_events": {
+        "without_action": 6,
+        "with_plan": 4
+      },
+      "seasonal_events": [
+        "Carnaval",
+        "Chuvas de verão",
+        "Volta às aulas"
+      ]
+    }
+  ],
+  "totals": {
+    "debris_episodes": {
+      "without_action": 704,
+      "with_plan": 548,
+      "change_pct": -22
+    },
+    "recurrences": {
+      "without_action": 457,
+      "with_plan": 301,
+      "change_pct": -34
+    },
+    "flood_events": {
+      "without_action": 34,
+      "with_plan": 23,
+      "change_pct": -32
+    }
+  },
+  "team_hours_saved": 1240
+}
