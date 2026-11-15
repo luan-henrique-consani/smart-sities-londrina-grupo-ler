@@ -24,6 +24,8 @@ from backend.repositories import Repository, get_repository
 from backend.routers.common import AUTH_ERRORS, NOT_FOUND
 from backend.services import llm, views
 
+_require_editor = require_roles("admin", "gestor")
+
 router = APIRouter(prefix="/ai", tags=["IA"], responses={**AUTH_ERRORS, **NOT_FOUND})
 
 
@@ -35,7 +37,7 @@ router = APIRouter(prefix="/ai", tags=["IA"], responses={**AUTH_ERRORS, **NOT_FO
 def awareness(
     body: AwarenessRequest,
     repo: Repository = Depends(get_repository),
-    user: User = Depends(require_roles("admin", "gestor")),
+    user: User = Depends(_require_editor),
 ) -> dict:
     """Cartaz, post para redes, roteiro porta a porta ou plano de ação de 30 dias.
 

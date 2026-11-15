@@ -69,7 +69,11 @@ def flood_areas(
 def alerts(
     type: Annotated[
         Literal[
-            "flood_high_risk", "chronic_recurrence", "awareness", "seasonal_event", "debris_forecast"
+            "flood_high_risk",
+            "chronic_recurrence",
+            "awareness",
+            "seasonal_event",
+            "debris_forecast",
         ]
         | None,
         Query(description="Tipo de alerta"),

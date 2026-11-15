@@ -26,6 +26,8 @@ from backend.repositories import Record, Repository, get_repository
 from backend.routers.common import AUTH_ERRORS, NOT_FOUND, paginate
 from backend.services import views
 
+_require_field_roles = require_roles("admin", "gestor", "tecnico")
+
 router = APIRouter(prefix="/points", tags=["resíduos"], responses=AUTH_ERRORS)
 
 PointId = Annotated[
@@ -106,7 +108,7 @@ def create_decision(
     point_id: PointId,
     body: DecisionCreate,
     repo: Repository = Depends(get_repository),
-    user: User = Depends(require_roles("admin", "gestor", "tecnico")),
+    user: User = Depends(_require_field_roles),
 ) -> Record:
     """Registra recomendação → decisão → intervenção.
 

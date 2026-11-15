@@ -2,7 +2,7 @@
 
 Plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
 
-> Estado atual: **Fase 2** (dados simulados e modelos de previsão prontos). A página inicial ainda é provisória e só confirma que o site e a API estão no ar.
+> Estado atual: **Fase 3** (API FastAPI completa: login, RBAC, rotas, IA com fallback). Documentação interativa em `/api/docs`. A página inicial ainda é provisória.
 
 **No ar:** <https://londrina-limpa.vercel.app> · [saúde da API](https://londrina-limpa.vercel.app/api/health) · [documentação da API](https://londrina-limpa.vercel.app/api/docs)
 
@@ -87,7 +87,7 @@ npm run data
 
 ## Usuários de demonstração
 
-Contas fictícias, uma por perfil. Em `data/users.json` ficam só os hashes Argon2. O login entra na Fase 3.
+Contas fictícias, uma por perfil. Em `data/users.json` ficam só os hashes Argon2. Login em `POST /api/auth/login` (Fase 3).
 
 | Perfil | E-mail | Senha |
 | --- | --- | --- |
