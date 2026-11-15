@@ -1,0 +1,8 @@
+{"schema":"openai.presentation.layout/v5","unit":"px","slide":{"id":"sl/ncvozt","index":0,"layout":{"id":"ly/h0r2t8j6","name":"Blank"},"backgroundColor":"rgba(255,255,255,1)","position":{"left":0,"top":0,"width":1600,"height":900}},
+"elements":[
+{"id":"sh/oj25kr2p","kind":"textbox","name":"text-1","position":{"left":95,"top":95,"width":1350,"height":172.8},"text":"Prevora","style":{"fontSize":128,"typeface":"Arial","color":"#C62828","bold":true,"alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/nit4bm14","kind":"textbox","name":"text-2","position":{"left":100,"top":333,"width":1380,"height":110},"text":"Alerta para agir.","style":{"fontSize":76,"typeface":"Arial","color":"#17191D","bold":true,"alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/2h0ni1kz","kind":"textbox","name":"text-3","position":{"left":100,"top":442,"width":1380,"height":110},"text":"Histórico para prevenir.","style":{"fontSize":76,"typeface":"Arial","color":"#008C45","bold":true,"alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/x8b6hgjm","kind":"textbox","name":"text-4","position":{"left":105,"top":666,"width":1360,"height":70},"text":"Monitoramento de água para condomínios","style":{"fontSize":35,"typeface":"Arial","color":"#59616D","alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/c725ob21","kind":"textbox","name":"text-5","position":{"left":105,"top":820,"width":1100,"height":40},"text":"Smart Cities Hackathon 2026","style":{"fontSize":25,"typeface":"Arial","color":"#C62828","alignment":"left"},"geometry":"rect","lineWidth":0}
+]}

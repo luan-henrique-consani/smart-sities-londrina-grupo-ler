@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import vm from 'node:vm';
+const file='prevora-pitch/data/content.js',box={window:{}};vm.runInNewContext(await fs.readFile(file,'utf8'),box);const c=box.window.PREVORA_CONTENT;
+c.copy.competition.legend='✓ Ofertado pela empresa     P Planejado     D Demonstrado no protótipo     ? Sem confirmação\nLLM e acionamento de bombas estão planejados: ainda serão desenvolvidos.';
+await fs.writeFile(file,'window.PREVORA_CONTENT = '+JSON.stringify(c,null,2)+';\n');
+let js=await fs.readFile('prevora-pitch/scripts/deck.js','utf8');
+js=js.replace('<span class="check planned" aria-label="Planejado">✓<sup>1</sup></span>','<span class="state-symbol planned" aria-label="Planejado">P</span>');
+js=js.replace('<span class="check demo" aria-label="Demonstrativo">✓<sup>2</sup></span>','<span class="state-symbol demo" aria-label="Demonstrado no protótipo">D</span>');
+await fs.writeFile('prevora-pitch/scripts/deck.js',js);
+await fs.appendFile('prevora-pitch/styles/deck.css','\n.competition-table .state-symbol{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid currentColor;border-radius:6px;font-family:var(--body);font-size:26px;font-weight:500;line-height:1}.competition-legend{font-size:21px;line-height:1.6}\n');
+let readme=await fs.readFile('prevora-pitch/README.md','utf8');readme=readme.replace('✓¹ para planejado, ✓² para demonstrativo','P para planejado, D para demonstrado no protótipo');await fs.writeFile('prevora-pitch/README.md',readme);
+await fs.appendFile('prevora-pitch/VERIFICACAO.md','\nEquipe com fotos na ordem fornecida, perfis resumidos e contribuições. Legenda simplificada para ✓, P, D e ?, sem números elevados.\n');

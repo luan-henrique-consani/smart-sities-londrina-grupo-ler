@@ -1,0 +1,89 @@
+{
+  "checks": [
+    {
+      "name": "Nine slides",
+      "passed": true
+    },
+    {
+      "name": "Right arrow",
+      "passed": true
+    },
+    {
+      "name": "Left arrow",
+      "passed": true
+    },
+    {
+      "name": "End",
+      "passed": true
+    },
+    {
+      "name": "Home",
+      "passed": true
+    },
+    {
+      "name": "Canvas click advances",
+      "passed": true
+    },
+    {
+      "name": "Canvas click returns",
+      "passed": true
+    },
+    {
+      "name": "Next button",
+      "passed": true
+    },
+    {
+      "name": "Previous button",
+      "passed": true
+    },
+    {
+      "name": "Notes dialog",
+      "passed": true
+    },
+    {
+      "name": "Escape closes notes",
+      "passed": true
+    },
+    {
+      "name": "Help dialog",
+      "passed": true
+    },
+    {
+      "name": "Fullscreen enters",
+      "passed": true
+    },
+    {
+      "name": "Fullscreen exits",
+      "passed": true
+    },
+    {
+      "name": "PDF control invokes print",
+      "passed": true
+    },
+    {
+      "name": "Hide controls",
+      "passed": true
+    },
+    {
+      "name": "Laptop scale",
+      "passed": true
+    },
+    {
+      "name": "Portrait scale without overflow",
+      "passed": true
+    },
+    {
+      "name": "Team names",
+      "passed": true
+    },
+    {
+      "name": "No broken images",
+      "passed": true
+    },
+    {
+      "name": "Total time 180s",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

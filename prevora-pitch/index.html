@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08090b">
+  <title>PREVORA — Pitch Smart Cities 2026</title>
+  <meta name="description" content="Apresentação do Prevora. Nove slides sobre monitoramento de água, decisões e manutenção em condomínios.">
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles/deck.css">
+  <script defer src="data/content.js"></script>
+  <script defer src="scripts/deck.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#controls">Ir para os controles</a>
+  <main id="viewport" aria-label="Apresentação Prevora">
+    <div id="deck" class="deck"></div>
+  </main>
+  <nav id="controls" class="controls" aria-label="Controles da apresentação">
+    <button id="previous" type="button" title="Anterior (←)" aria-label="Slide anterior">←</button>
+    <span id="counter" class="counter" aria-live="polite">01 / 09</span>
+    <button id="next" type="button" title="Próximo (→)" aria-label="Próximo slide">→</button>
+    <span class="control-divider"></span>
+    <button id="notes-button" type="button" title="Roteiro e fontes (N)">Roteiro</button>
+    <button id="fullscreen" type="button" title="Tela cheia (F)">Tela cheia</button>
+    <button id="print-button" type="button" title="Imprimir ou exportar os nove slides (P)">PDF</button>
+    <button id="help-button" type="button" title="Atalhos (?)" aria-label="Mostrar atalhos">?</button>
+  </nav>
+  <dialog id="notes" class="dialog" aria-labelledby="notes-title">
+    <div class="dialog-heading"><span class="eyebrow">APOIO AO APRESENTADOR</span><button data-close="notes" aria-label="Fechar roteiro">×</button></div>
+    <h2 id="notes-title"></h2>
+    <p id="notes-time" class="notes-time"></p>
+    <p id="notes-script" class="notes-script"></p>
+    <h3>Fontes e limites</h3><div id="notes-sources"></div>
+  </dialog>
+  <dialog id="help" class="dialog help-dialog" aria-labelledby="help-title">
+    <div class="dialog-heading"><h2 id="help-title">Apresentar o Prevora</h2><button data-close="help" aria-label="Fechar atalhos">×</button></div>
+    <dl class="shortcuts">
+      <dt>→ / espaço / Page Down</dt><dd>Próximo slide</dd>
+      <dt>← / Page Up</dt><dd>Slide anterior</dd>
+      <dt>Home / End</dt><dd>Primeiro / último slide</dd>
+      <dt>F</dt><dd>Entrar ou sair da tela cheia</dd>
+      <dt>N</dt><dd>Roteiro, tempo sugerido e fontes</dd>
+      <dt>P</dt><dd>Imprimir os nove slides ou salvar como PDF</dd>
+      <dt>H</dt><dd>Mostrar ou ocultar a barra de controles</dd>
+    </dl>
+    <p>Clique na metade direita para avançar e na esquerda para voltar. Em telas de toque, deslize para os lados.</p>
+    <p>Para o pitch: 180 segundos ao todo. Sensores e alertas operacionais são uma proposta de piloto.</p>
+  </dialog>
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+</body>
+</html>

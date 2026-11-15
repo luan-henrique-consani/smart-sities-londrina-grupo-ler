@@ -1,0 +1,9 @@
+file:///C:/Users/consa/smart-sities-londrina-grupo-ler/work/prevora_html/interaction-checks.mjs:10
+const check=async(name,fn)=>{const ok=await fn();checks.push({name,passed:!!ok});if(!ok)throw new Error(name);};
+                                                                                              ^
+
+Error: Portrait scale without overflow
+    at check (file:///C:/Users/consa/smart-sities-londrina-grupo-ler/work/prevora_html/interaction-checks.mjs:10:95)
+    at async file:///C:/Users/consa/smart-sities-londrina-grupo-ler/work/prevora_html/interaction-checks.mjs:29:52
+
+Node.js v24.22.1

@@ -1,0 +1,12 @@
+{
+  "name": "headless-shell",
+  "executablePath": "C:/Users/consa/AppData/Local/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-win64/chrome-headless-shell.exe",
+  "args": [
+    "--no-sandbox",
+    "--disable-gpu",
+    "--disable-dev-shm-usage"
+  ],
+  "success": true,
+  "elapsedMs": 1697,
+  "version": "149.0.7827.55"
+}

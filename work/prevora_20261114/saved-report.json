@@ -1,0 +1,46 @@
+{
+  "results": [
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/Smart Cities 2026/Prevora_Pesquisa_Estrutura_e_Roteiro.pdf",
+      "file_id": "file_000000005f5c820e9df5202351ec596a",
+      "library_file_id": "libfile_011939b5b9b48191b5e7cae29f72e566",
+      "file_name": "Prevora_Pesquisa_Estrutura_e_Roteiro.pdf",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "6af85e90bf40819199503f47799801ea",
+      "mime_type": "application/pdf",
+      "library_artifact_type": "report",
+      "file_size_bytes": 141602
+    },
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/Smart Cities 2026/Prevora_Pesquisa_Estrutura_e_Roteiro.md",
+      "file_id": "file_0000000090b4820ea8a6924c79517994",
+      "library_file_id": "libfile_42026fa91064819191ac4736fa055671",
+      "file_name": "Prevora_Pesquisa_Estrutura_e_Roteiro.md",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "6af85e90bf40819199503f47799801ea",
+      "mime_type": "text/markdown",
+      "library_artifact_type": "report",
+      "file_size_bytes": 42617
+    }
+  ],
+  "warnings": [],
+  "external_connectors_accessed": false
+}

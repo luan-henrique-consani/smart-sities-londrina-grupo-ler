@@ -1,0 +1,46 @@
+{
+  "results": [
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/Smart Cities 2026/Prevora_Pitch_Final.pptx",
+      "file_id": "file_00000000b50c820e9ca1200b9ea6688b",
+      "library_file_id": "libfile_85ca2d18f58c819191510c21db9d268e",
+      "file_name": "Prevora_Pitch_Final.pptx",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "6af85e90bf40819199503f47799801ea",
+      "mime_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "library_artifact_type": "slides",
+      "file_size_bytes": 58955
+    },
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/Smart Cities 2026/Prevora_Pitch_Final.pdf",
+      "file_id": "file_00000000b2b8820ea52d1e85e55c1ce0",
+      "library_file_id": "libfile_b3fff016bcb8819192a392692a42fd9f",
+      "file_name": "Prevora_Pitch_Final.pdf",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "6af85e90bf40819199503f47799801ea",
+      "mime_type": "application/pdf",
+      "library_artifact_type": "slides",
+      "file_size_bytes": 541352
+    }
+  ],
+  "warnings": [],
+  "external_connectors_accessed": false
+}

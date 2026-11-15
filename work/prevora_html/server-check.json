@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "size": 3011
+  },
+  {
+    "path": "/data/content.js",
+    "status": 200,
+    "size": 23630
+  },
+  {
+    "path": "/assets/fonts/Michroma-Regular.ttf",
+    "status": 200,
+    "size": 64344
+  }
+]

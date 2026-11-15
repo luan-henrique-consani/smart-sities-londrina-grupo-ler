@@ -1,0 +1,189 @@
+@font-face{font-family:Michroma;src:url("../assets/fonts/Michroma-Regular.ttf") format("truetype");font-weight:400;font-display:block}
+@font-face{font-family:"Space Grotesk";src:url("../assets/fonts/SpaceGrotesk-Variable.ttf") format("truetype");font-weight:300 700;font-display:block}
+:root{--black:#08090b;--red:#c62828;--hot:#e53935;--green:#008c45;--white:#fff;--muted:#a5a5a5;--hair:rgba(231,216,216,.48);--title:Michroma,Arial,sans-serif;--body:"Space Grotesk",Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--black);color:var(--white);font-family:var(--body)}
+button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid #ff8e8b;outline-offset:6px}button:disabled{opacity:.25;cursor:default}
+#viewport{width:100vw;height:100vh;position:relative;overflow:hidden;isolation:isolate}
+.deck{position:absolute;width:1920px;height:1080px;left:50%;top:50%;transform-origin:center;transform:translate(-50%,-50%) scale(var(--scale,1));background:var(--black)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;background:var(--black);visibility:hidden;opacity:0;pointer-events:none;transition:opacity .3s ease,visibility .3s}
+.slide.is-active{visibility:visible;opacity:1;pointer-events:auto}
+.slide h1,.slide h2,.slide h3,.slide p,.slide figure{margin:0}
+.pos{position:absolute;z-index:3}.title{position:absolute;font-family:var(--title);font-weight:400;text-transform:uppercase;letter-spacing:-.045em;line-height:1.09;color:#fff;text-shadow:0 0 4px rgba(255,255,255,.13),0 0 26px rgba(229,57,53,.5),0 0 60px rgba(198,40,40,.16);z-index:4}
+.title .red{color:#ff6863;text-shadow:0 0 26px rgba(229,57,53,.25)}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:23px;line-height:1.4;font-weight:500}
+.muted{color:var(--muted)}.red-text{color:#ff756f}.green-text{color:#49c282}.large-number{font-family:var(--title);font-weight:400;letter-spacing:-.07em;line-height:1}
+.rule{height:1px;background:var(--hair)}.caption{font-size:21px;line-height:1.4;color:#b7b2b4}.body-copy{font-size:32px;line-height:1.4;letter-spacing:-.02em}
+.brand-badge{position:absolute;right:110px;top:85px;width:222px;height:55px;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;gap:13px;font-size:25px;font-weight:600;letter-spacing:.015em;background:#08090be8;z-index:10}
+.brand-symbol{position:relative;display:block;width:35px;height:39px;overflow:hidden}.brand-symbol img{position:absolute;height:45px;width:135px;max-width:none;left:-5px;top:-3px}
+.tag{position:absolute;display:flex;align-items:center;justify-content:center;min-height:62px;padding:14px 28px;background:#0c0c0ff5;border:1px solid var(--hair);transform:skewX(-9deg);z-index:6;font-size:28px;line-height:1.25;font-weight:600;text-align:center}
+.tag>span{transform:skewX(9deg);display:block}.tag.red-tag{background:#c62828;border-color:#e85d59}.tag.green-tag{background:#008c45;border-color:#49c282}
+.photo{position:absolute;overflow:hidden;background:#111316;z-index:1}.photo img{position:absolute;width:100%;height:100%;object-fit:cover;filter:saturate(.48) contrast(1.15) brightness(.72)}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(92,9,11,.13),transparent 68%);pointer-events:none}
+.slant{transform:skewX(-8deg);border:1px solid var(--hair)}.slant img{width:122%;left:-11%;transform:skewX(8deg) scale(1.02)}
+.photo-credit{position:absolute;z-index:7;font-size:18px;line-height:1.3;color:#c6c1c3;letter-spacing:.01em}
+.slide-foot{position:absolute;left:110px;bottom:40px;font-size:19px;line-height:1.35;color:#a8a3a7;max-width:1650px;z-index:8}
+.slide-number{position:absolute;right:110px;bottom:39px;z-index:9;font-size:19px;color:#b4aeb2;letter-spacing:.12em}
+.slide .reveal{opacity:0;transform:translateY(12px)}.slide.is-active .reveal{animation:reveal .48s ease-out forwards;animation-delay:var(--delay,0ms)}
+@keyframes reveal{to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}.slide .reveal{opacity:1;transform:none}}
+/* 01 — Monumental opening, inspired by reference page 1. */
+.cover-photo{inset:0}.cover-photo img{object-position:50% 77%;filter:saturate(.28) contrast(1.2) brightness(.55)}
+.cover-photo::after{background:linear-gradient(90deg,#08090bed 0%,#08090ba8 38%,#08090b20 78%),linear-gradient(0deg,#08090be8,transparent 50%),radial-gradient(ellipse at 75% 45%,rgba(198,40,40,.23),transparent 60%)}
+.cover-title{left:100px;top:130px;font-size:219px;letter-spacing:-.065em;white-space:nowrap}
+.cover-kicker{left:113px;top:86px;font-size:20px;color:#d6c4c4}.cover-rule{left:113px;top:487px;width:90px}
+.cover-line{left:113px;top:531px;width:850px;font-size:47px;line-height:1.23;font-weight:500}
+.cover-temporal{left:113px;top:772px;width:1010px;font-size:26px;line-height:1.55;color:#c8c2c5}
+.cover-stamp{right:110px;bottom:135px;left:auto;width:330px;font-size:23px}.cover-credit{right:112px;bottom:90px}
+.cover-foot{bottom:45px}
+/* 02 — Photo left, explained flow right, title at the bottom. */
+.solution-photo{left:-55px;top:90px;width:735px;height:590px}.solution-photo img{object-position:center}
+.solution-photo-label{left:300px;top:620px;width:390px}
+.solution-intro{left:790px;top:100px;width:780px;font-size:24px}
+.solution-benefit{left:785px;top:204px;width:1005px;font-size:40px;line-height:1.26;font-weight:500}
+.solution-flow{position:absolute;left:780px;top:386px;width:1050px;height:183px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.flow-step{position:relative;border-top:1px solid var(--hair);padding-top:20px}
+.flow-step::after{content:"→";position:absolute;right:-22px;top:62px;color:#fb6a64;font-size:31px}.flow-step:last-child::after{content:none}
+.flow-step svg{width:43px;height:43px;display:block;stroke:#ee625e;fill:none;stroke-width:1.5;margin-bottom:20px}
+.flow-step .flow-label{font-size:22px;font-weight:600;text-transform:uppercase;letter-spacing:.025em;white-space:nowrap}
+.flow-step .flow-detail{font-size:22px;line-height:1.35;color:#bdb5b8;margin-top:13px}
+.solution-status{position:absolute;left:785px;top:625px;width:1000px;display:grid;grid-template-columns:1fr 1fr;gap:45px}
+.solution-status div{border-top:1px solid var(--hair);padding-top:18px}.solution-status b{font-size:23px;text-transform:uppercase;font-weight:500;letter-spacing:.1em;display:block;margin-bottom:13px}
+.solution-status p{font-size:25px;line-height:1.35;color:#c0babd}.solution-title{left:100px;top:813px;font-size:111px;letter-spacing:-.055em;white-space:nowrap}.solution-credit{left:90px;top:750px}
+.solution-foot{font-size:20px}
+/* 03 — Editorial pain, factual case and illustrative flooded garage. */
+.problem-title{left:108px;top:100px;font-size:113px;width:1120px}.problem-photo{left:1332px;top:-5px;width:650px;height:767px}
+.problem-photo img{object-position:42% 50%;filter:saturate(.25) contrast(1.12) brightness(.72)}
+.problem-question{left:112px;top:410px;width:1040px;font-size:28px;letter-spacing:.045em;font-weight:500}
+.problem-number{left:110px;top:548px;font-size:170px;color:#fff;text-shadow:0 0 30px rgba(229,57,53,.24)}
+.problem-number-label{left:110px;top:749px;width:445px;font-size:26px;line-height:1.35}
+.problem-case{left:640px;top:565px;width:600px}.problem-case p{font-size:31px;line-height:1.35;margin:0 0 24px}
+.problem-cost{left:640px;top:785px;width:1115px;font-size:28px;line-height:1.35;border-top:1px solid var(--hair);padding-top:24px}
+.problem-credit{left:1310px;top:795px;width:490px;font-size:18px}.problem-foot{bottom:38px;max-width:1610px;font-size:20px}
+/* 04 — Asymmetric evidence, no invented operational measures. */
+.validation-title{left:110px;top:98px;font-size:107px;width:1160px}
+.validation-number{left:1320px;top:110px;font-size:205px;letter-spacing:-.11em;color:#fff;text-shadow:0 0 30px #c6282850}
+.validation-number-caption{left:1332px;top:359px;width:400px;font-size:25px;line-height:1.35;text-transform:uppercase}
+.validation-photo{left:-45px;top:468px;width:645px;height:493px}.validation-photo img{object-position:50% 60%}
+.validation-priority{left:465px;top:448px;width:565px}
+.validation-evidence{left:685px;top:575px;width:1090px;font-size:34px;line-height:1.3;font-weight:500}
+.validation-tests{left:805px;top:742px;width:970px;border-top:1px solid var(--hair);padding-top:24px}
+.validation-tests .eyebrow{color:#5ac88b;margin-bottom:13px}.validation-tests p{font-size:29px;line-height:1.42}
+.validation-credit{left:100px;top:976px}.validation-foot{font-size:19px;bottom:31px;max-width:1570px}
+/* 05 — Three offset commercial blocks, reference page 5. */
+.business-title{left:100px;top:85px;font-size:79px;white-space:nowrap}
+.business-lead{left:112px;top:226px;font-size:29px;color:#c1b9bc}
+.commercial-card{position:absolute;width:495px}.commercial-card.card-install{left:140px;top:344px}.commercial-card.card-subscription{left:735px;top:434px}.commercial-card.card-maintenance{left:1325px;top:338px}
+.commercial-image{position:relative;left:0;top:0;width:435px;height:345px}.commercial-image img{object-position:center}
+.commercial-card .tag{left:45px;top:301px;width:390px;font-size:27px;gap:12px}
+.commercial-card .tag>span{display:flex;align-items:center;gap:13px}.commercial-card .tag svg{height:29px;width:29px;stroke:currentColor;stroke-width:1.6;fill:none}
+.commercial-card .description{position:relative;top:48px;width:420px;font-size:29px;line-height:1.35;text-align:center;margin:auto}
+.commercial-card .description::before{content:"";display:block;width:152px;height:1px;background:var(--hair);margin:0 auto 19px}
+.subscription-visual{background:radial-gradient(ellipse at 40% 70%,#3e0f11 0,transparent 70%),#0c0c10;display:flex;justify-content:center;align-items:center}
+.subscription-visual svg{width:345px;height:230px;transform:skewX(8deg);overflow:visible}.subscription-note{position:absolute;left:55px;top:40px;font-size:17px;letter-spacing:.08em;color:#b2a7ad;transform:skewX(8deg)}
+.business-foot{font-size:20px;bottom:32px}
+/* 06 — Nested markets, with explicit uncertainty. */
+.market-title{left:100px;top:106px;width:1000px;font-size:109px}
+.market-subtitle{left:112px;top:421px;width:720px;font-size:32px;line-height:1.4}
+.market-rules{left:112px;top:615px;width:690px}.market-rules>p{padding:24px 0;border-top:1px solid var(--hair);font-size:29px;line-height:1.36}
+.market-formula{left:112px;top:855px;width:735px;font-size:28px;line-height:1.35;color:#ff8780}
+.market-diagram{position:absolute;left:1010px;top:195px;width:790px;height:785px;overflow:visible}
+.market-diagram .market-ring{fill:#170b0d;stroke:#e53935;stroke-width:1.5}.market-diagram .ring-mid{fill:#301015;stroke:#ff716b}.market-diagram .ring-inner{fill:#005f31;stroke:#56bc85}
+.market-diagram text{font-family:var(--body);fill:#fff;text-anchor:middle}.market-diagram .market-label{font-size:23px;letter-spacing:4px}.market-diagram .market-value{font-family:var(--title);font-size:49px;letter-spacing:-3px}.market-diagram .market-detail{font-size:23px}
+.market-foot{font-size:19px;max-width:1660px;bottom:31px}
+/* 07 — Thin-line matrix in a slanted container, title at the bottom. */
+.competition-kicker{left:112px;top:94px;width:1010px;font-size:27px}
+.competition-table-frame{position:absolute;left:140px;top:219px;width:1635px;transform:skewX(-5deg);border:1px solid var(--hair);padding:26px 34px 22px}
+.competition-table{width:100%;border-collapse:collapse;table-layout:fixed;transform:skewX(5deg);font-size:26px;line-height:1.22}
+.competition-table caption{position:absolute;width:1px;height:1px;clip:rect(0 0 0 0);overflow:hidden}
+.competition-table th,.competition-table td{padding:20px 17px;text-align:center;border-bottom:1px solid #7c5f635e;height:77px}
+.competition-table th:first-child,.competition-table td:first-child{text-align:left;width:31%}
+.competition-table th{font-size:27px;font-weight:600;color:#e1dadd}.competition-table tr:last-child td{border-bottom:0}
+.competition-table .prevora-col{background:#b5222226;color:#ff928c}.competition-table th.prevora-col{color:#fff;border-top:2px solid var(--hot)}
+.competition-table .check{color:#ddd;font-size:35px}.competition-table .nv{color:#b6adb2;font-size:23px}
+.competition-legend{left:112px;top:790px;width:1650px;font-size:21px;line-height:1.5;color:#b4aab0}
+.competition-title{left:100px;top:882px;font-size:85px;white-space:nowrap}.competition-foot{bottom:25px;font-size:18px;max-width:1660px}
+/* 08 — Four balanced names, with deliberately empty photos and bios. */
+.team-title{left:103px;top:85px;font-size:75px;white-space:nowrap}
+.team-grid{position:absolute;inset:0}.team-member{position:absolute;width:350px}.team-member:nth-child(1){left:145px;top:298px}.team-member:nth-child(2){left:590px;top:384px}.team-member:nth-child(3){left:1030px;top:287px}.team-member:nth-child(4){left:1470px;top:370px}
+.portrait-placeholder{position:relative;width:330px;height:350px;background:linear-gradient(165deg,#171316,#0b0c0f 60%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:23px}
+.portrait-placeholder .initials{font-family:var(--title);font-size:66px;color:#61565c;letter-spacing:-.04em;transform:skewX(8deg)}
+.portrait-placeholder .photo-placeholder-label{font-size:19px;letter-spacing:.12em;color:#b4a2ad;transform:skewX(8deg)}
+.team-member .tag{top:306px;left:16px;width:328px;font-size:25px;min-height:66px;padding:14px 12px}
+.team-member .team-fields{margin:55px 4px 0 14px;width:330px}.team-fields p{font-size:23px;line-height:1.35;padding:12px 0;border-bottom:1px solid #83727d44;color:#beb0b8}
+.team-fields p:last-child{border:0}.team-foot{bottom:33px;font-size:20px}
+/* 09 — Large closing image, roadmap and concrete invitation. */
+.roadmap-photo{left:105px;top:-35px;width:850px;height:639px}.roadmap-photo img{object-position:50% 64%;filter:saturate(.35) contrast(1.18) brightness(.65)}
+.roadmap-steps{left:1080px;top:195px;width:680px}.roadmap-step{padding:21px 0;border-top:1px solid var(--hair);display:grid;grid-template-columns:65px 1fr;gap:20px}
+.roadmap-step .step-n{font-size:24px;color:#ef716b}.roadmap-step h3{font-size:25px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin:0 0 9px}.roadmap-step p{font-size:27px;line-height:1.35;color:#c7bdc3}
+.roadmap-cta{left:680px;top:623px;width:1110px;min-height:143px;font-size:34px;line-height:1.28;padding:24px 46px}
+.roadmap-title{left:104px;top:825px;font-size:133px;letter-spacing:-.06em;white-space:nowrap}
+.roadmap-contact{left:113px;top:1007px;font-size:23px;color:#c6b8c0}.roadmap-credit{left:112px;top:640px;font-size:18px}.roadmap-foot{left:auto;right:110px;bottom:28px;font-size:18px;max-width:1000px;text-align:right}
+/* Presentation chrome; never part of the exported slides. */
+.controls{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #ffffff24;background:#09090bd9;backdrop-filter:blur(15px);border-radius:9px;opacity:.35;transition:opacity .2s;white-space:nowrap}
+.controls:hover,.controls:focus-within{opacity:1}.controls button{background:none;border:0;color:#fff;padding:8px 10px;font-size:13px;border-radius:4px;min-height:34px}.controls button:hover{background:#ffffff12}.counter{font-size:12px;color:#ccc;padding:0 5px}.control-divider{height:21px;width:1px;background:#ffffff24;margin:0 5px}
+body.ui-hidden .controls{opacity:0;pointer-events:none}body.ui-hidden .controls:focus-within{opacity:1;pointer-events:auto}
+.dialog{position:fixed;inset:0;width:min(920px,90vw);max-height:88vh;margin:auto;padding:34px 38px;background:#141216;color:#eee;border:1px solid #744347;border-radius:8px;overflow:auto;font-size:17px;line-height:1.6}
+.dialog::backdrop{background:#000b;backdrop-filter:blur(7px)}.dialog h2{font-family:var(--body);font-size:29px;line-height:1.3;margin:25px 0 10px}.dialog h3{font-size:18px;margin:32px 0 10px}.dialog a{color:#ff9a96;overflow-wrap:anywhere}.dialog-heading{display:flex;justify-content:space-between;align-items:center;gap:20px}.dialog-heading .eyebrow{font-size:12px;color:#b78a91}.dialog-heading button{border:0;background:#ffffff0a;color:#eee;font-size:26px;border-radius:4px;width:36px;height:36px}
+.notes-time{color:#aaa;font-size:14px}.notes-script{font-size:22px;line-height:1.65}.source-entry{margin:0 0 23px;font-size:14px}.source-entry p{margin:5px 0;color:#bbb}
+.help-dialog{width:min(750px,90vw)}.shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}.shortcuts dt{color:#f5aaa5}.shortcuts dd{margin:0}
+.skip-link{position:fixed;top:8px;left:8px;transform:translateY(-200%);z-index:1000;padding:10px;background:#fff;color:#08090b}.skip-link:focus{transform:none}.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:700px){.controls{gap:1px;padding:4px;top:7px;max-width:96vw}.controls button{font-size:11px;padding:7px 6px}.controls .control-divider{margin:0 2px}.dialog{padding:24px}.shortcuts{grid-template-columns:1fr;gap:0}.shortcuts dd{margin-bottom:12px}}
+/* The print view is the same 1920×1080 scene, once per page. */
+@page{size:1920px 1080px;margin:0}
+@media print{
+html,body{width:1920px!important;height:auto!important;overflow:visible!important;background:#08090b!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+#viewport{position:static!important;width:1920px!important;height:auto!important;overflow:visible!important}
+.deck{position:static!important;width:1920px!important;height:auto!important;left:auto!important;top:auto!important;transform:none!important}
+.slide{position:relative!important;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;break-after:page;page-break-after:always;width:1920px!important;height:1080px!important;transition:none!important}
+.slide:last-child{break-after:auto;page-break-after:auto}.slide .reveal{opacity:1!important;transform:none!important;animation:none!important}
+.controls,.dialog,.skip-link,#announcement{display:none!important}
+}
+
+/* Revisão: B2G, convite final, matriz por símbolos e enquadramento. */
+.slide-foot{max-width:1540px}
+.business-lead{font-size:30px}
+.business-foot{max-width:1520px;font-size:19px;bottom:38px}
+.problem-photo{left:1190px;top:65px;width:665px;height:620px;transform:skewX(-8deg)}
+.problem-photo img{width:122%;left:-11%;transform:skewX(8deg) scale(1.02);object-position:51% 52%}
+.problem-title{width:1050px;font-size:108px}
+.problem-case{width:550px;top:570px}
+.problem-case p{font-size:29px}
+.problem-credit{left:1290px;top:728px;width:485px}
+.problem-cost{width:1100px;top:821px}
+.competition-table-frame{top:190px;padding:17px 30px 15px}
+.competition-table th,.competition-table td{padding:12px 17px;height:72px}
+.competition-table .check{font-size:37px;line-height:1}
+.competition-table .planned{color:#ff938b}.competition-table .demo{color:#66d49a}
+.competition-table sup{font-family:var(--body);font-size:17px;vertical-align:super;margin-left:3px}
+.competition-table .nv{font-size:31px;color:#9f969b}
+.competition-legend{top:765px;font-size:21px;line-height:1.55}
+.competition-title{top:881px;font-size:85px}
+.competition-foot{bottom:35px;max-width:1500px;font-size:18px}
+.roadmap-photo{left:100px;top:55px;width:755px;height:600px}
+.closing-invitation{left:990px;top:205px;width:810px}
+.closing-invitation .eyebrow{font-size:21px;letter-spacing:.12em;margin-bottom:28px}
+.closing-invitation h3{font-size:54px;line-height:1.15;font-weight:500;letter-spacing:-.025em}
+.closing-body{font-size:29px;line-height:1.4;margin-top:32px!important;color:#c7bdc3}
+.roadmap-cta{left:620px;top:665px;width:1170px;min-height:128px;font-size:31px;padding:20px 36px}
+.roadmap-title{left:100px;top:848px;font-size:103px;letter-spacing:-.055em}
+.roadmap-credit{left:112px;top:677px;font-size:17px;max-width:420px}
+.roadmap-contact{top:1001px;left:113px;font-size:22px}
+.roadmap-foot{left:1020px;right:auto;bottom:55px;max-width:570px;text-align:left;font-size:18px}
+.slide-roadmap .slide-number{bottom:39px}
+.cover-print-background{display:none}
+@media print{.cover-print-background{display:block!important;position:absolute;inset:0;width:1920px;height:1080px;z-index:1}.slide-cover:has(.cover-print-background) .cover-photo{display:none!important}}
+.problem-case{width:490px}.problem-case p{font-size:28px}
+
+/* Equipe: fotos e síntese dos perfis fornecidos. */
+.team-member:nth-child(1){left:145px;top:255px}.team-member:nth-child(2){left:590px;top:315px}.team-member:nth-child(3){left:1030px;top:255px}.team-member:nth-child(4){left:1470px;top:315px}
+.portrait-placeholder{height:350px;overflow:hidden}
+.portrait-placeholder img{position:absolute;top:0;width:122%;left:-11%;height:100%;object-fit:cover;transform:skewX(8deg) scale(1.02);filter:saturate(.55) contrast(1.06) brightness(.9)}
+.team-member:nth-child(1) img{object-position:50% 33%}.team-member:nth-child(2) img{object-position:53% 35%}.team-member:nth-child(3) img{object-position:50% 42%}.team-member:nth-child(4) img{object-position:50% 40%}
+.team-member .team-fields{margin-top:55px}
+.team-fields p{font-size:23px;line-height:1.35;padding:12px 0}
+.team-fields p:first-child{font-size:20px;letter-spacing:.045em;color:#ff918a;font-weight:500}
+.team-fields p:last-child{color:#fff;font-size:23px}
+.team-foot{font-size:18px;bottom:35px}
+
+.competition-table .state-symbol{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid currentColor;border-radius:6px;font-family:var(--body);font-size:26px;font-weight:500;line-height:1}.competition-legend{font-size:21px;line-height:1.6}
+
+.legend-items{display:flex;align-items:center;gap:36px}.legend-item{display:inline-flex;align-items:center;gap:12px;font-size:22px;white-space:nowrap}.legend-mark{display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;border:1px solid currentColor;border-radius:5px;font-size:25px;font-weight:500}.legend-note{font-size:20px;margin-top:13px!important}

@@ -1,0 +1,7 @@
+{"schema":"openai.presentation.layout/v5","unit":"px","slide":{"id":"sl/r4gwzn","index":0,"layout":{"id":"ly/4ju5krqx","name":"Blank"},"backgroundColor":"rgba(17,44,53,1)","position":{"left":0,"top":0,"width":1600,"height":900}},
+"elements":[
+{"id":"sh/6tone9kf","kind":"textbox","name":"text-1","position":{"left":95,"top":116,"width":1350,"height":150},"text":"Safio","style":{"fontSize":114,"typeface":"Arial","color":"#FFFFFF","bold":true,"alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/twz6p436","kind":"textbox","name":"text-2","position":{"left":100,"top":325,"width":1310,"height":145},"text":"Monitoramento para orientar a manutenção preventiva","style":{"fontSize":55,"typeface":"Arial","color":"#7EE2C7","bold":true,"alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/svq5gz2l","kind":"textbox","name":"text-3","position":{"left":103,"top":570,"width":1320,"height":58},"text":"Prefeituras, condomínios e comércios","style":{"fontSize":31,"typeface":"Arial","color":"#D9E9E8","alignment":"left"},"geometry":"rect","lineWidth":0},
+{"id":"sh/jqxojul4","kind":"textbox","name":"text-4","position":{"left":103,"top":653,"width":1320,"height":66},"text":"Histórico e clima no protótipo. Sensores propostos para o piloto.","style":{"fontSize":28,"typeface":"Arial","color":"#D9E9E8","alignment":"left"},"geometry":"rect","lineWidth":0}
+]}

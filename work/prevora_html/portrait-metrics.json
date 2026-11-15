@@ -1,0 +1,18 @@
+{
+  "width": 390,
+  "height": 844,
+  "scale": "0.203125",
+  "box": {
+    "x": 0,
+    "y": 312.3125,
+    "width": 390,
+    "height": 219.375,
+    "top": 312.3125,
+    "right": 390,
+    "bottom": 531.6875,
+    "left": 0
+  },
+  "scroll": 390,
+  "body": 390,
+  "viewport": 390
+}

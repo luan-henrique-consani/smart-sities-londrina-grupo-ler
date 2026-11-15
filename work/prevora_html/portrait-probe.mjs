@@ -1,0 +1,5 @@
+import {createRequire} from 'node:module';import{pathToFileURL}from'node:url';import path from'node:path';
+const require=createRequire(import.meta.url);const{chromium}=require('C:/Program Files/WindowsApps/OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt/dependencies/node/node_modules/playwright');
+const b=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--no-sandbox','--disable-gpu','--disable-dev-shm-usage']});
+try{const p=await b.newPage({viewport:{width:390,height:844}});await p.goto(pathToFileURL(path.resolve('prevora-pitch/index.html')).href);await p.evaluate(()=>window.prevoraReady);console.log(JSON.stringify(await p.evaluate(()=>({width:innerWidth,height:innerHeight,scale:getComputedStyle(document.documentElement).getPropertyValue('--scale'),box:document.querySelector('.deck').getBoundingClientRect().toJSON(),scroll:document.documentElement.scrollWidth,body:document.body.scrollWidth,viewport:document.querySelector('#viewport').scrollWidth})),null,2));await p.screenshot({path:'work/prevora_html/portrait.png'});}finally{await b.close();}
+

@@ -1,0 +1,577 @@
+{
+  "title": "Safio",
+  "version": "14/11/2026",
+  "mainSlides": 9,
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Oficina de Pitch_SCH26.pdf, 17 páginas, documento fornecido pela equipe",
+      "url": "https://chatgpt.com/library?file_id=libfile_863c25652e20819192c380573e96a04e&account_id=personal"
+    },
+    {
+      "id": "S02",
+      "title": "Folha de Londrina, Novo Amparo, 27/02/2026",
+      "url": "https://www.folhadelondrina.com.br/cidades/chuva-inunda-casas-e-familias-perdem-tudo-no-novo-amparo-3291794e.html"
+    },
+    {
+      "id": "S03",
+      "title": "Tarobá, Duque de Caxias, 03/02/2026",
+      "url": "https://taroba.com.br/tv/londrina/primeira-hora/bueiros-entupidos-causam-alagamentos-e-prejuizos-a-comerciantes-no-centro-de-londrina"
+    },
+    {
+      "id": "S04",
+      "title": "Prefeitura, metodologia da CMTU, 20/10/2025",
+      "url": "https://blog.londrina.pr.gov.br/?p=201494"
+    },
+    {
+      "id": "S05",
+      "title": "Carta de Serviços, limpeza de bueiros, consulta 14/11/2026",
+      "url": "https://servicos.londrina.pr.gov.br/Servico/Details/754?banner=true"
+    },
+    {
+      "id": "S06",
+      "title": "IBGE, novo município e 5.569 municípios, referência 2025",
+      "url": "https://educa.ibge.gov.br/criancas/voce-sabia/22741-novo-municipio.html"
+    },
+    {
+      "id": "S07",
+      "title": "uCondo, referência ao Censo 2025/26, aproximadamente 327 mil condomínios",
+      "url": "https://www.ucondo.com.br/censo-condominial/censo-condominial--2027"
+    },
+    {
+      "id": "S08",
+      "title": "Prefeitura, aproximadamente 2 mil condomínios em Londrina, 04/03/2026",
+      "url": "https://blog.londrina.pr.gov.br/?p=208074"
+    },
+    {
+      "id": "S09",
+      "title": "ABRASCE, Censo 2025/2026, 658 shoppings no país e 44 no Paraná",
+      "url": "https://abrasce.com.br/numeros/estados/"
+    },
+    {
+      "id": "S10",
+      "title": "FILTROX, I-SENSE, oferta declarada pelo fabricante",
+      "url": "https://filtroxbueiros.com.br/isense"
+    },
+    {
+      "id": "S11",
+      "title": "Inova Bueiros Inteligentes, oferta declarada pelo fabricante",
+      "url": "https://www.inovabueiros.com.br/"
+    },
+    {
+      "id": "S12",
+      "title": "Sensoneo, monitoramento de preenchimento e gestão de coleta",
+      "url": "https://www.sensoneo.com/waste-fill-level/"
+    },
+    {
+      "id": "S13",
+      "title": "Net Sensors do Brasil, descrição do aplicativo Bueiros Inteligentes",
+      "url": "https://play.google.com/store/apps/details?hl=pt&id=br.com.nsdobrasil.bueirosinteligentes"
+    },
+    {
+      "id": "S14",
+      "title": "Prefeitura, Londrina ON e gestão de dados, 25/09/2026",
+      "url": "https://blog.londrina.pr.gov.br/?p=243541"
+    },
+    {
+      "id": "S15",
+      "title": "ifm, sensores capacitivos e distinção em relação aos indutivos",
+      "url": "https://www.ifm.com/br/pt/category/200_010_030"
+    },
+    {
+      "id": "S16",
+      "title": "ifm, sensores de nível, detecção pontual e medição contínua",
+      "url": "https://www.ifm.com/br/pt/shared/produtos/level/sensores-de-nivel"
+    },
+    {
+      "id": "S17",
+      "title": "WIKA, boia FLS e contatos reed",
+      "url": "https://www.wika.com/en-en/fls.WIKA"
+    },
+    {
+      "id": "S18",
+      "title": "Governo do Paraná, Água Fresca, investimento de R$ 5,5 milhões, 04/05/2026",
+      "url": "https://www.parana.pr.gov.br/aen/Noticia/Estado-destina-R-55-milhoes-do-Fecap-para-obra-de-prevencao-inundacoes-em-Londrina"
+    }
+  ],
+  "slides": [
+    {
+      "type": "cover",
+      "title": "Safio",
+      "subtitle": "Monitoramento para orientar a manutenção preventiva",
+      "lines": [
+        "Prefeituras, condomínios e comércios",
+        "Histórico e clima no protótipo. Sensores propostos para o piloto."
+      ],
+      "notes": "[10 s] A Safio ajuda gestores públicos e privados a decidir onde inspecionar e fazer manutenção primeiro. Combinamos histórico e clima, com uma próxima etapa de monitoramento físico por sensores. Nome provisório, conforme a discussão da equipe; trocar se outro nome for aprovado.",
+      "refs": []
+    },
+    {
+      "type": "flow",
+      "title": "Solução e produto",
+      "subtitle": "Uma decisão de manutenção com evidências do ponto",
+      "steps": [
+        [
+          "Dados",
+          "Histórico, chuva e observações de campo"
+        ],
+        [
+          "Prioridade",
+          "Risco explicado e qualidade da evidência"
+        ],
+        [
+          "Vistoria",
+          "Técnico valida e direciona a equipe"
+        ],
+        [
+          "Resultado",
+          "Registro da ação e da reincidência"
+        ]
+      ],
+      "lines": [
+        "IoT proposto: boia e capacitivo conforme o local; indutivo para presença de metal.",
+        "O sensor acrescenta evidência. A decisão permanece com o responsável."
+      ],
+      "foot": "Protótipo demonstrativo. Sensores e integração operacional ainda não implantados.",
+      "notes": "[30 s] O protótipo apresenta mapa, histórico dos pontos, recomendações e registro de intervenções. A evolução proposta acrescenta sensores: a boia sinaliza um limite de água; o capacitivo pode detectar presença ou nível em uma estrutura adequada; o indutivo atende a alvos metálicos. A leitura será cruzada com o histórico e a chuva para sugerir uma vistoria, nunca para declarar sozinho um entupimento.",
+      "refs": [
+        "S15",
+        "S16",
+        "S17"
+      ]
+    },
+    {
+      "type": "pain",
+      "title": "O prejuízo chega à casa e ao comércio",
+      "big": "20 minutos",
+      "bigLabel": "de tempestade no Novo Amparo, em fevereiro de 2026",
+      "lines": [
+        "Ao menos seis casas atingidas; uma família perdeu uma máquina de lavar ainda parcelada.",
+        "A Defesa Civil afirmou que obstruções em canaletas e valas agravaram o alagamento.",
+        "Na Duque de Caxias, lojistas relataram produtos e equipamentos danificados."
+      ],
+      "foot": "Fontes: Folha de Londrina, 27/02/2026; Tarobá, 03/02/2026. Galerias insuficientes também contribuem para alagamentos.",
+      "notes": "[25 s] No Novo Amparo, uma família perdeu uma máquina de lavar que ainda pagava. A Defesa Civil relacionou o agravamento do alagamento a obstruções. Na Duque de Caxias, a CMTU apontou detritos e capacidade insuficiente das galerias. A dor é real. Nossa hipótese é que melhores evidências ajudem o gestor a priorizar a manutenção, respeitando os casos que exigem obras.",
+      "refs": [
+        "S02",
+        "S03"
+      ]
+    },
+    {
+      "type": "validation",
+      "title": "Validação inicial",
+      "big": "4",
+      "bigLabel": "pessoas deram retorno positivo à proposta",
+      "leftTitle": "O que a equipe relatou",
+      "left": [
+        "A priorização foi o ponto de maior interesse.",
+        "Retorno exploratório em conversas do hackathon."
+      ],
+      "rightTitle": "O que ainda precisa de teste",
+      "right": [
+        "Compra e uso por condomínios e comércios.",
+        "Sensores em campo e integração autorizada.",
+        "Tempo de atendimento e resultado das ações."
+      ],
+      "foot": "Feedback exploratório informado pela equipe. Sem comprovação de economia, precisão ou disposição a pagar.",
+      "notes": "[18 s] A equipe recebeu quatro retornos positivos, principalmente sobre a priorização. Esse é um sinal inicial de interesse, não uma validação estatística. Ainda vamos testar a aderência com compradores B2B e técnicos públicos e verificar o desempenho dos sensores em campo. Os papéis dos entrevistados e as avaliações quantitativas não foram informados.",
+      "refs": []
+    },
+    {
+      "type": "business",
+      "title": "Modelo de negócio B2G e B2B",
+      "columns": [
+        [
+          "B2G",
+          "Prefeituras e órgãos responsáveis por limpeza e drenagem.",
+          "Usuários: gestores, fiscais e equipes técnicas."
+        ],
+        [
+          "B2B",
+          "Condomínios e comércios com pontos monitoráveis.",
+          "Usuários: síndicos, facilities e manutenção."
+        ]
+      ],
+      "lines": [
+        "Assinatura da plataforma por organização ou unidade.",
+        "Implantação e equipamentos conforme o ponto.",
+        "Serviço de manutenção e suporte do conjunto instalado."
+      ],
+      "foot": "Três fontes de receita propostas. Preços e condições comerciais ainda serão definidos pela equipe.",
+      "notes": "[15 s] O comprador pode ser uma prefeitura ou um condomínio e comércio. A receita proposta tem três frentes: assinatura, implantação com equipamentos e manutenção contratada. Os preços ainda serão definidos. A CTD é uma interlocutora de integração e possível cliente, sem compra ou parceria comercial confirmada.",
+      "refs": []
+    },
+    {
+      "type": "market",
+      "title": "Tamanho do mercado",
+      "headers": [
+        "Recorte",
+        "B2G",
+        "B2B"
+      ],
+      "rows": [
+        [
+          "TAM · universo potencial",
+          "5.569 municípios",
+          "≈327 mil condomínios"
+        ],
+        [
+          "SAM · cenário inicial",
+          "7 municípios selecionados",
+          "200 condomínios estimados"
+        ],
+        [
+          "SOM · meta em 24 meses",
+          "1 organização pública",
+          "10 unidades privadas"
+        ]
+      ],
+      "foot": "TAM: IBGE e uCondo 2025/26. SAM e SOM são hipóteses: recorte regional e 10% de elegibilidade sobre cerca de 2 mil condomínios locais.",
+      "notes": "[22 s] O universo de referência tem 5.569 municípios e aproximadamente 327 mil condomínios. Para o começo, propomos sete municípios próximos e duzentos condomínios elegíveis em Londrina, uma hipótese de dez por cento do universo local de dois mil. Nossa meta proposta em vinte e quatro meses é uma organização pública e dez unidades privadas. São metas de atuação, não contratos nem previsão validada de vendas.",
+      "refs": [
+        "S06",
+        "S07",
+        "S08"
+      ]
+    },
+    {
+      "type": "competition",
+      "title": "Concorrentes e posicionamento",
+      "headers": [
+        "Solução existente",
+        "Oferta declarada"
+      ],
+      "rows": [
+        [
+          "FILTROX / I-SENSE",
+          "Clima, criticidade, histórico e manutenção"
+        ],
+        [
+          "Inova Bueiros Inteligentes",
+          "Sensores de água e tampa, comunicação NB-IoT"
+        ],
+        [
+          "Sensoneo",
+          "Preenchimento de contêineres e gestão da coleta"
+        ]
+      ],
+      "lines": [
+        "Aposta Safio: adaptar a integração e a prioridade à rotina local.",
+        "Diferenciação a testar: instalação, uso e custo total por ponto."
+      ],
+      "foot": "Funções declaradas nas páginas dos fornecedores. A Safio está em fase de protótipo e piloto proposto.",
+      "notes": "[20 s] Há concorrência próxima. A FILTROX já anuncia clima e manutenção orientada por criticidade. A Inova monitora água e tampa. A Sensoneo atua na coleta com sensores. Por isso, nosso diferencial precisa ser demonstrado na integração local, no uso pelo técnico e no custo total do piloto. Ainda não afirmamos exclusividade ou menor preço.",
+      "refs": [
+        "S10",
+        "S11",
+        "S12"
+      ]
+    },
+    {
+      "type": "team",
+      "title": "Equipe e responsabilidades",
+      "subtitle": "Competências que precisam estar cobertas no piloto",
+      "lines": [
+        "Produto e software",
+        "Dados e integração",
+        "Eletrônica e instrumentação",
+        "Operação e relacionamento com clientes"
+      ],
+      "foot": "Completar os nomes, as experiências comprováveis e os responsáveis antes da apresentação final.",
+      "notes": "[10 s] Apresentar cada integrante e sua contribuição real para o projeto. Os nomes, funções e experiências da equipe não foram fornecidos nesta etapa. Não apresentar competências técnicas como já cobertas sem confirmar quem as assume. Substituir esta nota e o rodapé quando os integrantes forem definidos.",
+      "refs": []
+    },
+    {
+      "type": "roadmap",
+      "title": "Próximo passo: piloto controlado",
+      "steps": [
+        [
+          "Preparar",
+          "Selecionar pontos e testar em bancada"
+        ],
+        [
+          "Implantar",
+          "Autorizar instalação e comparar com vistorias"
+        ],
+        [
+          "Avaliar",
+          "Medir alertas, manutenção e efeito nas decisões"
+        ]
+      ],
+      "lines": [
+        "Proposta: 3 a 5 pontos em até 90 dias, após autorizações e recursos.",
+        "Buscamos um parceiro público e um condomínio ou comércio para testar."
+      ],
+      "foot": "Cronograma proposto. Acesso aos dados e autorização para instalar equipamentos ainda dependem dos responsáveis.",
+      "notes": "[30 s] Propomos um piloto pequeno, de três a cinco pontos, com um parceiro público e um condomínio ou comércio. Primeiro, ensaio e autorização. Depois, comparamos leituras e vistorias. Ao final, medimos falsos alertas, tempo para agir e manutenção dos dispositivos. Buscamos parceiros para selecionar os locais e validar o fluxo. Queremos comprovar se conseguimos agir no ponto certo e no momento útil.",
+      "refs": []
+    },
+    {
+      "type": "appendix_table",
+      "title": "Mercado: cálculo e critérios",
+      "headers": [
+        "Camada",
+        "Cálculo ou critério"
+      ],
+      "rows": [
+        [
+          "TAM B2G",
+          "5.569 municípios; DF e Fernando de Noronha ficam fora desta conta."
+        ],
+        [
+          "TAM B2B",
+          "≈327 mil condomínios cadastrados no recorte do Censo 2025/26."
+        ],
+        [
+          "SAM B2G",
+          "Londrina, Cambé, Ibiporã, Rolândia, Arapongas, Apucarana e Maringá."
+        ],
+        [
+          "SAM B2B",
+          "2.000 locais × 10% de elegibilidade hipotética = 200 unidades."
+        ],
+        [
+          "SOM em 24 meses",
+          "Meta: 1 organização pública + 10 unidades privadas."
+        ]
+      ],
+      "foot": "Elegibilidade exige risco, estrutura monitorável, responsável e viabilidade de instalação. Sem validação comercial.",
+      "notes": "O TAM expressa universo amplo, não quantidade de compradores qualificados. Os sete municípios constituem uma escolha de cobertura comercial, sem parceiros confirmados. A elegibilidade de 10% não foi medida. Os 2 mil condomínios são estimativa municipal ampla, não base nominal de prospecção. SOM representa 14,3% do SAM público proposto e 5% do SAM privado estimado. Evitar somar usuários, moradores, sensores e organizações.",
+      "refs": [
+        "S06",
+        "S07",
+        "S08"
+      ]
+    },
+    {
+      "type": "appendix_table",
+      "title": "Alternativas que o cliente já encontra",
+      "headers": [
+        "Alternativa",
+        "Escopo confirmado",
+        "Relação com a Safio"
+      ],
+      "rows": [
+        [
+          "FILTROX / I-SENSE",
+          "Drenagem, clima, prioridade e rastreabilidade",
+          "Concorrente direto próximo"
+        ],
+        [
+          "Inova",
+          "Sensores de nível e movimentação de tampa",
+          "Concorrente de monitoramento"
+        ],
+        [
+          "Net Sensors",
+          "Cesto, sensor volumétrico e alerta",
+          "Alternativa de hardware e gestão"
+        ],
+        [
+          "Sensoneo",
+          "Contêineres, previsão de enchimento e rotas",
+          "Concorrente no módulo resíduos"
+        ],
+        [
+          "Londrina ON / planilhas",
+          "Chamados, acompanhamento e rotina existente",
+          "Integração e alternativa operacional"
+        ]
+      ],
+      "foot": "Capacidades não citadas nas fontes permanecem não verificadas. Não significam ausência no produto.",
+      "notes": "A comparação usa material público dos fornecedores. Não é uma auditoria de desempenho. Net Sensors descreve cesto com sensor e transmissão GPRS/LORA no aplicativo oficial. Londrina ON já acompanha demandas e produz dados; a integração da Safio é proposta e depende de autorização/documentação. Não vender a troca do sistema existente como pré-requisito.",
+      "refs": [
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14"
+      ]
+    },
+    {
+      "type": "appendix_table",
+      "title": "Sensores: o que cada um pode indicar",
+      "headers": [
+        "Tecnologia",
+        "Uso proposto",
+        "Limite essencial"
+      ],
+      "rows": [
+        [
+          "Boia",
+          "Água atingiu um nível definido",
+          "Não mede lixo nem prova obstrução"
+        ],
+        [
+          "Capacitivo",
+          "Presença ou nível em estrutura adequada",
+          "Sujeira, umidade e material exigem teste"
+        ],
+        [
+          "Indutivo",
+          "Presença de peça metálica ou alvo mecânico",
+          "Não detecta diretamente água ou lixo comum"
+        ]
+      ],
+      "lines": [
+        "A previsão depende do conjunto: observação física, chuva e histórico.",
+        "Nenhum sensor está implantado nesta fase."
+      ],
+      "foot": "Princípios técnicos: ifm e WIKA. Modelos, instalação, calibração e desempenho ainda serão definidos.",
+      "notes": "Boia normalmente indica mudança de estado ao atingir um limiar. Existem modelos passivos por contato/reed. Sensores capacitivos detectam propriedades dielétricas e dependem da aplicação. Indutivo de proximidade serve a alvo metálico, inclusive uma peça de mecanismo, se projetado assim. Não confundir presença com identificação do material ou medição contínua de volume.",
+      "refs": [
+        "S15",
+        "S16",
+        "S17"
+      ]
+    },
+    {
+      "type": "appendix_table",
+      "title": "Custo do conjunto e operação",
+      "headers": [
+        "Componente",
+        "Referência disponível"
+      ],
+      "rows": [
+        [
+          "Indutivo",
+          "R$ 25 a R$ 300+ por unidade"
+        ],
+        [
+          "Capacitivo",
+          "R$ 60 a R$ 450+ por unidade"
+        ],
+        [
+          "Boia",
+          "Modelo e cotação a definir"
+        ],
+        [
+          "Restante do conjunto",
+          "Nó, alimentação, proteção, rede, instalação e manutenção"
+        ]
+      ],
+      "lines": [
+        "Faixas informadas pela equipe. Não são cotações verificadas.",
+        "O preço do sensor não representa o custo do ponto instalado."
+      ],
+      "foot": "Valor comercial da plataforma e custo total do piloto aguardam definição da equipe.",
+      "notes": "Os preços são entradas fornecidas pelo usuário em 14/11/2026, não pesquisa comercial nem preço sugerido de venda. Sensores básicos não precisam de internet para detectar, mas o nó precisa de um meio de comunicação para enviar alertas remotos. A alimentação é definida por modelo. No campo, prever inspeção, limpeza, testes, vedação e substituição. Não afirmar manutenção zero.",
+      "refs": []
+    },
+    {
+      "type": "appendix_table",
+      "title": "Simulação de priorização",
+      "headers": [
+        "Cenário hipotético",
+        "Conclusão dos 12 pontos críticos",
+        "Total do lote"
+      ],
+      "rows": [
+        [
+          "12 críticos no final",
+          "10º dia de trabalho",
+          "60 pontos em 10 dias"
+        ],
+        [
+          "12 críticos primeiro",
+          "2º dia de trabalho",
+          "60 pontos em 10 dias"
+        ]
+      ],
+      "lines": [
+        "Premissas: 60 pontos, 12 críticos e capacidade constante de 6 por dia.",
+        "Antecipação de 8 dias para concluir o grupo crítico; outros pontos são remanejados."
+      ],
+      "foot": "Exercício didático. Seis pontos/dia são referência publicada em outubro de 2025. Os 180 dias são prazo máximo, não média.",
+      "notes": "Conta: 60/6=10 dias; 12/6=2 dias; 10-2=8 dias. O cenário de fila é fictício e não descreve a programação atual da CMTU, que já possui prioridades. Não aumenta automaticamente a capacidade e não calcula economia em reais. Os 180 dias são o máximo publicado na Carta de Serviços, cuja aplicação atual precisa de confirmação. Não usar 180 como linha de base de espera real.",
+      "refs": [
+        "S04",
+        "S05"
+      ]
+    },
+    {
+      "type": "appendix_table",
+      "title": "Como comprovar o resultado do piloto",
+      "headers": [
+        "Pergunta",
+        "Medida a registrar"
+      ],
+      "rows": [
+        [
+          "Os alertas representam o local?",
+          "Concordância com vistoria e falsos positivos/negativos"
+        ],
+        [
+          "A equipe consegue agir antes?",
+          "Tempo do alerta à vistoria e à intervenção"
+        ],
+        [
+          "O problema reaparece menos?",
+          "Reincidência por ponto e chuva observada"
+        ],
+        [
+          "O conjunto é sustentável?",
+          "Falhas, energia, limpeza e custo de manutenção"
+        ],
+        [
+          "Há valor econômico?",
+          "Custo total e retornos extras, comparados à linha de base"
+        ]
+      ],
+      "foot": "Metas numéricas serão acordadas com o responsável após conhecer a linha de base e as condições locais.",
+      "notes": "Comparar pontos semelhantes e considerar intensidade da chuva, obras e alterações da operação. Registrar alertas sem resposta e falhas do dispositivo. Uma redução antes/depois isolada não prova causalidade. Métrica de disponibilidade não substitui efetividade operacional. Nenhum desempenho de sensor ou economia está validado.",
+      "refs": []
+    },
+    {
+      "type": "sources",
+      "title": "Fontes e material de apoio",
+      "lines": [
+        "Oficina de Pitch SCH26: estrutura dos nove slides.",
+        "Folha de Londrina e Tarobá: casos locais de fevereiro de 2026.",
+        "IBGE, uCondo, Prefeitura e ABRASCE: universos de mercado.",
+        "FILTROX, Inova, Net Sensors e Sensoneo: ofertas declaradas.",
+        "ifm e WIKA: princípios de funcionamento dos sensores."
+      ],
+      "foot": "Links completos e respostas a todas as perguntas estão no guia. Consulta das fontes: 14/11/2026.",
+      "notes": "As referências completas constam no guia e nas notas das lâminas correspondentes. O Censo uCondo usado é a referência retrospectiva 2025/26, não resultados da edição 2026/27. As faixas de preço de sensores vieram da equipe. Marca Safio provisória. Este material não afirma sensores implantados, integração Londrina ON ativa ou resultados econômicos comprovados.",
+      "refs": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ]
+    }
+  ],
+  "market": {
+    "tamG": 5569,
+    "tamBApprox": 327000,
+    "municipalCoverage": 7,
+    "localCondoUniverse": 2000,
+    "assumedEligibility": 0.1,
+    "samB": 200,
+    "somG": 1,
+    "somB": 10,
+    "horizonMonths": 24
+  },
+  "assumptions": {
+    "brand": "Safio, nome provisório",
+    "b2b": "Condomínios e comércios",
+    "sensors": "Proposta de implantação",
+    "pricing": "A definir",
+    "team": "Nomes e responsabilidades não informados"
+  }
+}

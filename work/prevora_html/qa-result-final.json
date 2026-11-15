@@ -1,0 +1,57 @@
+{
+  "initial": {
+    "count": 9,
+    "images": [],
+    "font": true,
+    "loadedFont": [
+      {
+        "family": "Michroma",
+        "status": "loaded"
+      },
+      {
+        "family": "Space Grotesk",
+        "status": "loaded"
+      }
+    ]
+  },
+  "errors": [],
+  "failed": [],
+  "overflow": [
+    {
+      "slide": 1,
+      "issues": []
+    },
+    {
+      "slide": 2,
+      "issues": []
+    },
+    {
+      "slide": 3,
+      "issues": []
+    },
+    {
+      "slide": 4,
+      "issues": []
+    },
+    {
+      "slide": 5,
+      "issues": []
+    },
+    {
+      "slide": 6,
+      "issues": []
+    },
+    {
+      "slide": 7,
+      "issues": []
+    },
+    {
+      "slide": 8,
+      "issues": []
+    },
+    {
+      "slide": 9,
+      "issues": []
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "slide_count": 9,
+  "notes_count": 9,
+  "report_pages": 18,
+  "time_windows_seconds": 180,
+  "script_words": 364,
+  "files": [
+    {
+      "name": "Prevora_Pitch_Final.pptx",
+      "bytes": 58955,
+      "sha256": "f7a5563acefda56bd528fa722d732ac03b6df00262c2d4973a41564a68422438"
+    },
+    {
+      "name": "Prevora_Pitch_Final.pdf",
+      "bytes": 516385,
+      "sha256": "b9b43334433eeeef1828f04cd826cb518d0bc2f91b8ac945bf1647d25579c4bc"
+    },
+    {
+      "name": "Prevora_Pesquisa_Estrutura_e_Roteiro.pdf",
+      "bytes": 116635,
+      "sha256": "b1c3dd5272643df653258df3c44c5418aaac9a849560f943ab549039417b88b0"
+    },
+    {
+      "name": "Prevora_Pesquisa_Estrutura_e_Roteiro.md",
+      "bytes": 42617,
+      "sha256": "e0a20cd543c825e9cbb7c9dad1fb1ee0f0ee060e6d5a65e242110a4688bc6a8c"
+    }
+  ]
+}

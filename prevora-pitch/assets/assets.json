@@ -1,0 +1,145 @@
+{
+  "images": [
+    {
+      "file": "images/technician.jpg",
+      "author": "TECNIC Bioprocess Solutions",
+      "source_page": "https://unsplash.com/photos/a-man-inspects-equipment-in-a-modern-factory--Wt8AyCr9i4",
+      "original_url": "https://images.unsplash.com/photo-1748347084012-075796185d56?auto=format&fit=max&w=2600&q=88",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "use": "Técnico de manutenção ilustrativo; não é integrante da equipe Prevora",
+      "dimensions": [
+        2600,
+        1733
+      ],
+      "bytes": 809447
+    },
+    {
+      "file": "images/garage.jpg",
+      "author": "Haberdoedas",
+      "source_page": "https://unsplash.com/photos/dark-underground-parking-garage-with-a-car-T2JP5EPciHg",
+      "original_url": "https://images.unsplash.com/photo-1771931108145-f961735d24dc?auto=format&fit=max&w=2600&q=88",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "use": "Garagem seca subterrânea, imagem ilustrativa",
+      "dimensions": [
+        2600,
+        3467
+      ],
+      "bytes": 596029
+    },
+    {
+      "file": "images/condominium.jpg",
+      "author": "Hongjin Wang",
+      "source_page": "https://unsplash.com/photos/row-of-modern-apartment-buildings-along-a-street-GlT5ZcIlofc",
+      "original_url": "https://images.unsplash.com/photo-1773741106710-0ad118f18933?auto=format&fit=max&w=2600&q=88",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "use": "Arquitetura residencial ilustrativa",
+      "dimensions": [
+        2600,
+        3900
+      ],
+      "bytes": 1565346
+    },
+    {
+      "file": "images/pump-room.jpg",
+      "author": "David Franzen",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Tumon-Maui_Well_10.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Tumon-Maui_Well_10.jpg",
+      "license": "Public domain (U.S. federal government/DOI work)",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Tumon-Maui_Well_10.jpg#Licensing",
+      "use": "Sala de bombas ilustrativa em Guam; não é instalação do Prevora",
+      "dimensions": [
+        1200,
+        958
+      ],
+      "bytes": 394569
+    },
+    {
+      "file": "images/city-rain.jpg",
+      "author": "Hanna Lazar",
+      "source_page": "https://unsplash.com/photos/rainy-city-street-and-apartment-buildings-at-twilight-T-lposALNsg",
+      "original_url": "https://images.unsplash.com/photo-1782811559676-8ee18bc9312c?auto=format&fit=max&w=2600&q=88",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "use": "Chuva e ambiente urbano ilustrativos",
+      "dimensions": [
+        2600,
+        3863
+      ],
+      "bytes": 3114396
+    },
+    {
+      "file": "images/flood-night.jpg",
+      "author": "Ulvi Safari",
+      "source_page": "https://unsplash.com/photos/a-city-street-is-flooded-with-water-at-night-fYcCFUzLEIQ",
+      "original_url": "https://images.unsplash.com/photo-1576749288264-207936efb479?auto=format&fit=max&w=2600&q=88",
+      "license": "Unsplash License",
+      "license_url": "https://unsplash.com/license",
+      "use": "Rua alagada noturna ilustrativa, não é o caso de Londrina",
+      "dimensions": [
+        2600,
+        3972
+      ],
+      "bytes": 3027804
+    },
+    {
+      "file": "images/flood-detail.jpg",
+      "author": "B137",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Miami_Beach_massive_garage_flooding_12.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Miami_Beach_massive_garage_flooding_12.jpg",
+      "license": "CC0 1.0 Universal Public Domain Dedication",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "use": "Garagem alagada ilustrativa. Foto de Miami Beach, 12/10/2016; não é o caso de Londrina.",
+      "dimensions": [
+        4928,
+        3264
+      ],
+      "bytes": 4031934
+    },
+    {
+      "file": "images/team-eduardo.png",
+      "author": "Eduardo Hoffmann",
+      "source": "Fornecida pela equipe para esta apresentação",
+      "license": "Uso autorizado no projeto pela equipe"
+    },
+    {
+      "file": "images/team-luan.png",
+      "author": "Luan Henrique",
+      "source": "Fornecida pela equipe para esta apresentação",
+      "license": "Uso autorizado no projeto pela equipe"
+    },
+    {
+      "file": "images/team-samuel.png",
+      "author": "Samuel Paulo",
+      "source": "Fornecida pela equipe para esta apresentação",
+      "license": "Uso autorizado no projeto pela equipe"
+    },
+    {
+      "file": "images/team-raphael.png",
+      "author": "Raphael Tumiski",
+      "source": "Fornecida pela equipe para esta apresentação",
+      "license": "Uso autorizado no projeto pela equipe"
+    }
+  ],
+  "fonts": [
+    {
+      "file": "fonts/Michroma-Regular.ttf",
+      "family": "Michroma",
+      "author": "Vernon Adams / Michroma Project Authors",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/michroma/Michroma-Regular.ttf",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/Michroma-OFL.txt"
+    },
+    {
+      "file": "fonts/SpaceGrotesk-Variable.ttf",
+      "family": "Space Grotesk",
+      "author": "Florian Karsten",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/spacegrotesk/SpaceGrotesk%5Bwght%5D.ttf",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/SpaceGrotesk-OFL.txt"
+    }
+  ],
+  "notice": "Fotografias de banco ilustrativas. Não representam o caso de Londrina, o MVP ou os integrantes do Prevora. Tratamentos cromáticos e recortes são de apresentação, via CSS."
+}

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Users\consa\smart-sities-londrina-grupo-ler\work\prevora_20261114\helpers\library_file_transfer.py", line 419, in <module>
+    raise SystemExit(main(sys.argv[1:]))
+                     ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\consa\smart-sities-londrina-grupo-ler\work\prevora_20261114\helpers\library_file_transfer.py", line 406, in main
+    materializer.apply_xattrs(
+  File "C:\Users\consa\smart-sities-londrina-grupo-ler\work\prevora_20261114\helpers\library_file_transfer.py", line 335, in apply_xattrs
+    xattr.apply(path)
+  File "C:\Users\consa\smart-sities-londrina-grupo-ler\work\prevora_20261114\helpers\library_file_transfer.py", line 152, in apply
+    os.setxattr(path, self.name, encoded_value)
+    ^^^^^^^^^^^
+AttributeError: module 'os' has no attribute 'setxattr'
