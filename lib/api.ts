@@ -5,6 +5,9 @@
 
 export const UNAUTHORIZED_EVENT = "prevora:unauthorized";
 
+/** Proteção CSRF: toda requisição que altera estado leva este cabeçalho (a API o exige). */
+export const CSRF_HEADERS = { "X-CSRF-Protection": "1" } as const;
+
 export type ApiErrorKind =
   | "network"
   | "timeout"
@@ -71,6 +74,8 @@ export function friendlyMessage(kind: ApiErrorKind): string {
 
 type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
+  /** Devolve o corpo como texto (ex.: exportação de dados em JSON). */
+  raw?: boolean;
   body?: unknown;
   timeoutMs?: number;
   /** Tentativas extras (padrão: 2 em GET, 0 nas demais). */
@@ -93,7 +98,10 @@ async function attempt<T>(path: string, opts: RequestOptions): Promise<T> {
   try {
     res = await fetch(path, {
       method: opts.method ?? "GET",
-      headers: opts.body !== undefined ? { "Content-Type": "application/json" } : undefined,
+      headers: {
+        ...((opts.method ?? "GET") !== "GET" ? CSRF_HEADERS : {}),
+        ...(opts.body !== undefined ? { "Content-Type": "application/json" } : {}),
+      },
       body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined,
       credentials: "same-origin",
       cache: "no-store",
@@ -115,6 +123,7 @@ async function attempt<T>(path: string, opts: RequestOptions): Promise<T> {
 
   if (res.ok) {
     if (res.status === 204) return undefined as T;
+    if (opts.raw) return (await res.text()) as T;
     return (await res.json()) as T;
   }
 
@@ -166,6 +175,8 @@ export const api = {
   get: <T>(path: string, opts?: RequestOptions) => apiRequest<T>(path, { ...opts, method: "GET" }),
   post: <T>(path: string, body?: unknown, opts?: RequestOptions) =>
     apiRequest<T>(path, { ...opts, method: "POST", body: body ?? {} }),
+  delete: <T>(path: string, opts?: RequestOptions) =>
+    apiRequest<T>(path, { ...opts, method: "DELETE" }),
 };
 
 export function errorMessage(err: unknown): string {

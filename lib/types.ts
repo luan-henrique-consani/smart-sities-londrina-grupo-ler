@@ -13,7 +13,57 @@ export type User = {
   job_title: string;
 };
 
-export type SessionResponse = { user: User; expires_at: string | null };
+export type ConsentStatus = {
+  accepted: boolean;
+  required_version: string;
+  accepted_version: string | null;
+  accepted_at: string | null;
+};
+
+export type SessionResponse = {
+  user: User;
+  expires_at: string | null;
+  consent: ConsentStatus | null;
+};
+
+export type ErrorLogLine = { time: string; level: string; message: string; request_id: string | null };
+
+export type SystemHealth = {
+  status: "ok" | "degraded";
+  version: string;
+  started_at: string;
+  uptime_seconds: number;
+  data_generated_at: string | null;
+  data_files: Record<string, string>;
+  data_counts: Record<string, number>;
+  llm_mode: "api" | "fallback";
+  llm_model: string | null;
+  sentry_enabled: boolean;
+  error_counts: Record<string, number>;
+  recent_errors: ErrorLogLine[];
+  recent_client_errors: ErrorLogLine[];
+  memory_store_notice: string;
+};
+
+export type AuditEntry = {
+  time: string;
+  action: string;
+  user_id: string | null;
+  role: string | null;
+  resource: string | null;
+  request_id: string;
+};
+
+export type AuditResponse = { retention_days: number; items: AuditEntry[] };
+
+export type DeletionRequest = {
+  id: string;
+  user_id: string;
+  requested_at: string;
+  status: string;
+  removed: Record<string, number>;
+  note: string;
+};
 
 export type Meta = {
   version: string;

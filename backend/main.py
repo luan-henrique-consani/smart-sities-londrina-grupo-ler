@@ -8,13 +8,15 @@ import time
 import uuid
 
 from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend import __version__
 from backend.core import config
 from backend.core.errors import AppError, error_response, register_error_handlers
 from backend.core.logging import logger, request_id_var, setup_logging
+from backend.core.security_headers import apply_security_headers, csrf_valid
 from backend.repositories import get_repository
-from backend.routers import ai, auth, health, logs, overview, points
+from backend.routers import admin, ai, auth, health, logs, overview, points, privacy
 
 _REQUEST_ID_RE = re.compile(r"^[A-Za-z0-9._-]{8,64}$")
 
@@ -31,6 +33,20 @@ API de gestão preventiva de **resíduos** e **alagamentos** de Londrina (PR).
 """
 
 
+def _init_sentry() -> None:
+    """Sentry é opcional: só liga com SENTRY_DSN e o pacote sentry-sdk instalado."""
+    dsn = config.sentry_dsn()
+    if not dsn:
+        return
+    try:
+        import sentry_sdk
+
+        sentry_sdk.init(dsn=dsn, send_default_pii=False, traces_sample_rate=0.0)
+        logger.info("Sentry ativado")
+    except ImportError:
+        logger.warning("SENTRY_DSN definido, mas o pacote sentry-sdk não está instalado")
+
+
 def create_app() -> FastAPI:
     setup_logging()
     app = FastAPI(
@@ -42,6 +58,17 @@ def create_app() -> FastAPI:
         redoc_url=None,
     )
     register_error_handlers(app)
+    # CORS restrito ao domínio do app (same-origin na Vercel; nada de "*").
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=config.allowed_origins(),
+        allow_credentials=True,
+        allow_methods=["GET", "POST", "DELETE"],
+        allow_headers=["Content-Type", "X-CSRF-Protection", "X-Request-ID"],
+        expose_headers=["X-Request-ID"],
+        max_age=600,
+    )
+    _init_sentry()
 
     @app.middleware("http")
     async def request_context(request: Request, call_next) -> Response:
@@ -53,7 +80,16 @@ def create_app() -> FastAPI:
         started = time.perf_counter()
         try:
             try:
-                response = await call_next(request)
+                if not csrf_valid(request):
+                    logger.warning("CSRF recusado", extra={"path": request.url.path})
+                    response = error_response(
+                        403,
+                        "csrf_failed",
+                        "Requisição recusada por segurança. Recarregue a página e tente de novo.",
+                        request_id=request_id,
+                    )
+                else:
+                    response = await call_next(request)
             except Exception:  # noqa: BLE001 — último recurso: nunca expor stack trace
                 logger.exception(
                     "erro inesperado",
@@ -63,6 +99,7 @@ def create_app() -> FastAPI:
                     500, AppError.code, AppError.message, request_id=request_id
                 )
             response.headers["X-Request-ID"] = request_id
+            apply_security_headers(response, request.url.path)
             logger.info(
                 "requisição",
                 extra={
@@ -85,6 +122,8 @@ def create_app() -> FastAPI:
         overview.router,
         ai.router,
         logs.router,
+        privacy.router,
+        admin.router,
     ):
         app.include_router(router, prefix="/api")
 

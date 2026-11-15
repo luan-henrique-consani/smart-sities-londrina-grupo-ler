@@ -56,3 +56,13 @@ Registro curto das decisões tomadas quando havia ambiguidade. Regra: a opção 
 13. **Texto é gerado automaticamente ao abrir a tela** e a cada mudança de ponto, material, público ou tom; "Gerar outra versão" envia `variant + 1`. O PDF usa `window.print()` com folha de estilo de impressão que isola o cartaz.
 14. **Modal de decisão com `<dialog>` nativo**, que já prende o foco e fecha com Esc; validação com zod antes do POST. Decisões ficam no store em memória (somem no cold start).
 
+## Fase 6
+
+15. **CSRF por cabeçalho customizado.** Toda requisição POST/DELETE exige `X-CSRF-Protection: 1` (o front envia em `lib/api.ts` e `clientLog.ts`); sem ele, 403 `csrf_failed`. Um formulário de outro site não consegue enviar esse cabeçalho, e o CORS restrito bloqueia o pré-voo. Soma-se ao `SameSite=Lax`. É mais simples que double-submit e não precisa de estado.
+16. **CSP do Next com `'unsafe-inline'` em scripts.** O Next injeta scripts de hidratação e usamos um script de tema; nonce por requisição exigiria renderização dinâmica e quebraria o prerender (Cache Components). O restante é restrito (`default-src 'self'`, tiles só do OSM, `frame-ancestors 'none'`, `object-src 'none'`). A API usa CSP `default-src 'none'`, com exceção de `/api/docs` (Swagger via jsDelivr).
+17. **Consentimento viaja no JWT.** O aceite é gravado no store e também como claim (`consent`, `consent_at`) em um novo JWT com o mesmo `jti` e a mesma expiração. Assim sobrevive ao cold start e a instâncias diferentes sem banco. No login, se o store já tem o aceite da versão vigente, a sessão nasce aceita. O bloqueio é da interface (`ConsentGate`); as rotas de dados não recusam quem não aceitou.
+18. **Exclusão de dados é parcial no MVP.** Remove do store as decisões e o consentimento, registra o pedido, revoga a sessão. A conta do seed (somente leitura) e a trilha de auditoria seguem a retenção; ver `docs/LGPD.md`. A conta demo continua entrando, de propósito.
+19. **Auditoria só com id e perfil.** Nunca nome nem e-mail; retenção de 183 dias aplicada na escrita e na leitura.
+20. **Sentry opcional sem dependência.** `SENTRY_DSN` só liga se `sentry-sdk` estiver instalado; não entra no `requirements.txt` para manter a função leve.
+21. **Saúde do sistema** usa `GET /api/admin/system-health` (Administrador). Contadores e últimos erros vêm do buffer em memória, então zeram no cold start e valem por instância.
+

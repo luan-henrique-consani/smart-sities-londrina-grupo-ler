@@ -18,11 +18,13 @@ import {
   IconMore,
   IconRepeat,
   IconShield,
+  IconUser,
 } from "@/components/icons";
 import { OfflineBanner } from "@/components/OfflineBanner";
 import { PrefsButtons } from "@/components/PrefsButtons";
 import { StatusBadges } from "@/components/StatusBadges";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ConsentGate } from "@/components/ConsentGate";
 import { Skeleton } from "@/components/States";
 
 type NavItem = {
@@ -41,6 +43,7 @@ const NAV: NavItem[] = [
   { href: "/pontos", label: "Pontos reincidentes", Icon: IconRepeat },
   { href: "/conscientizacao", label: "Conscientização", Icon: IconMegaphone },
   { href: "/saude", label: "Saúde do sistema", Icon: IconShield, roles: ["admin"] },
+  { href: "/meus-dados", label: "Meus dados", Icon: IconUser },
 ];
 
 /** Itens fixos da barra inferior no celular (os demais ficam em "Mais"). */
@@ -167,7 +170,7 @@ function MoreSheet({
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { status, user, logout } = useAuth();
+  const { status, user, consent, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const [moreOpen, setMoreOpen] = useState(false);
@@ -199,6 +202,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
     );
   }
+
+  // Termo de Consentimento: obrigatório antes de usar o sistema.
+  if (consent && !consent.accepted) return <ConsentGate />;
 
   const visible = NAV.filter((item) => !item.roles || item.roles.includes(user.role));
   const bottom = visible.filter((item) => BOTTOM_HREFS.includes(item.href));
@@ -252,7 +258,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <footer className="hidden border-t border-border px-6 py-3 text-xs text-muted md:block">
           Prevora · gestão preventiva de resíduos e alagamentos de Londrina (PR) · dados simulados,
-          coordenadas aproximadas.
+          coordenadas aproximadas ·{" "}
+          <Link href="/privacidade" className="underline">
+            Privacidade
+          </Link>{" "}
+          ·{" "}
+          <Link href="/termos" className="underline">
+            Termo de Consentimento
+          </Link>
         </footer>
       </div>
 

@@ -11,7 +11,7 @@ import {
 } from "react";
 import { UNAUTHORIZED_EVENT, api } from "@/lib/api";
 import { clearApiCache } from "@/lib/useApi";
-import type { SessionResponse, User } from "@/lib/types";
+import type { ConsentStatus, SessionResponse, User } from "@/lib/types";
 
 type AuthStatus = "loading" | "authenticated" | "anonymous";
 
@@ -20,6 +20,9 @@ type AuthContextValue = {
   user: User | null;
   /** True quando a sessão caiu durante o uso (mostra aviso no login). */
   expired: boolean;
+  /** Termo de Consentimento: null enquanto a sessão não foi carregada. */
+  consent: ConsentStatus | null;
+  acceptConsent: () => Promise<void>;
   login: (email: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
 };
@@ -30,6 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>("loading");
   const [user, setUser] = useState<User | null>(null);
   const [expired, setExpired] = useState(false);
+  const [consent, setConsent] = useState<ConsentStatus | null>(null);
 
   // Sessão atual: o cookie é httpOnly, então só a API sabe se ele é válido.
   useEffect(() => {
@@ -39,6 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .then((session) => {
         if (!alive) return;
         setUser(session.user);
+        setConsent(session.consent);
         setStatus("authenticated");
       })
       .catch(() => {
@@ -71,10 +76,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       { silent401: true },
     );
     setUser(session.user);
+    setConsent(session.consent);
     setStatus("authenticated");
     setExpired(false);
     return session.user;
   }, []);
+
+  const acceptConsent = useCallback(async () => {
+    const required = consent?.required_version;
+    if (!required) return;
+    await api.post("/api/privacy/consent", { accepted: true, version: required });
+    setConsent({
+      accepted: true,
+      required_version: required,
+      accepted_version: required,
+      accepted_at: new Date().toISOString(),
+    });
+  }, [consent]);
 
   const logout = useCallback(async () => {
     try {
@@ -84,13 +102,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     clearApiCache();
     setUser(null);
+    setConsent(null);
     setStatus("anonymous");
     setExpired(false);
   }, []);
 
   const value = useMemo(
-    () => ({ status, user, expired, login, logout }),
-    [status, user, expired, login, logout],
+    () => ({ status, user, expired, consent, acceptConsent, login, logout }),
+    [status, user, expired, consent, acceptConsent, login, logout],
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

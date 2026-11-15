@@ -17,6 +17,7 @@ PASSWORDS = {
     "defesa_civil": ("defesa@londrinalimpa.example", "Limpa-Defesa-2026"),
 }
 POINT = "D-0004"
+CSRF = {"X-CSRF-Protection": "1"}
 
 
 @pytest.fixture(autouse=True)
@@ -31,7 +32,7 @@ def _reset(monkeypatch):
 
 def make_client(role: str | None = None) -> TestClient:
     # https: o cookie de sessão é Secure e o cliente só o reenvia em HTTPS.
-    client = TestClient(app, base_url="https://testserver")
+    client = TestClient(app, base_url="https://testserver", headers=CSRF)
     if role:
         email, password = PASSWORDS[role]
         res = client.post("/api/auth/login", json={"email": email, "password": password})
@@ -54,7 +55,7 @@ def assert_error(res, status: int, code: str | None = None) -> None:
 
 @pytest.mark.parametrize("role", list(PASSWORDS))
 def test_login_ok_sets_secure_cookie_and_me(role):
-    client = TestClient(app, base_url="https://testserver")
+    client = TestClient(app, base_url="https://testserver", headers=CSRF)
     email, password = PASSWORDS[role]
     res = client.post("/api/auth/login", json={"email": email, "password": password})
     assert res.status_code == 200
@@ -113,7 +114,7 @@ def test_logout_revokes_token_and_clears_cookie():
     assert client.post("/api/auth/logout").status_code == 204
     assert client.get("/api/auth/me").status_code == 401
     # o token antigo, reapresentado, continua inválido (revogado)
-    replay = TestClient(app, base_url="https://testserver")
+    replay = TestClient(app, base_url="https://testserver", headers=CSRF)
     replay.cookies.set(config.SESSION_COOKIE, token)
     assert_error(replay.get("/api/auth/me"), 401)
 
@@ -253,7 +254,9 @@ def test_unexpected_error_is_500_without_stack_trace():
         raise RuntimeError("segredo interno")
 
     app.include_router(boom)
-    client = TestClient(app, base_url="https://testserver", raise_server_exceptions=False)
+    client = TestClient(
+        app, base_url="https://testserver", headers=CSRF, raise_server_exceptions=False
+    )
     res = client.get("/api/_boom")
     assert_error(res, 500, "internal_error")
     assert "segredo interno" not in res.text

@@ -17,14 +17,32 @@ from backend.core.security import (
     login_limiter,
     verify_password,
 )
-from backend.models.schemas import LoginRequest, SessionResponse, User
+from backend.models.schemas import ConsentStatus, LoginRequest, SessionResponse, User
 from backend.repositories import Repository, get_repository
 from backend.routers.common import RATE_LIMITED
+from backend.services.audit import record_audit
 
 router = APIRouter(prefix="/auth", tags=["autenticação"])
 
 
-def _set_cookie(response: Response, token: str) -> None:
+def consent_from_claims(claims: dict) -> ConsentStatus:
+    """Consentimento aceito, lido do JWT (sobrevive ao cold start, pois vai no cookie)."""
+    version = claims.get("consent")
+    accepted_at = None
+    if claims.get("consent_at"):
+        try:
+            accepted_at = datetime.fromisoformat(str(claims["consent_at"]))
+        except ValueError:
+            accepted_at = None
+    return ConsentStatus(
+        accepted=version == config.CONSENT_VERSION,
+        required_version=config.CONSENT_VERSION,
+        accepted_version=version,
+        accepted_at=accepted_at,
+    )
+
+
+def set_cookie(response: Response, token: str) -> None:
     response.set_cookie(
         config.SESSION_COOKIE,
         token,
@@ -36,7 +54,7 @@ def _set_cookie(response: Response, token: str) -> None:
     )
 
 
-def _clear_cookie(response: Response) -> None:
+def clear_cookie(response: Response) -> None:
     response.delete_cookie(
         config.SESSION_COOKIE,
         path="/",
@@ -76,10 +94,19 @@ def login(
         raise UnauthorizedError("E-mail ou senha incorretos.", code="invalid_credentials")
 
     user = User.model_validate(record)
-    token, expires_at, _ = create_session_token(user.id, user.role)
-    _set_cookie(response, token)
+    saved = repo.consent_for(user.id)
+    consent = saved if saved and saved.get("version") == config.CONSENT_VERSION else None
+    token, expires_at, _ = create_session_token(user.id, user.role, consent)
+    set_cookie(response, token)
     logger.info("login realizado", extra={"user_id": user.id, "role": user.role})
-    return SessionResponse(user=user, expires_at=expires_at)
+    record_audit(repo, request, "login", user_id=user.id, role=user.role)
+    status = consent_from_claims(
+        {
+            "consent": (consent or {}).get("version"),
+            "consent_at": (consent or {}).get("accepted_at"),
+        }
+    )
+    return SessionResponse(user=user, expires_at=expires_at, consent=status)
 
 
 @router.post("/logout", status_code=204, summary="Sair (encerra a sessão)")
@@ -92,10 +119,13 @@ def logout(request: Request, repo: Repository = Depends(get_repository)) -> Resp
                 token, config.jwt_secret(), algorithms=[config.JWT_ALGORITHM]
             )
             repo.revoke_token(str(claims.get("jti")), float(claims.get("exp", 0)))
+            record_audit(
+                repo, request, "logout", user_id=str(claims.get("sub")), role=claims.get("role")
+            )
         except jwt.PyJWTError:
             pass  # token inválido: basta apagar o cookie
     response = Response(status_code=204)
-    _clear_cookie(response)
+    clear_cookie(response)
     return response
 
 
@@ -107,6 +137,7 @@ def logout(request: Request, repo: Repository = Depends(get_repository)) -> Resp
 )
 def me(request: Request, user: User = Depends(get_current_user)) -> SessionResponse:
     expires_at = None
+    claims: dict = {}
     try:
         claims = jwt.decode(
             request.cookies[config.SESSION_COOKIE],
@@ -116,4 +147,4 @@ def me(request: Request, user: User = Depends(get_current_user)) -> SessionRespo
         expires_at = datetime.fromtimestamp(claims["exp"], UTC)
     except (jwt.PyJWTError, KeyError):
         pass
-    return SessionResponse(user=user, expires_at=expires_at)
+    return SessionResponse(user=user, expires_at=expires_at, consent=consent_from_claims(claims))

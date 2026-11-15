@@ -185,3 +185,28 @@ class JsonRepository(Repository):
 
     def is_token_revoked(self, jti: str) -> bool:
         return self.store.is_token_revoked(jti)
+
+    # ----- LGPD -----
+    def add_audit(self, entry: Record) -> None:
+        self.store.add_audit(entry)
+
+    def audit_entries(self, user_id: str | None = None) -> list[Record]:
+        return self.store.audit_entries(user_id)
+
+    def set_consent(self, user_id: str, record: Record) -> None:
+        self.store.set_consent(user_id, record)
+
+    def consent_for(self, user_id: str) -> Record | None:
+        return self.store.consent_for(user_id)
+
+    def decisions_by_user(self, user_id: str) -> list[Record]:
+        return self.store.decisions_by_user(user_id)
+
+    def add_deletion_request(self, request: Record) -> Record:
+        return self.store.add_deletion_request(request)
+
+    def deletion_requests(self, user_id: str | None = None) -> list[Record]:
+        return self.store.deletion_requests(user_id)
+
+    def delete_user_data(self, user_id: str) -> dict[str, int]:
+        return self.store.delete_user_data(user_id)

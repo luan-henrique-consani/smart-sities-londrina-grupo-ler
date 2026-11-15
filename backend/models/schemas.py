@@ -54,9 +54,17 @@ class LoginRequest(StrictInput):
     password: str = Field(min_length=1, max_length=128)
 
 
+class ConsentStatus(BaseModel):
+    accepted: bool = Field(description="True se o termo vigente já foi aceito nesta sessão.")
+    required_version: str
+    accepted_version: str | None = None
+    accepted_at: datetime | None = None
+
+
 class SessionResponse(BaseModel):
     user: User
     expires_at: datetime | None = Field(None, description="Fim da sessão (8 h após o login).")
+    consent: ConsentStatus | None = None
 
 
 # ----- meta -----
@@ -456,3 +464,67 @@ class ClientLogIn(StrictInput):
 
 class Accepted(BaseModel):
     accepted: bool = True
+
+
+# ----- LGPD e administração -----
+class ConsentIn(StrictInput):
+    accepted: Literal[True]
+    version: str = Field(min_length=1, max_length=40)
+
+
+class AuditEntry(BaseModel):
+    time: str
+    action: str
+    user_id: str | None
+    role: str | None
+    resource: str | None = None
+    request_id: str
+
+
+class AuditResponse(BaseModel):
+    retention_days: int
+    items: list[AuditEntry]
+
+
+class DeletionRequest(BaseModel):
+    id: str
+    user_id: str
+    requested_at: str
+    status: str
+    removed: dict[str, int]
+    note: str
+
+
+class MyDataResponse(BaseModel):
+    generated_at: str
+    subject: dict[str, str]
+    consent: dict[str, str | None] | None
+    decisions: list[dict]
+    audit_trail: list[AuditEntry]
+    deletion_requests: list[DeletionRequest]
+    retention: dict[str, str]
+    notice: str
+
+
+class ErrorLogLine(BaseModel):
+    time: str
+    level: str
+    message: str
+    request_id: str | None = None
+
+
+class SystemHealth(BaseModel):
+    status: Literal["ok", "degraded"]
+    version: str
+    started_at: str
+    uptime_seconds: int
+    data_generated_at: datetime | None
+    data_files: dict[str, str]
+    data_counts: dict[str, int]
+    llm_mode: LlmMode
+    llm_model: str | None
+    sentry_enabled: bool
+    error_counts: dict[str, int]
+    recent_errors: list[ErrorLogLine]
+    recent_client_errors: list[ErrorLogLine]
+    memory_store_notice: str

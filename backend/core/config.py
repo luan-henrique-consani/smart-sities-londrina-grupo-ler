@@ -17,6 +17,15 @@ LOGIN_MAX_FAILURES = 5  # tentativas falhas por IP...
 LOGIN_WINDOW_SECONDS = 60  # ...por minuto
 CLIENT_LOG_MAX_PER_MINUTE = 30
 
+# CSRF: toda requisição que altera estado precisa deste cabeçalho (um formulário de outro
+# site não consegue enviá-lo, e o CORS restrito bloqueia o pré-voo).
+CSRF_HEADER = "x-csrf-protection"
+CSRF_VALUE = "1"
+
+CONSENT_VERSION = "2026-11-v1"  # versão do Termo de Consentimento (sobe a cada mudança)
+AUDIT_RETENTION_DAYS = 183  # logs de acesso: 6 meses
+RECORDS_RETENTION_YEARS = 5  # ocorrências: 5 anos
+
 LLM_TIMEOUT_SECONDS = 15.0
 LLM_DEFAULT_MODEL = "claude-opus-5-5"
 AI_BADGE = "Gerado por IA · revise antes de usar"
@@ -65,3 +74,23 @@ def anthropic_model() -> str:
 
 def log_level() -> str:
     return os.environ.get("LOG_LEVEL", "INFO").strip().upper()
+
+
+def allowed_origins() -> list[str]:
+    """Origens com permissão de CORS: só o próprio domínio do app (e localhost em dev).
+
+    Em produção o front e a API são same-origin, então o CORS nem é necessário; a lista
+    existe para o caso de um domínio próprio (ALLOWED_ORIGINS, separado por vírgula).
+    """
+    origins = {o.strip().rstrip("/") for o in os.environ.get("ALLOWED_ORIGINS", "").split(",")}
+    for var in ("VERCEL_URL", "VERCEL_PROJECT_PRODUCTION_URL", "VERCEL_BRANCH_URL"):
+        host = os.environ.get(var, "").strip()
+        if host:
+            origins.add(f"https://{host}")
+    if not os.environ.get("VERCEL"):
+        origins.update({"http://localhost:3000", "http://127.0.0.1:3000"})
+    return sorted(o for o in origins if o)
+
+
+def sentry_dsn() -> str | None:
+    return os.environ.get("SENTRY_DSN", "").strip() or None

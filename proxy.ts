@@ -27,5 +27,6 @@ export const config = {
     "/pontos/:path*",
     "/conscientizacao/:path*",
     "/saude/:path*",
+    "/meus-dados/:path*",
   ],
 };

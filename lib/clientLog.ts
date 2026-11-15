@@ -22,7 +22,7 @@ export function reportClientError(input: {
   try {
     void fetch("/api/logs/client", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-CSRF-Protection": "1" },
       body: JSON.stringify(body),
       keepalive: true,
     }).catch(() => undefined);

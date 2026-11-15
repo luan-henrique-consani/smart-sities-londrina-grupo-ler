@@ -2,7 +2,7 @@
 
 **Prevora** é uma plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
 
-> Estado atual: **Fase 5** (previsões e resultados, pontos reincidentes com registro de decisões e materiais de conscientização), sobre o frontend da Fase 4 e a API FastAPI da Fase 3. Documentação interativa da API em `/api/docs`.
+> Estado atual: **Fase 6** (segurança, LGPD e saúde do sistema), sobre as telas de valor da Fase 5, o frontend da Fase 4 e a API FastAPI da Fase 3. Documentação interativa da API em `/api/docs`.
 >
 > **Nome do produto:** antes "Londrina Limpa", agora **Prevora**. A URL de produção, o projeto da Vercel (`londrina-limpa`) e o repositório mantêm o nome antigo por motivos técnicos.
 
@@ -127,7 +127,8 @@ Copie `.env.example` para `.env.local` e preencha. Nunca faça commit de valores
 | `JWT_SECRET` | sim, em produção | Assinatura do JWT de sessão |
 | `ANTHROPIC_API_KEY` | não | Sem chave, os textos usam o modo fallback (templates) |
 | `ANTHROPIC_MODEL` | não | Modelo usado quando há chave |
-| `SENTRY_DSN` | não | Monitoramento de erros (opcional) |
+| `SENTRY_DSN` | não | Monitoramento de erros (opcional; exige `pip install sentry-sdk`) |
+| `ALLOWED_ORIGINS` | não | Origens extras de CORS, separadas por vírgula (padrão: só o próprio domínio) |
 
 Em produção (Vercel), `JWT_SECRET` precisa estar definida em Production.
 
@@ -150,10 +151,18 @@ Variáveis de ambiente: `vercel env add NOME` (ou no painel do projeto, em Setti
 
 Depois do deploy, confira `https://SEU-DOMINIO/api/health` e `https://SEU-DOMINIO/api/docs`.
 
+## Segurança e LGPD (Fase 6)
+
+- **Cabeçalhos:** CSP, HSTS, `X-Content-Type-Options`, `X-Frame-Options`/`frame-ancestors 'none'`, `Referrer-Policy` e `Permissions-Policy`, no Next (`next.config.ts`) e na API (`backend/core/security_headers.py`). CORS restrito ao domínio do app.
+- **Sessão:** JWT em cookie httpOnly/Secure/SameSite=Lax, 8 h; logout revoga o token; proteção CSRF por cabeçalho `X-CSRF-Protection` em POST/DELETE.
+- **LGPD:** páginas `/privacidade` e `/termos`; Termo de Consentimento no primeiro login (data e versão); tela **Meus dados** (exportar JSON, pedir exclusão); trilha de auditoria (retenção de 6 meses). Detalhes em [docs/LGPD.md](docs/LGPD.md).
+- **Saúde do sistema** (só Administrador): versão, uptime, dados carregados, modo do LLM, contagem de erros por nível, últimos 20 erros da API e do navegador e a trilha de auditoria (`/api/admin/system-health`, `/api/admin/audit`).
+
 ## Limitações conhecidas do MVP
 
 - O sistema de arquivos da Vercel é somente leitura e efêmero: os JSON de `data/` são apenas o seed.
 - A partir da Fase 3, toda escrita vai para um store em memória, que zera a cada cold start.
+- Consentimento, auditoria, pedidos de exclusão e erros também ficam em memória (o aceite do termo acompanha o JWT, então sobrevive ao cold start na mesma sessão).
 - Todos os dados são simulados.
 - O projeto da Vercel não está conectado ao GitHub: cada fase é publicada manualmente com `vercel deploy --prod --yes`.
 - Os marcadores do mapa têm cerca de 30 px (menos que 44 px) porque há centenas deles; a visão em lista tem alvos de 44 px e as mesmas informações.

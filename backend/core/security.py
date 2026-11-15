@@ -35,17 +35,42 @@ def verify_password(password_hash: str | None, password: str) -> bool:
         return False
 
 
-def create_session_token(user_id: str, role: str) -> tuple[str, datetime, str]:
-    """Cria o JWT de sessão. Retorna (token, expira_em, jti)."""
+def create_session_token(
+    user_id: str, role: str, consent: dict[str, str] | None = None
+) -> tuple[str, datetime, str]:
+    """Cria o JWT de sessão. Retorna (token, expira_em, jti).
+
+    `consent` ({"version", "accepted_at"}) leva o aceite do termo já registrado para a sessão.
+    """
     now = datetime.now(UTC)
     expires = now + timedelta(hours=config.SESSION_HOURS)
     jti = secrets.token_urlsafe(12)
+    claims: dict[str, Any] = {"sub": user_id, "role": role, "iat": now, "exp": expires, "jti": jti}
+    if consent:
+        claims["consent"] = consent["version"]
+        claims["consent_at"] = consent["accepted_at"]
     token = jwt.encode(
-        {"sub": user_id, "role": role, "iat": now, "exp": expires, "jti": jti},
+        claims,
         config.jwt_secret(),
         algorithm=config.JWT_ALGORITHM,
     )
     return token, expires, jti
+
+
+def reissue_with_consent(claims: dict[str, Any], version: str, accepted_at: datetime) -> str:
+    """Novo JWT com o consentimento (mesmo jti e mesma expiração: não prolonga a sessão)."""
+    payload = {k: v for k, v in claims.items() if k not in ("consent", "consent_at")}
+    payload["consent"] = version
+    payload["consent_at"] = accepted_at.isoformat(timespec="seconds")
+    return jwt.encode(payload, config.jwt_secret(), algorithm=config.JWT_ALGORITHM)
+
+
+def session_claims(request: Request) -> dict[str, Any]:
+    """Claims do JWT do cookie (já validado por get_current_user)."""
+    token = request.cookies.get(config.SESSION_COOKIE)
+    if not token:
+        raise UnauthorizedError()
+    return decode_session_token(token)
 
 
 def decode_session_token(token: str) -> dict[str, Any]:

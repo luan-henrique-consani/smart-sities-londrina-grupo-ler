@@ -5,6 +5,7 @@ import { useApi } from "@/lib/useApi";
 import { formatDateTime } from "@/lib/format";
 import type { Meta } from "@/lib/types";
 import { HealthStatus } from "@/components/HealthStatus";
+import { SystemSections } from "@/components/views/SystemSections";
 import { ErrorState, LoadingBlock } from "@/components/States";
 
 const COUNT_LABEL: Record<string, string> = {
@@ -85,11 +86,9 @@ export function HealthView() {
             </table>
           </>
         )}
-        <p className="mt-4 text-sm text-muted">
-          Uptime, modo do LLM (API/fallback) e últimos erros serão exibidos aqui na fase de
-          observabilidade.
-        </p>
       </section>
+
+      <SystemSections />
     </div>
   );
 }

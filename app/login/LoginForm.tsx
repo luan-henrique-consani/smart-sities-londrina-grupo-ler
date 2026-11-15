@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth";
@@ -180,7 +181,14 @@ export function LoginForm() {
 
             <p className="mt-5 text-xs text-muted">
               A Prevora não coleta dados de cidadãos. Dos servidores, guarda apenas nome, e-mail e
-              cargo. Todos os dados exibidos são simulados.
+              cargo. Todos os dados exibidos são simulados.{" "}
+              <Link href="/privacidade" className="font-semibold underline">
+                Política de Privacidade
+              </Link>{" "}
+              ·{" "}
+              <Link href="/termos" className="font-semibold underline">
+                Termo de Consentimento
+              </Link>
             </p>
           </section>
         </div>
