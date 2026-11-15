@@ -65,7 +65,7 @@ describe("AlertCard", () => {
   });
 });
 
-describe("PrefsButtons (tema e daltonismo)", () => {
+describe("PrefsButtons (tema e Acessibilidade)", () => {
   it("alterna o tema escuro e persiste em localStorage", async () => {
     const user = userEvent.setup();
     document.documentElement.dataset.theme = "light";
@@ -78,10 +78,10 @@ describe("PrefsButtons (tema e daltonismo)", () => {
     expect(screen.getByRole("button", { name: /Tema escuro ativado/ })).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("liga e desliga o modo daltonismo", async () => {
+  it("liga e desliga o modo Acessibilidade", async () => {
     const user = userEvent.setup();
     render(<PrefsButtons />);
-    const btn = screen.getByRole("button", { name: /Modo daltonismo/ });
+    const btn = screen.getByRole("button", { name: /Acessibilidade/ });
     await user.click(btn);
     expect(document.documentElement.dataset.cb).toBe("on");
     expect(btn).toHaveAttribute("aria-pressed", "true");
@@ -96,7 +96,7 @@ describe("PrefsButtons (tema e daltonismo)", () => {
       throw new Error("bloqueado");
     });
     render(<PrefsButtons />);
-    await user.click(screen.getByRole("button", { name: /Modo daltonismo/ }));
+    await user.click(screen.getByRole("button", { name: /Acessibilidade/ }));
     expect(document.documentElement.dataset.cb).toBe("on");
     spy.mockRestore();
   });

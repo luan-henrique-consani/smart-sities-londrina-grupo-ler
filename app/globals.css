@@ -3,16 +3,23 @@
 /* ───────── Tokens: tema claro (padrão) ───────── */
 :root {
   color-scheme: light;
-  --background: #f5f6f3;
+  /* Identidade Prevora: azul primário #0046AA, azul claro #1E74FD, amarelo #FFEA00, amarelo claro #FFFF7D */
+  --background: #f4f6fb;
   --surface: #ffffff;
-  --surface-2: #eef1ed;
-  --foreground: #1b1f1d;
-  --muted: #4a524e;
-  --border: #d5d9d3;
-  --primary: #0e6b60;
+  --surface-2: #eaeef6;
+  --foreground: #141a26;
+  --muted: #465068;
+  --border: #d2d9e6;
+  --primary: #0046aa;
+  --primary-hover: #003a8c;
+  --brand-light: #1e74fd;
+  --brand-yellow: #ffea00;
+  --brand-yellow-soft: #ffff7d;
+  --on-brand-yellow: #1a1700;
   --on-primary: #ffffff;
   --on-critical: #ffffff;
-  --primary-soft: #dcefe9;
+  --primary-soft: #e2ecff;
+  --shape-neutral: #3b4557;
   --flood: #1d5a96;
   --debris: #b34d09;
   --critical: #b42318;
@@ -28,27 +35,33 @@
 /* ───────── Tema escuro ───────── */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #0e1412;
-  --surface: #151d1a;
-  --surface-2: #1c2723;
-  --foreground: #e8eeeb;
-  --muted: #a9b6b0;
-  --border: #2d3b36;
-  --primary: #3cc4ae;
-  --on-primary: #04201b;
-  --on-critical: #1b1f1d;
-  --primary-soft: #14312c;
+  --background: #0b1220;
+  --surface: #121b2e;
+  --surface-2: #1a2540;
+  --foreground: #e8edf7;
+  --muted: #a8b4ca;
+  --border: #2b3a57;
+  --primary: #6aa6ff;
+  --primary-hover: #8dbaff;
+  --brand-light: #1e74fd;
+  --brand-yellow: #ffea00;
+  --brand-yellow-soft: #ffff7d;
+  --on-brand-yellow: #1a1700;
+  --on-primary: #04122b;
+  --on-critical: #141a26;
+  --primary-soft: #14284d;
+  --shape-neutral: #d3dbea;
   --flood: #79b2f2;
   --debris: #f59a5c;
   --critical: #ff8a7d;
   --risk-low: #5fd39a;
   --risk-mid: #f2b24a;
   --risk-high: #ff8a7d;
-  --marker-stroke: #0e1412;
+  --marker-stroke: #0b1220;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 14px rgb(0 0 0 / 0.35);
 }
 
-/* ───────── Modo daltonismo (paleta Okabe-Ito) ───────── */
+/* ───────── Modo Acessibilidade (paleta Okabe-Ito; atributo data-cb mantido por compatibilidade) ───────── */
 :root[data-cb="on"] {
   --flood: #0072b2;
   --debris: #9a5200;
@@ -76,6 +89,12 @@
   --color-primary: var(--primary);
   --color-on-primary: var(--on-primary);
   --color-primary-soft: var(--primary-soft);
+  --color-primary-hover: var(--primary-hover);
+  --color-brand-light: var(--brand-light);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-yellow-soft: var(--brand-yellow-soft);
+  --color-on-brand-yellow: var(--on-brand-yellow);
+  --color-shape-neutral: var(--shape-neutral);
   --color-flood: var(--flood);
   --color-debris: var(--debris);
   --color-critical: var(--critical);
@@ -99,6 +118,15 @@ body {
 :focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 2px;
+}
+
+.logo-chip img {
+  display: block;
+}
+:root[data-theme="dark"] .logo-chip {
+  background: #ffffff;
+  border-radius: 0.6rem;
+  padding: 0.2rem 0.3rem;
 }
 
 .card {

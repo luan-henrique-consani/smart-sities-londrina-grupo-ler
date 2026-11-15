@@ -1,48 +1,33 @@
-import type { SVGProps } from "react";
+import Image from "next/image";
 
-/** Símbolo da Prevora: um "P" com linha de tendência (previsão) que sobe. */
-export function LogoMark({ size = 36, ...props }: { size?: number } & SVGProps<SVGSVGElement>) {
+/**
+ * Logo oficial da Prevora (public/prevora-logo.png, PNG com transparência, proporção 720×634).
+ * Componente único de marca: sidebar, cabeçalho, login, páginas legais e de erro usam este arquivo.
+ * No tema escuro, a classe .logo-chip põe a logo sobre uma base clara para manter o contraste do azul.
+ */
+const RATIO = 634 / 720;
+
+export function LogoMark({ size = 40, className = "" }: { size?: number; className?: string }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 40 40"
-      role="img"
-      aria-label="Símbolo da Prevora"
-      {...props}
-    >
-      <defs>
-        <linearGradient id="prevora-g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#0E6B60" />
-          <stop offset="1" stopColor="#1D5A96" />
-        </linearGradient>
-      </defs>
-      <rect width="40" height="40" rx="11" fill="url(#prevora-g)" />
-      <path
-        d="M13 30V11h8.2a5.6 5.6 0 0 1 0 11.2H13"
-        fill="none"
-        stroke="#fff"
-        strokeWidth="3.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+    <span className={`logo-chip inline-flex shrink-0 items-center justify-center ${className}`}>
+      <Image
+        src="/prevora-logo.png"
+        alt=""
+        aria-hidden="true"
+        width={size}
+        height={Math.round(size * RATIO)}
+        unoptimized
+        priority
+        style={{ width: size, height: "auto" }}
       />
-      <path
-        d="M21.5 31.5l4.2-5.2 3.3 3.1 5.2-7.4"
-        fill="none"
-        stroke="#9CF0D9"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="34.2" cy="21.9" r="2" fill="#9CF0D9" />
-    </svg>
+    </span>
   );
 }
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
-      <LogoMark aria-hidden="true" role="presentation" aria-label={undefined} />
+      <LogoMark size={compact ? 38 : 44} />
       <span className="flex flex-col leading-none">
         <span className="font-display text-xl font-bold tracking-[0.12em] text-foreground">
           PREVORA

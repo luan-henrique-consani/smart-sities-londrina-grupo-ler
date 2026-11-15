@@ -35,16 +35,13 @@ export function ShapeIcon({
   );
 }
 
-const CATEGORY_COLOR: Record<Category, string> = {
-  alagamento: "var(--flood)",
-  entulho: "var(--debris)",
-  reincidente: "var(--critical)",
-};
+/** Categoria = só forma, em cor neutra do tema (a cor fica reservada à criticidade). */
+export const NEUTRAL_SHAPE = "var(--shape-neutral)";
 
 export function CategoryTag({ category }: { category: Category }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-sm font-medium">
-      <ShapeIcon category={category} color={CATEGORY_COLOR[category]} />
+      <ShapeIcon category={category} color={NEUTRAL_SHAPE} />
       {CATEGORY_LABEL[category]}
     </span>
   );
@@ -54,6 +51,23 @@ const RISK_STYLE: Record<RiskLevel, string> = {
   baixo: "border-risk-low text-risk-low",
   médio: "border-risk-mid text-risk-mid",
   alto: "border-risk-high text-risk-high",
+};
+
+/** Amostra de cor da criticidade (retângulo arredondado, para não ser confundida com as formas de categoria). */
+export function RiskSwatch({ level }: { level: RiskLevel }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-block h-3.5 w-6 shrink-0 rounded-sm border border-[var(--marker-stroke)] shadow-[0_0_0_1px_var(--border)]"
+      style={{ background: RISK_VAR[level] }}
+    />
+  );
+}
+
+const RISK_VAR: Record<RiskLevel, string> = {
+  baixo: "var(--risk-low)",
+  médio: "var(--risk-mid)",
+  alto: "var(--risk-high)",
 };
 
 const RISK_MARK: Record<RiskLevel, string> = { baixo: "▽", médio: "◇", alto: "△" };

@@ -89,7 +89,7 @@ function SidebarLink({ item, pathname }: { item: NavItem; pathname: string }) {
       aria-current={active ? "page" : undefined}
       className={`flex min-h-11 items-center gap-3 rounded-lg px-3 text-[0.95rem] font-medium ${
         active
-          ? "bg-primary-soft text-foreground ring-1 ring-primary"
+          ? "bg-primary-soft text-foreground ring-1 ring-primary shadow-[inset_4px_0_0_var(--brand-yellow)]"
           : "text-muted hover:bg-surface-2 hover:text-foreground"
       }`}
     >

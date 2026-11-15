@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Preferências visuais (tema claro/escuro e modo daltonismo).
+ * Preferências visuais (tema claro/escuro e modo Acessibilidade, antigo "Daltonismo").
  * O script inline do layout aplica os atributos antes da hidratação (sem "flash");
  * este módulo lê o estado direto do <html> e o persiste em localStorage (try/catch).
  */
@@ -10,6 +10,7 @@ import { useSyncExternalStore } from "react";
 
 export type Theme = "light" | "dark";
 const THEME_KEY = "prevora:theme";
+// Chave mantida ("daltonismo") para não perder preferências já salvas.
 const CB_KEY = "prevora:daltonismo";
 
 const listeners = new Set<() => void>();

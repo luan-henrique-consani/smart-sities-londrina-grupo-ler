@@ -25,7 +25,7 @@ Apresentação: domingo, 15/11, às 8h. Todos os dados são **simulados** (diga 
 | **2:25–2:40** | **Cartaz gerado** | **Gerar materiais de conscientização** → aba **Cartaz** → mostrar selo "Gerado por IA · revise antes de usar" | Cartaz A4 pronto para imprimir (Baixar PDF). Os **números** vêm do modelo estatístico; a IA só escreve o texto. Funciona até sem internet de IA. |
 | **2:40–2:45** | Transição | — | "E o que isso muda?" |
 | **2:45–3:15** | **Resultados (os 4 números)** | `/previsoes` (KPIs de impacto, gráficos por ano, "sem ação × com plano") | **−34%** de reincidência · dias limpo **6 → 11** · **78%** de acerto em alagamentos previstos × ocorridos · **≈1.240 h** de equipe economizadas por trimestre. Frisar: estimativa sobre dados simulados. |
-| **3:15–3:45** | **Inclusão** | Botão de tema escuro; botão de **daltonismo**; mostrar o celular do Técnico | WCAG 2.1 AA, teclado, contraste ≥ 4,5:1, mobile-first. O técnico de campo usa no celular. |
+| **3:15–3:45** | **Inclusão** | Botão de tema escuro; botão **Acessibilidade** (daltonismo); mostrar o celular do Técnico | WCAG 2.1 AA, teclado, contraste ≥ 4,5:1, mobile-first. O técnico de campo usa no celular. |
 | **3:45–4:05** | **LGPD** | `/meus-dados` (exportar) ou `/privacidade` | Não coletamos **nenhum** dado de cidadãos: guardamos o problema, não a pessoa. Do servidor, só nome, e-mail e cargo. Auditoria e exclusão previstas. |
 | **4:05–5:00** | **Próximos passos e impacto** | Slide final | Integração com o **Londrina ON** (CTD), INMET/Simepar, SIGLON, PostgreSQL/PostGIS, atualização a cada 1 h, painel público. **Servidor:** menos retornos, decisão justificada. **Cidadão:** rua limpa por mais tempo, menos alagamento. |
 

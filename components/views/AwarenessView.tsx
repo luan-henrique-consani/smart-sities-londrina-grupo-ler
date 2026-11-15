@@ -277,18 +277,18 @@ export function AwarenessView() {
                 <article
                   id="poster-print"
                   aria-label={`Prévia do cartaz A4: ${result.title}`}
-                  className="mx-auto flex aspect-[210/297] w-full min-w-[20rem] max-w-[34rem] flex-col gap-4 border-[6px] border-[#0e6b60] bg-white p-8 text-[#1b1f1d] shadow-lg"
+                  className="mx-auto flex aspect-[210/297] w-full min-w-[20rem] max-w-[34rem] flex-col gap-4 border-[6px] border-[#0046aa] bg-white p-8 text-[#141a26] shadow-lg"
                 >
-                  <p className="text-center text-xs font-bold tracking-widest text-[#4a524e]">
+                  <p className="text-center text-xs font-bold tracking-widest text-[#465068]">
                     [LOGO DA PREFEITURA]
                   </p>
-                  <h2 className="text-center font-display text-3xl font-bold leading-tight text-[#0e6b60]">
+                  <h2 className="text-center font-display text-3xl font-bold leading-tight text-[#0046aa]">
                     {result.title}
                   </h2>
                   <p className="flex-1 whitespace-pre-line text-lg leading-snug">
                     {body(result)}
                   </p>
-                  <p className="border-t-2 border-[#d5d9d3] pt-2 text-center text-xs text-[#4a524e]">
+                  <p className="border-t-2 border-[#d2d9e6] pt-2 text-center text-xs text-[#465068]">
                     {result.badge} · dados simulados
                   </p>
                 </article>

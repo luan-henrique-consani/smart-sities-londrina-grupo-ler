@@ -34,12 +34,12 @@ test.describe("Acessibilidade (axe: crítico/sério)", () => {
     }
   });
 
-  test("tema escuro + daltonismo", async ({ page }) => {
+  test("tema escuro + Acessibilidade", async ({ page }) => {
     await login(page);
     for (const rota of ["/", "/previsoes", "/mapa"]) {
       await goTo(page, rota);
       await escuroDaltonico(page);
-      await auditar(page, `${rota} (escuro+daltonismo)`);
+      await auditar(page, `${rota} (escuro+acessibilidade)`);
     }
   });
 });

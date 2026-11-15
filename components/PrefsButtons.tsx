@@ -26,12 +26,12 @@ export function PrefsButtons() {
         type="button"
         className={`${BTN} ${colorblind ? "border-primary bg-primary-soft" : ""}`}
         aria-pressed={colorblind}
-        aria-label="Modo daltonismo (paleta Okabe-Ito)"
-        title="Modo daltonismo (paleta Okabe-Ito)"
+        aria-label="Acessibilidade: modo de cores para daltonismo (paleta Okabe-Ito)"
+        title="Acessibilidade: modo de cores para daltonismo (paleta Okabe-Ito)"
         onClick={() => setColorblind(!colorblind)}
       >
         <IconEye />
-        <span className="hidden xl:inline">Daltonismo</span>
+        <span className="hidden xl:inline">Acessibilidade</span>
       </button>
     </div>
   );

@@ -47,7 +47,7 @@ Registro curto das decisões tomadas quando havia ambiguidade. Regra: a opção 
 7. **Cache offline em `localStorage`.** Em falha de conexão, `useApi` devolve o último dado salvo (marcado "sem conexão"); o cache é apagado no logout e em sessão expirada.
 8. **Sem Recharts nesta fase.** O painel usa barras empilhadas em HTML com descrição textual e legenda; os gráficos (Recharts) ficam com a Fase 5.
 9. **Telas da Fase 5 aparecem como "em breve"** para a navegação ficar igual ao protótipo, e `/pontos/[id]` mostra um resumo simples (o detalhe completo, decisões e materiais ficam para a Fase 5). "Saúde do sistema" mostra `/api/health` e `/api/meta`; uptime, modo do LLM e últimos erros dependem de endpoint novo (Fase 6).
-10. **Contraste verificado por script.** Todos os pares de texto e fundo dos temas claro, escuro e daltonismo passam de 4,5:1.
+10. **Contraste verificado por script.** Todos os pares de texto e fundo dos temas claro, escuro e Acessibilidade passam de 4,5:1.
 
 ## Fase 5
 

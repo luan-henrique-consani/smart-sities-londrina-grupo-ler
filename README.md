@@ -29,7 +29,7 @@
 | `/conscientizacao` | Cartaz A4 (imprimir/PDF), post, porta a porta e plano de 30 dias; seletor de público e tom | admin, gestor |
 
 - **Sessão:** o cookie `ll_session` (JWT, httpOnly) é criado pela API. O `proxy.ts` faz só uma checagem otimista (sem cookie → `/login`); a validação real é da API (401 → volta ao login com aviso de sessão expirada).
-- **Acessibilidade:** categorias por forma + rótulo (círculo = alagamento, quadrado = entulho, losango = reincidente), criticidade por cor + texto + símbolo, tema claro/escuro, modo daltonismo (Okabe-Ito), foco visível, alvos de 44 px, link "Ir para o conteúdo" e visão em lista como alternativa ao mapa.
+- **Acessibilidade:** categorias por forma + rótulo (círculo = alagamento, quadrado = entulho, losango = reincidente), criticidade por cor + texto + símbolo, tema claro/escuro, modo Acessibilidade (Okabe-Ito, para daltonismo), foco visível, alvos de 44 px, link "Ir para o conteúdo" e visão em lista como alternativa ao mapa.
 - **Resiliência:** cliente de API com timeout e nova tentativa, skeletons, faixa offline com últimos dados em cache, aviso de falha dos tiles com visão em lista, Error Boundary e envio de erros para `POST /api/logs/client`.
 
 ## Problema → solução
@@ -60,9 +60,9 @@ As previsões pesadas são **pré-calculadas** pelo script e gravadas em JSON; a
 | Camada | Ferramenta | Comando | Escopo |
 | --- | --- | --- | --- |
 | API e regras | pytest (+ pytest-cov) | `npm test` / `npm run test:cov` | 175 testes; cobertura de `backend/` em **96%** (services e routers acima da meta de 70%) |
-| Componentes | Vitest + Testing Library | `npm run test:ui` | KPI, alerta, alternância de tema e daltonismo, formulário de login |
+| Componentes | Vitest + Testing Library | `npm run test:ui` | KPI, alerta, alternância de tema e Acessibilidade, formulário de login |
 | E2E | Playwright (desktop 1440 e celular 390) | `npm run test:e2e` | login → mapa → ponto reincidente → previsão → cartaz → previsões → logout; senha errada; rota protegida; IA fora do ar; tiles fora do ar; sem internet |
-| Acessibilidade | axe-core (`@axe-core/playwright`) | `npm run test:e2e` | WCAG 2.1 A/AA nas telas principais, também no tema escuro com daltonismo: **0 violações críticas ou sérias** |
+| Acessibilidade | axe-core (`@axe-core/playwright`) | `npm run test:e2e` | WCAG 2.1 A/AA nas telas principais, também no tema escuro com Acessibilidade: **0 violações críticas ou sérias** |
 
 `npm run test:all` roda tudo. O E2E sobe `npm run dev` sozinho; para testar uma URL publicada: `E2E_BASE_URL=https://londrina-limpa.vercel.app npx playwright test`. Na primeira vez, instale o navegador: `npx playwright install chromium`.
 

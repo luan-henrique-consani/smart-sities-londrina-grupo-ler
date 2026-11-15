@@ -100,7 +100,7 @@ export function LoginForm() {
 
           <section aria-labelledby="login-title" className="card mx-auto w-full max-w-md p-6 md:p-8">
             <div className="mb-5 flex items-center gap-3">
-              <LogoMark size={44} aria-hidden="true" role="presentation" aria-label={undefined} />
+              <LogoMark size={48} />
               <div>
                 <h2 id="login-title" className="font-display text-2xl font-bold">
                   Entrar na Prevora

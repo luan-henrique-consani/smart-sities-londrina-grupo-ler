@@ -23,7 +23,9 @@ import {
   CATEGORY_LABEL,
   CATEGORY_SHAPE_LABEL,
   CategoryTag,
+  NEUTRAL_SHAPE,
   RiskBadge,
+  RiskSwatch,
   ShapeIcon,
   type Category,
 } from "@/components/Shapes";
@@ -192,17 +194,16 @@ export function MapPanel() {
           </h2>
           <div className="grid gap-4 lg:grid-cols-3">
             <fieldset className="flex flex-col gap-2">
-              <legend className="mb-1 text-sm font-semibold text-muted">Categoria</legend>
+              <legend className="mb-1 text-sm font-semibold text-muted">
+                Categoria <span className="font-normal">(forma)</span>
+              </legend>
               {CATEGORIES.map((c) => (
                 <Toggle
                   key={c}
                   checked={categories.has(c)}
                   onChange={(on) => setCategories((s) => toggle(s, c, on))}
                 >
-                  <ShapeIcon
-                    category={c}
-                    color={c === "alagamento" ? "var(--flood)" : c === "entulho" ? "var(--debris)" : "var(--critical)"}
-                  />
+                  <ShapeIcon category={c} color={NEUTRAL_SHAPE} />
                   <span className="flex-1">{CATEGORY_LABEL[c]}</span>
                   <span className="text-xs text-muted">{counts.byCategory[c]}</span>
                 </Toggle>
@@ -210,13 +211,16 @@ export function MapPanel() {
             </fieldset>
 
             <fieldset className="flex flex-col gap-2">
-              <legend className="mb-1 text-sm font-semibold text-muted">Criticidade</legend>
+              <legend className="mb-1 text-sm font-semibold text-muted">
+                Criticidade <span className="font-normal">(cor)</span>
+              </legend>
               {LEVELS.map((l) => (
                 <Toggle
                   key={l}
                   checked={levels.has(l)}
                   onChange={(on) => setLevels((s) => toggle(s, l, on))}
                 >
+                  <RiskSwatch level={l} />
                   <span className="flex-1">{RISK_LABEL[l]}</span>
                   <span className="text-xs text-muted">{counts.byLevel[l]}</span>
                 </Toggle>
@@ -388,15 +392,16 @@ export function MapPanel() {
             <h3 id="legenda-titulo" className="font-display text-base font-semibold">
               Legenda
             </h3>
+            <p className="mt-1 text-sm text-muted">
+              No mapa, a <strong>forma</strong> mostra a categoria e a <strong>cor</strong> mostra a
+              criticidade. Exemplo: círculo vermelho = alagamento de criticidade alta; quadrado
+              âmbar = entulho de criticidade média.
+            </p>
             <div className="mt-2 grid gap-4 sm:grid-cols-2">
               <ul className="flex flex-col gap-1.5 text-sm">
                 {CATEGORIES.map((c) => (
                   <li key={c} className="flex items-center gap-2">
-                    <ShapeIcon
-                      category={c}
-                      size={18}
-                      color={c === "alagamento" ? "var(--flood)" : c === "entulho" ? "var(--debris)" : "var(--critical)"}
-                    />
+                    <ShapeIcon category={c} size={18} color={NEUTRAL_SHAPE} />
                     <span>
                       <strong>{CATEGORY_LABEL[c]}</strong> — {CATEGORY_SHAPE_LABEL[c]}
                     </span>
@@ -406,6 +411,7 @@ export function MapPanel() {
               <ul className="flex flex-col gap-1.5 text-sm">
                 {LEVELS.map((l) => (
                   <li key={l} className="flex items-center gap-2">
+                    <RiskSwatch level={l} />
                     <RiskBadge level={l} />
                   </li>
                 ))}

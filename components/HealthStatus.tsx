@@ -110,7 +110,7 @@ export function HealthStatus() {
         type="button"
         onClick={retry}
         disabled={state.kind === "loading"}
-        className="mt-4 min-h-11 rounded-lg bg-primary px-4 font-medium text-white disabled:opacity-60"
+        className="mt-4 min-h-11 rounded-lg bg-primary px-4 font-medium text-on-primary disabled:opacity-60"
       >
         Verificar de novo
       </button>
