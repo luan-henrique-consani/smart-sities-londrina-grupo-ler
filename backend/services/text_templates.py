@@ -103,7 +103,7 @@ def poster(f: Facts, audience: str, tone: str, variant: int) -> tuple[str, str]:
         "",
         TONE_CLOSING[tone],
         "",
-        "Londrina Limpa · Prefeitura de Londrina",
+        "Prevora · Prefeitura de Londrina",
     ]
     return title, "\n".join(body)
 
@@ -125,7 +125,7 @@ def social(f: Facts, audience: str, tone: str, variant: int) -> tuple[str, str]:
             f"✅ {AUDIENCE_HINT[audience]}\n✅ Móveis e volumosos: agende a coleta em {PHONE}.\n"
             "✅ Viu descarte irregular? Avise pelo Londrina ON.",
             TONE_CLOSING[tone],
-            "#LondrinaLimpa #CidadeLimpa #Londrina",
+            "#Prevora #CidadeLimpa #Londrina",
         ]
     )
     return f"Post para redes — {f['bairro']}", text

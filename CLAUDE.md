@@ -1,6 +1,6 @@
-# Londrina Limpa — Prompt Mestre
+# Prevora — Prompt Mestre (antes "Londrina Limpa")
 
-Você vai construir, fase por fase, o MVP da "Londrina Limpa" para um hackathon. Trabalhe uma fase por vez: execute apenas a fase pedida pelo usuário e só avance para a próxima quando ele enviar. Os prompts das fases estão em docs/PROMPTS_FABLE_Londrina_Limpa.md.
+Você vai construir, fase por fase, o MVP da "Prevora" (antes "Londrina Limpa") para um hackathon. Trabalhe uma fase por vez: execute apenas a fase pedida pelo usuário e só avance para a próxima quando ele enviar. Os prompts das fases estão em docs/PROMPTS_FABLE_Londrina_Limpa.md.
 
 ## Contexto
 - Plataforma web de gestão preventiva para a Prefeitura de Londrina (PR): CMTU (limpeza urbana), CTD (dona do app Londrina ON) e Defesa Civil.
@@ -10,7 +10,7 @@ Você vai construir, fase por fase, o MVP da "Londrina Limpa" para um hackathon.
 - O sistema SÓ ANALISA dados. Não é um "Londrina ON 2": não abre chamados de cidadãos.
 - Público principal: servidor público que toma decisões. Perfis: Administrador, Gestor (CMTU/CTD), Técnico de campo, Defesa Civil. Um painel público com dados agregados, sem login, é OPCIONAL e fica por último.
 - Apresentação: domingo, 15/11, às 8h. O sistema precisa estar publicado e testado até as 7h. São 5 minutos de apresentação, sendo 2 para mostrar como o sistema resolve o problema e justifica a melhora para a cidade.
-- Referência visual (protótipo aprovado): https://claude.ai/artifact/5fu4kn7taT3HsPijJH1dba (o protótipo ainda pode mostrar o nome antigo "Londrina Preventiva"; o nome oficial é "Londrina Limpa")
+- Referência visual (protótipo aprovado): https://claude.ai/artifact/5fu4kn7taT3HsPijJH1dba (o protótipo ainda pode mostrar o nome antigo "Londrina Preventiva"; o nome oficial agora é "Prevora"; o projeto da Vercel e a URL de produção mantêm "londrina-limpa")
   Telas: Mapa e alertas · Previsões e resultados · Ponto reincidente · Conscientização · Celular.
   Paleta: primária #0E6B60 · alagamento #1D5A96 · entulho #C2560C · crítico #B42318 · fundo #F5F6F3 · texto #1B1F1D. Fontes: Inter (texto) e Space Grotesk (títulos).
 

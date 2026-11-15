@@ -1,21 +1,39 @@
-# Londrina Limpa
+# Prevora
 
-Plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
+**Prevora** é uma plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
 
-> Estado atual: **Fase 3** (API FastAPI completa: login, RBAC, rotas, IA com fallback). Documentação interativa em `/api/docs`. A página inicial ainda é provisória.
+> Estado atual: **Fase 4** (frontend: login, painel gerencial, mapa interativo, alertas, tema claro/escuro e modo daltonismo) sobre a API FastAPI da Fase 3. Documentação interativa da API em `/api/docs`. As telas de previsões, pontos reincidentes e conscientização chegam na Fase 5.
+>
+> **Nome do produto:** antes "Londrina Limpa", agora **Prevora**. A URL de produção, o projeto da Vercel (`londrina-limpa`) e o repositório mantêm o nome antigo por motivos técnicos.
 
 **No ar:** <https://londrina-limpa.vercel.app> · [saúde da API](https://londrina-limpa.vercel.app/api/health) · [documentação da API](https://londrina-limpa.vercel.app/api/docs)
 
 ## Stack
 
-- **Frontend:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4.
+- **Frontend:** Next.js 16 (App Router) + TypeScript + Tailwind CSS 4, mapa com Leaflet/react-leaflet (tiles do OpenStreetMap) e validação de formulários com zod.
 - **Backend:** Python + FastAPI, um único app, publicado como função serverless Python na Vercel (`api/index.py`).
 - **Dados:** arquivos JSON em `data/` (somente leitura na Vercel).
+
+## Telas do frontend (Fase 4)
+
+| Rota | Tela | Perfis |
+| --- | --- | --- |
+| `/login` | Login (e-mail e senha, validação com zod) | público |
+| `/` | Painel de gestão: KPIs, criticidade, áreas mais críticas, alertas urgentes | todos |
+| `/mapa` | Mapa e alertas: camadas, filtros, horizonte (agora, +24 h, +72 h, +3 meses), visão em lista | todos |
+| `/alertas` | Lista de alertas com filtro por gravidade e tipo | todos |
+| `/pontos/[id]` | Resumo de um ponto de descarte | todos |
+| `/saude` | Saúde do sistema (versão, dados carregados) | só Administrador |
+| `/previsoes`, `/pontos`, `/conscientizacao` | Marcadas "em breve" (Fase 5) | todos |
+
+- **Sessão:** o cookie `ll_session` (JWT, httpOnly) é criado pela API. O `proxy.ts` faz só uma checagem otimista (sem cookie → `/login`); a validação real é da API (401 → volta ao login com aviso de sessão expirada).
+- **Acessibilidade:** categorias por forma + rótulo (círculo = alagamento, quadrado = entulho, losango = reincidente), criticidade por cor + texto + símbolo, tema claro/escuro, modo daltonismo (Okabe-Ito), foco visível, alvos de 44 px, link "Ir para o conteúdo" e visão em lista como alternativa ao mapa.
+- **Resiliência:** cliente de API com timeout e nova tentativa, skeletons, faixa offline com últimos dados em cache, aviso de falha dos tiles com visão em lista, Error Boundary e envio de erros para `POST /api/logs/client`.
 
 ## Estrutura
 
 ```
-app/, components/, lib/   frontend Next.js
+app/, components/, lib/   frontend Next.js (proxy.ts: checagem otimista de sessão)
 api/index.py              entrada da função Python na Vercel
 backend/                  pacote FastAPI (routers, services, repositories, models, core)
 data/                     JSON de seed (dados simulados)
@@ -87,7 +105,7 @@ npm run data
 
 ## Usuários de demonstração
 
-Contas fictícias, uma por perfil. Em `data/users.json` ficam só os hashes Argon2. Login em `POST /api/auth/login` (Fase 3).
+Contas fictícias, uma por perfil. Em `data/users.json` ficam só os hashes Argon2. Login pela tela `/login` (ou `POST /api/auth/login`). Os e-mails mantêm o domínio fictício `@londrinalimpa.example` para não invalidar as contas já publicadas.
 
 | Perfil | E-mail | Senha |
 | --- | --- | --- |
@@ -104,12 +122,12 @@ Copie `.env.example` para `.env.local` e preencha. Nunca faça commit de valores
 
 | Variável | Obrigatória | Uso |
 | --- | --- | --- |
-| `JWT_SECRET` | a partir da Fase 3 | Assinatura do JWT de sessão |
+| `JWT_SECRET` | sim, em produção | Assinatura do JWT de sessão |
 | `ANTHROPIC_API_KEY` | não | Sem chave, os textos usam o modo fallback (templates) |
 | `ANTHROPIC_MODEL` | não | Modelo usado quando há chave |
 | `SENTRY_DSN` | não | Monitoramento de erros (opcional) |
 
-Na Fase 1 nenhuma variável é necessária.
+Em produção (Vercel), `JWT_SECRET` precisa estar definida em Production.
 
 ## Como publicar na Vercel
 
@@ -123,7 +141,7 @@ O frontend e a API ficam no **mesmo projeto** da Vercel. O `vercel.json` define:
 npm i -g vercel        # se ainda não tiver a CLI
 vercel login
 vercel                 # deploy de preview (na primeira vez, cria/vincula o projeto)
-vercel --prod          # deploy de produção
+vercel deploy --prod --yes   # deploy de produção (este projeto não tem integração Git automática)
 ```
 
 Variáveis de ambiente: `vercel env add NOME` (ou no painel do projeto, em Settings → Environment Variables).
@@ -135,5 +153,7 @@ Depois do deploy, confira `https://SEU-DOMINIO/api/health` e `https://SEU-DOMINI
 - O sistema de arquivos da Vercel é somente leitura e efêmero: os JSON de `data/` são apenas o seed.
 - A partir da Fase 3, toda escrita vai para um store em memória, que zera a cada cold start.
 - Todos os dados são simulados.
+- O projeto da Vercel não está conectado ao GitHub: cada fase é publicada manualmente com `vercel deploy --prod --yes`.
+- Os marcadores do mapa têm cerca de 30 px (menos que 44 px) porque há centenas deles; a visão em lista tem alvos de 44 px e as mesmas informações.
 
 Decisões de projeto: [`docs/DECISIONS.md`](docs/DECISIONS.md).

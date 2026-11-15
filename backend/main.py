@@ -1,4 +1,4 @@
-"""Aplicação FastAPI única da Londrina Limpa."""
+"""Aplicação FastAPI única da Prevora."""
 
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ API de gestão preventiva de **resíduos** e **alagamentos** de Londrina (PR).
 def create_app() -> FastAPI:
     setup_logging()
     app = FastAPI(
-        title="Londrina Limpa — API",
+        title="Prevora — API",
         description=DESCRIPTION,
         version=__version__,
         docs_url="/api/docs",

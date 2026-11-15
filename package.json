@@ -1,5 +1,5 @@
 {
-  "name": "londrina-limpa",
+  "name": "prevora",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,12 +13,16 @@
     "data": "node scripts/py.mjs scripts/generate_data.py"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "next": "16.4.6",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-leaflet": "^5.0.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "4.3.3",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

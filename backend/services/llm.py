@@ -22,7 +22,7 @@ Facts = dict[str, Any]
 
 SYSTEM_PROMPT = (
     "Você escreve textos em português do Brasil para a Prefeitura de Londrina (PR), no sistema "
-    "Londrina Limpa, que ajuda servidores públicos a prevenir descarte irregular de lixo e "
+    "Prevora, que ajuda servidores públicos a prevenir descarte irregular de lixo e "
     "alagamentos. Os textos são lidos por servidores e por moradores, então use linguagem "
     "simples, frases curtas e tom respeitoso.\n\n"
     "Todos os números vêm de modelos estatísticos e chegam no bloco DADOS. Use somente esses "

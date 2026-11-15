@@ -1,4 +1,4 @@
-"""Gera os dados SIMULADOS da Londrina Limpa em /data.
+"""Gera os dados SIMULADOS da Prevora em /data.
 
 Uso:
     python scripts/generate_data.py

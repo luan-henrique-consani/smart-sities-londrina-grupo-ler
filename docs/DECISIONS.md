@@ -35,3 +35,17 @@ Registro curto das decisões tomadas quando havia ambiguidade. Regra: a opção 
 8. **Senhas de demonstração fora do código.** O gerador só cria `data/users.json` se o arquivo não existir ou se as senhas vierem na variável `DEMO_PASSWORDS`; sem ela, sorteia senhas e as imprime uma vez. As senhas ficam apenas no README.
 9. **Coordenadas aproximadas.** Centros dos bairros conferidos no OpenStreetMap (Nominatim) quando encontrados; Jardim Quebec, Jardim Leonor e Lago Igapó foram estimados. Os pontos são sorteados em torno desses centros e podem cair sobre quadras, ruas ou água.
 10. **Horário de Brasília fixo (UTC−3)** no gerador, sem depender do banco de fusos do sistema (ausente no Windows).
+
+## Fase 4
+
+1. **Rebranding para Prevora.** Trocamos o nome do produto em tela, metadados, textos da API (título do OpenAPI, prompt do LLM, templates de cartaz e post), README e comentários. **Não mudamos** o projeto da Vercel (`londrina-limpa`), a URL de produção, o repositório, o cookie `ll_session` nem os e-mails de demonstração (`@londrinalimpa.example`, que estão em `data/users.json` e nos testes): são identificadores técnicos e trocá-los quebraria contas e integrações. O nome do pacote npm virou `prevora`.
+2. **Sessão só no cliente + `proxy.ts` otimista.** O cookie é httpOnly, então o navegador não sabe se ele é válido. `AuthProvider` pergunta a `/api/auth/me`; o `proxy.ts` apenas redireciona quem não tem cookie. Cookie inválido gera 401 na primeira chamada e o app volta ao login com aviso. Não duplicamos a lógica de autenticação.
+3. **Telas dependentes da sessão usam `export const instant = false`.** Com Cache Components, o Next valida navegação instantânea em desenvolvimento e acusa erro quando o conteúdo só existe depois da checagem de sessão no cliente. O opt-out é só de validação e não afeta o build.
+4. **Mapa: forma = categoria, cor = criticidade.** Círculo (alagamento), quadrado (entulho/descarte) e losango (reincidente crônico), com rótulo no popup e na legenda. Os halos de risco usam o raio de cada área.
+5. **Filtro de criticidade começa em Alta e Média.** São 262 pontos de criticidade baixa em 300; mostrá-los todos esconde o que exige ação. O painel diz quantos itens estão ocultos e o usuário liga "Baixa" quando quiser. Um alerta ou link com `?foco=` liga automaticamente a criticidade do item.
+6. **Se os tiles falham, o mapa troca para a lista.** Depois de 8 erros de tile sem nenhum carregado, aparece o aviso e a visão em lista (que tem as mesmas informações e alvos de 44 px).
+7. **Cache offline em `localStorage`.** Em falha de conexão, `useApi` devolve o último dado salvo (marcado "sem conexão"); o cache é apagado no logout e em sessão expirada.
+8. **Sem Recharts nesta fase.** O painel usa barras empilhadas em HTML com descrição textual e legenda; os gráficos (Recharts) ficam com a Fase 5.
+9. **Telas da Fase 5 aparecem como "em breve"** para a navegação ficar igual ao protótipo, e `/pontos/[id]` mostra um resumo simples (o detalhe completo, decisões e materiais ficam para a Fase 5). "Saúde do sistema" mostra `/api/health` e `/api/meta`; uptime, modo do LLM e últimos erros dependem de endpoint novo (Fase 6).
+10. **Contraste verificado por script.** Todos os pares de texto e fundo dos temas claro, escuro e daltonismo passam de 4,5:1.
+

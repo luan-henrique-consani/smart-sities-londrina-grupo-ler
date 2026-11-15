@@ -1,3 +1,3 @@
-"""Londrina Limpa — backend FastAPI."""
+"""Prevora — backend FastAPI."""
 
 __version__ = "0.1.0"

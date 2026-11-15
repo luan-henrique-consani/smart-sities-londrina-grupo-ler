@@ -1,29 +1,91 @@
 @import "tailwindcss";
 
+/* ───────── Tokens: tema claro (padrão) ───────── */
 :root {
+  color-scheme: light;
   --background: #f5f6f3;
   --surface: #ffffff;
+  --surface-2: #eef1ed;
   --foreground: #1b1f1d;
   --muted: #4a524e;
   --border: #d5d9d3;
   --primary: #0e6b60;
+  --on-primary: #ffffff;
+  --primary-soft: #dcefe9;
   --flood: #1d5a96;
-  --debris: #c2560c;
+  --debris: #b34d09;
   --critical: #b42318;
+
+  /* Criticidade (sempre acompanhada de rótulo de texto) */
+  --risk-low: #1f7a4d;
+  --risk-mid: #a15c07;
+  --risk-high: #b42318;
+  --marker-stroke: #ffffff;
+  --shadow: 0 1px 2px rgb(16 24 20 / 0.06), 0 4px 14px rgb(16 24 20 / 0.06);
+}
+
+/* ───────── Tema escuro ───────── */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0e1412;
+  --surface: #151d1a;
+  --surface-2: #1c2723;
+  --foreground: #e8eeeb;
+  --muted: #a9b6b0;
+  --border: #2d3b36;
+  --primary: #3cc4ae;
+  --on-primary: #04201b;
+  --primary-soft: #14312c;
+  --flood: #79b2f2;
+  --debris: #f59a5c;
+  --critical: #ff8a7d;
+  --risk-low: #5fd39a;
+  --risk-mid: #f2b24a;
+  --risk-high: #ff8a7d;
+  --marker-stroke: #0e1412;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 14px rgb(0 0 0 / 0.35);
+}
+
+/* ───────── Modo daltonismo (paleta Okabe-Ito) ───────── */
+:root[data-cb="on"] {
+  --flood: #0072b2;
+  --debris: #9a5200;
+  --critical: #a8326e;
+  --risk-low: #0072b2;
+  --risk-mid: #8f6a00;
+  --risk-high: #b34700;
+}
+:root[data-theme="dark"][data-cb="on"] {
+  --flood: #56b4e9;
+  --debris: #e69f00;
+  --critical: #e68cb8;
+  --risk-low: #56b4e9;
+  --risk-mid: #f0e442;
+  --risk-high: #ff9a52;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
   --color-flood: var(--flood);
   --color-debris: var(--debris);
   --color-critical: var(--critical);
+  --color-risk-low: var(--risk-low);
+  --color-risk-mid: var(--risk-mid);
+  --color-risk-high: var(--risk-high);
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
@@ -34,4 +96,135 @@ body {
 :focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 2px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow);
+}
+
+/* Skeleton de carregamento */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.skeleton {
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--border) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ───────── Mapa (Leaflet) ───────── */
+.leaflet-container {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background: var(--surface-2);
+}
+.leaflet-container a {
+  color: var(--primary);
+}
+/* Prefixo .leaflet-container: o CSS do Leaflet carrega depois e teria a mesma especificidade. */
+.leaflet-container .leaflet-popup-content-wrapper,
+.leaflet-container .leaflet-popup-tip {
+  background: var(--surface);
+  color: var(--foreground);
+}
+.leaflet-container .leaflet-bar a {
+  background-color: var(--surface);
+  color: var(--foreground);
+  border-bottom-color: var(--border);
+}
+.leaflet-container .leaflet-bar a.leaflet-disabled {
+  color: var(--muted);
+  opacity: 0.6;
+}
+.leaflet-popup-content {
+  margin: 0.75rem 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--muted);
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  padding: 6px 0 0;
+}
+.leaflet-bar a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+.leaflet-touch .leaflet-bar a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+.leaflet-marker-icon.prevora-marker {
+  background: transparent;
+  border: 0;
+}
+.prevora-marker svg {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.45));
+}
+.prevora-marker .mk {
+  stroke: var(--marker-stroke);
+  stroke-width: 2;
+}
+.prevora-marker .mk-baixo {
+  fill: var(--risk-low);
+}
+.prevora-marker .mk-medio {
+  fill: var(--risk-mid);
+}
+.prevora-marker .mk-alto {
+  fill: var(--risk-high);
+}
+.prevora-marker:focus-visible svg {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+path.halo {
+  fill-opacity: 0.16;
+  stroke-opacity: 0.85;
+  stroke-width: 2;
+}
+path.halo-baixo {
+  fill: var(--risk-low);
+  stroke: var(--risk-low);
+}
+path.halo-medio {
+  fill: var(--risk-mid);
+  stroke: var(--risk-mid);
+}
+path.halo-alto {
+  fill: var(--risk-high);
+  stroke: var(--risk-high);
+}
+:root[data-theme="dark"] .leaflet-tile-pane {
+  filter: brightness(0.78) contrast(1.05) saturate(0.85);
 }
