@@ -5,11 +5,12 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
 from backend import __version__
 from backend.core.config import data_dir
+from backend.repositories import Repository, get_repository
 
 router = APIRouter(tags=["saúde"])
 
@@ -29,13 +30,15 @@ def _seed_available() -> bool:
 
 
 @router.get("/health", response_model=HealthResponse, summary="Saúde da API")
-def health() -> HealthResponse:
+def health(repo: Repository = Depends(get_repository)) -> HealthResponse:
     """Retorna o status da API, a versão e o horário do servidor (UTC).
 
-    `degraded` indica que os arquivos de dados não foram encontrados.
+    `degraded` indica que os arquivos de dados não foram encontrados ou que
+    algum deles estava corrompido (seed embutido em uso).
     """
+    loaded = all(status == "ok" for status in repo.load_status().values())
     return HealthResponse(
-        status="ok" if _seed_available() else "degraded",
+        status="ok" if loaded and _seed_available() else "degraded",
         version=__version__,
         time=datetime.now(UTC),
     )

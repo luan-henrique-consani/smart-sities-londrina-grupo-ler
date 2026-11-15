@@ -2,25 +2,97 @@
 
 from __future__ import annotations
 
-from fastapi import FastAPI
+import os
+import re
+import time
+import uuid
+
+from fastapi import FastAPI, Request, Response
 
 from backend import __version__
-from backend.routers import health
+from backend.core import config
+from backend.core.errors import AppError, error_response, register_error_handlers
+from backend.core.logging import logger, request_id_var, setup_logging
+from backend.repositories import get_repository
+from backend.routers import ai, auth, health, logs, overview, points
+
+_REQUEST_ID_RE = re.compile(r"^[A-Za-z0-9._-]{8,64}$")
+
+DESCRIPTION = """
+API de gestão preventiva de **resíduos** e **alagamentos** de Londrina (PR).
+**Todos os dados são simulados.**
+
+- **Sessão:** `POST /api/auth/login` grava um cookie httpOnly com JWT (8 h).
+  As demais rotas exigem esse cookie, exceto `/api/health`, `/api/meta` e `/api/logs/client`.
+- **Perfis (RBAC):** `admin`, `gestor`, `tecnico`, `defesa_civil`.
+- **Erros:** sempre `{"error": {"code", "message", "request_id"}}`.
+- **Rastreamento:** toda resposta traz o cabeçalho `X-Request-ID`.
+- **Escritas** (decisões, logs do cliente) ficam em memória e zeram no cold start.
+"""
 
 
 def create_app() -> FastAPI:
+    setup_logging()
     app = FastAPI(
         title="Londrina Limpa — API",
-        description=(
-            "API de gestão preventiva de resíduos e alagamentos de Londrina (PR). "
-            "Todos os dados são simulados."
-        ),
+        description=DESCRIPTION,
         version=__version__,
         docs_url="/api/docs",
         openapi_url="/api/openapi.json",
         redoc_url=None,
     )
-    app.include_router(health.router, prefix="/api")
+    register_error_handlers(app)
+
+    @app.middleware("http")
+    async def request_context(request: Request, call_next) -> Response:
+        """Define o request_id, registra o acesso e trata erros inesperados (500)."""
+        incoming = request.headers.get("x-request-id", "")
+        request_id = incoming if _REQUEST_ID_RE.match(incoming) else uuid.uuid4().hex
+        request.state.request_id = request_id
+        token = request_id_var.set(request_id)
+        started = time.perf_counter()
+        try:
+            try:
+                response = await call_next(request)
+            except Exception:  # noqa: BLE001 — último recurso: nunca expor stack trace
+                logger.exception(
+                    "erro inesperado",
+                    extra={"method": request.method, "path": request.url.path},
+                )
+                response = error_response(
+                    500, AppError.code, AppError.message, request_id=request_id
+                )
+            response.headers["X-Request-ID"] = request_id
+            logger.info(
+                "requisição",
+                extra={
+                    "method": request.method,
+                    "path": request.url.path,
+                    "status": response.status_code,
+                    "duration_ms": round((time.perf_counter() - started) * 1000, 1),
+                    "user_id": getattr(request.state, "user_id", None),
+                },
+            )
+            return response
+        finally:
+            request_id_var.reset(token)
+
+    for router in (
+        health.router,
+        overview.public_router,
+        auth.router,
+        points.router,
+        overview.router,
+        ai.router,
+        logs.router,
+    ):
+        app.include_router(router, prefix="/api")
+
+    # Carrega o seed na inicialização (arquivo ausente/corrompido → seed embutido + CRITICAL).
+    get_repository()
+    if not config.jwt_secret_configured():
+        level = logger.critical if os.environ.get("VERCEL") else logger.warning
+        level("JWT_SECRET não definido: usando segredo efêmero (as sessões caem a cada reinício)")
     return app
 
 
