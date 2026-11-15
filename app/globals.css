@@ -228,3 +228,29 @@ path.halo-alto {
 :root[data-theme="dark"] .leaflet-tile-pane {
   filter: brightness(0.78) contrast(1.05) saturate(0.85);
 }
+
+/* ───────── Impressão do cartaz (Baixar PDF) ───────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #poster-print,
+  #poster-print * {
+    visibility: visible;
+  }
+  #poster-print {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    box-shadow: none;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

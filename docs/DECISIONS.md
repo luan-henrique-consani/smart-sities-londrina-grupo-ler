@@ -49,3 +49,10 @@ Registro curto das decisões tomadas quando havia ambiguidade. Regra: a opção 
 9. **Telas da Fase 5 aparecem como "em breve"** para a navegação ficar igual ao protótipo, e `/pontos/[id]` mostra um resumo simples (o detalhe completo, decisões e materiais ficam para a Fase 5). "Saúde do sistema" mostra `/api/health` e `/api/meta`; uptime, modo do LLM e últimos erros dependem de endpoint novo (Fase 6).
 10. **Contraste verificado por script.** Todos os pares de texto e fundo dos temas claro, escuro e daltonismo passam de 4,5:1.
 
+## Fase 5
+
+11. **Recharts com tabela alternativa.** Todo gráfico fica em `ChartFigure`: título, descrição textual com os números, `role="img"` e tabela completa em "Ver os dados em tabela". O ano de 2026 é destacado por contorno e opacidade (não só cor), e os gráficos anuais comparam janeiro a novembro de cada ano para ser justo com 2026, que é parcial.
+12. **Materiais só para Administrador e Gestor.** Segue a API (`/api/ai/awareness`). Os demais perfis veem um aviso. Decisões podem ser registradas por Administrador, Gestor e Técnico.
+13. **Texto é gerado automaticamente ao abrir a tela** e a cada mudança de ponto, material, público ou tom; "Gerar outra versão" envia `variant + 1`. O PDF usa `window.print()` com folha de estilo de impressão que isola o cartaz.
+14. **Modal de decisão com `<dialog>` nativo**, que já prende o foco e fecha com Esc; validação com zod antes do POST. Decisões ficam no store em memória (somem no cold start).
+

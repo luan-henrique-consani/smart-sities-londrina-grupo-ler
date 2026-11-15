@@ -37,9 +37,9 @@ const NAV: NavItem[] = [
   { href: "/", label: "Painel", Icon: IconDashboard },
   { href: "/mapa", label: "Mapa e alertas", Icon: IconMap },
   { href: "/alertas", label: "Alertas", Icon: IconBell },
-  { href: "/previsoes", label: "Previsões e resultados", Icon: IconChart, soon: true },
-  { href: "/pontos", label: "Pontos reincidentes", Icon: IconRepeat, soon: true },
-  { href: "/conscientizacao", label: "Conscientização", Icon: IconMegaphone, soon: true },
+  { href: "/previsoes", label: "Previsões e resultados", Icon: IconChart },
+  { href: "/pontos", label: "Pontos reincidentes", Icon: IconRepeat },
+  { href: "/conscientizacao", label: "Conscientização", Icon: IconMegaphone },
   { href: "/saude", label: "Saúde do sistema", Icon: IconShield, roles: ["admin"] },
 ];
 

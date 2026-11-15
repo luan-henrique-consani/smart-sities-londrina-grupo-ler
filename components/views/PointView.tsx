@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
+import { useAuth } from "@/lib/auth";
+import { DecisionDialog } from "@/components/DecisionDialog";
 import { useApi } from "@/lib/useApi";
 import { WASTE_LABEL, formatDate, formatDateTime } from "@/lib/format";
-import type { AccumulationForecast, PointSummary, RiskLevel } from "@/lib/types";
+import type { AccumulationForecast, Decision, PointSummary, RiskLevel } from "@/lib/types";
 import { CategoryTag, RiskBadge } from "@/components/Shapes";
 import { ErrorState, LoadingBlock } from "@/components/States";
 import { IconMap } from "@/components/icons";
@@ -21,7 +24,10 @@ type PointDetail = PointSummary & {
   };
   linked_flood_area: { id: string; name: string; distance_m: number; score_72h: number; level_72h: RiskLevel } | null;
   episodes: { id: string; start: string; end: string; reports: number }[];
+  decisions: Decision[];
 };
+
+const DECISION_LABEL: Record<string, string> = { aceita: "Aceita", adiada: "Adiada", rejeitada: "Rejeitada" };
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
@@ -40,6 +46,12 @@ function forecastText(next: AccumulationForecast | null) {
 export function PointView() {
   const { id } = useParams<{ id: string }>();
   const { data, error, loading, reload } = useApi<PointDetail>(`/api/points/${encodeURIComponent(id)}`);
+  const { user } = useAuth();
+  const [dialog, setDialog] = useState(false);
+  const [saved, setSaved] = useState<Decision[]>([]);
+  const canDecide = user?.role === "admin" || user?.role === "gestor" || user?.role === "tecnico";
+  const canGenerate = user?.role === "admin" || user?.role === "gestor";
+  const decisions = [...saved, ...(data?.decisions ?? []).filter((d) => !saved.some((s) => s.id === d.id))];
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5">
@@ -109,9 +121,12 @@ export function PointView() {
             </dl>
           </section>
 
-          <section aria-labelledby="reincidencia" className="card p-4">
+          <section
+            aria-labelledby="reincidencia"
+            className={`card p-4 ${data.recurrence.chronic ? "border-2 border-critical" : ""}`}
+          >
             <h2 id="reincidencia" className="font-display text-lg font-semibold">
-              {data.recurrence.chronic ? "Reincidente crônico" : "Reincidência"}
+              {data.recurrence.chronic ? "Limpeza sozinha não resolve" : "Reincidência"}
             </h2>
             <p className="mt-1">{data.recurrence.message}</p>
             {data.recurrence.suggestions.length > 0 && (
@@ -130,6 +145,25 @@ export function PointView() {
                 {Math.round(data.hour_pattern.share * 100)}% dos episódios).
               </p>
             )}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {canDecide && (
+                <button
+                  type="button"
+                  onClick={() => setDialog(true)}
+                  className="min-h-11 rounded-lg bg-primary px-4 font-semibold text-on-primary"
+                >
+                  Registrar decisão
+                </button>
+              )}
+              {canGenerate && (
+                <Link
+                  href={`/conscientizacao?ponto=${data.id}`}
+                  className="inline-flex min-h-11 items-center rounded-lg border-2 border-primary px-4 font-semibold text-primary"
+                >
+                  Gerar materiais de conscientização
+                </Link>
+              )}
+            </div>
           </section>
 
           {data.linked_flood_area && (
@@ -147,7 +181,7 @@ export function PointView() {
 
           <section aria-labelledby="episodios" className="card overflow-x-auto">
             <h2 id="episodios" className="px-4 pt-4 font-display text-lg font-semibold">
-              Episódios mais recentes
+              Linha do tempo de episódios
             </h2>
             <table className="mt-2 w-full min-w-[24rem] text-left text-sm">
               <caption className="sr-only">Últimos episódios de descarte neste ponto (relatos agrupados em 150 m e 48 h).</caption>
@@ -159,7 +193,7 @@ export function PointView() {
                 </tr>
               </thead>
               <tbody>
-                {data.episodes.slice(0, 10).map((e) => (
+                {data.episodes.slice(0, 15).map((e) => (
                   <tr key={e.id} className="border-b border-border last:border-0">
                     <td className="px-4 py-2">{formatDateTime(e.start)}</td>
                     <td className="px-4 py-2">{formatDate(e.end)}</td>
@@ -170,10 +204,36 @@ export function PointView() {
             </table>
           </section>
 
-          <p className="text-sm text-muted">
-            Registro de decisões, linha do tempo completa e materiais de conscientização chegam na
-            próxima etapa.
-          </p>
+          <section aria-labelledby="decisoes" className="card p-4">
+            <h2 id="decisoes" className="font-display text-lg font-semibold">Decisões registradas</h2>
+            {decisions.length === 0 ? (
+              <p className="mt-1 text-muted">Nenhuma decisão registrada neste ponto ainda.</p>
+            ) : (
+              <ul className="mt-2 flex flex-col gap-2">
+                {decisions.map((d) => (
+                  <li key={d.id} className="rounded-lg border border-border p-3 text-sm">
+                    <p className="font-semibold">
+                      {DECISION_LABEL[d.decision] ?? d.decision}
+                      {d.intervention ? ` · ${d.intervention.replaceAll("_", " ")}` : ""}
+                    </p>
+                    <p>{d.recommendation}</p>
+                    <p className="text-muted">
+                      {formatDateTime(d.created_at)}
+                      {d.planned_date ? ` · previsto para ${formatDate(d.planned_date)}` : ""}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          <DecisionDialog
+            pointId={data.id}
+            open={dialog}
+            suggestions={data.recurrence.suggestions}
+            onClose={() => setDialog(false)}
+            onSaved={(d) => setSaved((cur) => [d, ...cur])}
+          />
         </>
       )}
     </div>

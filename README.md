@@ -2,7 +2,7 @@
 
 **Prevora** é uma plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
 
-> Estado atual: **Fase 4** (frontend: login, painel gerencial, mapa interativo, alertas, tema claro/escuro e modo daltonismo) sobre a API FastAPI da Fase 3. Documentação interativa da API em `/api/docs`. As telas de previsões, pontos reincidentes e conscientização chegam na Fase 5.
+> Estado atual: **Fase 5** (previsões e resultados, pontos reincidentes com registro de decisões e materiais de conscientização), sobre o frontend da Fase 4 e a API FastAPI da Fase 3. Documentação interativa da API em `/api/docs`.
 >
 > **Nome do produto:** antes "Londrina Limpa", agora **Prevora**. A URL de produção, o projeto da Vercel (`londrina-limpa`) e o repositório mantêm o nome antigo por motivos técnicos.
 
@@ -24,7 +24,9 @@
 | `/alertas` | Lista de alertas com filtro por gravidade e tipo | todos |
 | `/pontos/[id]` | Resumo de um ponto de descarte | todos |
 | `/saude` | Saúde do sistema (versão, dados carregados) | só Administrador |
-| `/previsoes`, `/pontos`, `/conscientizacao` | Marcadas "em breve" (Fase 5) | todos |
+| `/previsoes` | KPIs de impacto, gráficos por ano e próximos 3 meses (sem ação × com plano), calendário sazonal, resumo de IA | todos |
+| `/pontos`, `/pontos/[id]` | Lista de reincidentes com filtros/ordenação; detalhe com previsão, linha do tempo, decisões | todos (decisão: admin, gestor, técnico) |
+| `/conscientizacao` | Cartaz A4 (imprimir/PDF), post, porta a porta e plano de 30 dias; seletor de público e tom | admin, gestor |
 
 - **Sessão:** o cookie `ll_session` (JWT, httpOnly) é criado pela API. O `proxy.ts` faz só uma checagem otimista (sem cookie → `/login`); a validação real é da API (401 → volta ao login com aviso de sessão expirada).
 - **Acessibilidade:** categorias por forma + rótulo (círculo = alagamento, quadrado = entulho, losango = reincidente), criticidade por cor + texto + símbolo, tema claro/escuro, modo daltonismo (Okabe-Ito), foco visível, alvos de 44 px, link "Ir para o conteúdo" e visão em lista como alternativa ao mapa.

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ComingSoon } from "@/components/views/ComingSoon";
+import { PointsListView } from "@/components/views/PointsListView";
 
 export const metadata: Metadata = { title: "Pontos reincidentes" };
 
@@ -7,17 +7,5 @@ export const metadata: Metadata = { title: "Pontos reincidentes" };
 export const instant = false;
 
 export default function PointsPage() {
-  return (
-    <ComingSoon
-      title="Pontos reincidentes"
-      items={[
-        "Lista de pontos reincidentes com filtros e ordenação",
-        "Linha do tempo de episódios e padrão de horário",
-        "Registro de decisões sobre cada ponto",
-      ]}
-    >
-      Esta tela chega na próxima etapa. Enquanto isso, abra um ponto pelo mapa para ver o resumo
-      dele.
-    </ComingSoon>
-  );
+  return <PointsListView />;
 }

@@ -126,5 +126,74 @@ export type Kpis = {
     chronic_points: number;
     drains_cleaned_before_rain_pct: number | null;
   };
+  impact: {
+    recurrence: { before: number | null; after: number | null; change_pct: number | null; next_3_months_change_pct: number | null };
+    days_clean: { before: number | null; after: number | null };
+    days_to_clean: { before: number | null; after: number | null };
+    flood_accuracy: { occurred: number | null; predicted: number | null; pct: number | null };
+    drains_before_rain: { before_pct: number | null; after_pct: number | null };
+    team_hours_saved: { per_quarter: number | null; estimate: boolean };
+  };
+  periods: Record<string, { label: string }>;
   simulated: boolean;
 };
+
+export type YearCounts = { debris_episodes: number; recurrences: number; flood_events: number };
+export type YearRow = {
+  year: number;
+  partial: boolean;
+  full_year: YearCounts;
+  jan_to_ref: YearCounts;
+  jul_to_ref: YearCounts;
+};
+export type YearlyResponse = { as_of: string | null; system_start: string | null; years: YearRow[] };
+
+export type Scenario = { without_action: number; with_plan: number; change_pct?: number | null };
+export type MonthProjection = {
+  month: string;
+  label: string;
+  debris_episodes: Scenario;
+  recurrences: Scenario;
+  flood_events: Scenario;
+  seasonal_events: string[];
+};
+export type Next3Months = {
+  baseline: string;
+  months: MonthProjection[];
+  totals: Record<"debris_episodes" | "recurrences" | "flood_events", Scenario>;
+  team_hours_saved: number | null;
+};
+
+export type SeasonalEvent = {
+  key: string;
+  name: string;
+  start: string;
+  end: string;
+  description: string;
+  modules: ("residuos" | "alagamentos")[];
+  active: boolean;
+  days_until: number;
+};
+export type SeasonalCalendar = { reference_date: string; events: SeasonalEvent[] };
+
+export type Material = "poster" | "social" | "door_to_door" | "action_plan";
+export type Audience = "moradores" | "comerciantes" | "escolas" | "geral";
+export type Tone = "amigavel" | "informativo" | "direto";
+
+export type GeneratedText = {
+  title: string;
+  text: string;
+  mode: "api" | "fallback";
+  badge: string;
+  generated_at: string;
+};
+export type AwarenessResult = GeneratedText & { point_id: string; material: Material; variant: number };
+
+export type DecisionIn = {
+  recommendation: string;
+  decision: "aceita" | "adiada" | "rejeitada";
+  intervention?: string | null;
+  planned_date?: string | null;
+  notes?: string | null;
+};
+export type Decision = DecisionIn & { id: string; point_id: string; created_at: string };
