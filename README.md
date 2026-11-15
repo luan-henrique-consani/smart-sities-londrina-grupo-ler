@@ -2,7 +2,7 @@
 
 **Prevora** é uma plataforma web de **gestão preventiva** para a Prefeitura de Londrina (PR), com dois módulos sobre a mesma base de dados: **Resíduos** (descarte irregular e entulho) e **Alagamentos**. MVP de hackathon — **todos os dados são simulados**.
 
-> Estado atual: **Fase 6** (segurança, LGPD e saúde do sistema), sobre as telas de valor da Fase 5, o frontend da Fase 4 e a API FastAPI da Fase 3. Documentação interativa da API em `/api/docs`.
+> Estado atual: **Fase 7 — release da demo** (todas as fases concluídas). Documentação interativa da API em `/api/docs`. Roteiro de apresentação em [`docs/DEMO.md`](docs/DEMO.md).
 >
 > **Nome do produto:** antes "Londrina Limpa", agora **Prevora**. A URL de produção, o projeto da Vercel (`londrina-limpa`) e o repositório mantêm o nome antigo por motivos técnicos.
 
@@ -32,6 +32,40 @@
 - **Acessibilidade:** categorias por forma + rótulo (círculo = alagamento, quadrado = entulho, losango = reincidente), criticidade por cor + texto + símbolo, tema claro/escuro, modo daltonismo (Okabe-Ito), foco visível, alvos de 44 px, link "Ir para o conteúdo" e visão em lista como alternativa ao mapa.
 - **Resiliência:** cliente de API com timeout e nova tentativa, skeletons, faixa offline com últimos dados em cache, aviso de falha dos tiles com visão em lista, Error Boundary e envio de erros para `POST /api/logs/client`.
 
+## Problema → solução
+
+**Problema.** A cidade *responde* ao lixo e ao alagamento depois que acontecem: o descarte irregular volta ao mesmo ponto, o Lago Igapó transborda quando lixo e chuva forte se somam, e os dados da CMTU, da CTD (Londrina ON) e da Defesa Civil não conversam.
+
+**Solução.** A Prevora junta histórico, chuva e reincidência numa só base e entrega ao servidor **o que fazer primeiro, antes**: onde o lixo volta e quando, quais áreas têm risco de alagamento em 24 h, 72 h e 3 meses, quais pontos exigem ação além da limpeza, e quanto o plano economiza. Ela **só analisa**: não abre chamados e não coleta dados de cidadãos. Os números vêm de modelos estatísticos; a IA só escreve textos (sempre com revisão humana e com fallback de modelos prontos).
+
+## Arquitetura
+
+```mermaid
+flowchart LR
+  U["Servidor público<br/>(computador ou celular)"] --> N["Next.js 16 (App Router)<br/>Tailwind, Leaflet, Recharts, zod"]
+  N -- "/api/* (rewrite)" --> F["FastAPI (função Python na Vercel)<br/>RBAC, JWT httpOnly, logs JSON"]
+  F --> R["Repository (interface)"]
+  R --> J[("data/*.json<br/>seed somente leitura")]
+  R --> M[("Store em memória<br/>decisões, auditoria, logs")]
+  F --> L{"LLM (opcional)"}
+  L -- "com ANTHROPIC_API_KEY" --> A["API do Claude<br/>(timeout 15 s)"]
+  L -- "sem chave ou erro" --> T["Modelos de texto prontos<br/>(fallback)"]
+  G["scripts/generate_data.py<br/>(offline, seed fixo)"] --> J
+```
+
+As previsões pesadas são **pré-calculadas** pelo script e gravadas em JSON; a função serverless só lê e serve (importação + seed em cerca de 0,9 s no cold start; respostas grandes saem com gzip).
+
+## Testes e qualidade (Fase 7)
+
+| Camada | Ferramenta | Comando | Escopo |
+| --- | --- | --- | --- |
+| API e regras | pytest (+ pytest-cov) | `npm test` / `npm run test:cov` | 175 testes; cobertura de `backend/` em **96%** (services e routers acima da meta de 70%) |
+| Componentes | Vitest + Testing Library | `npm run test:ui` | KPI, alerta, alternância de tema e daltonismo, formulário de login |
+| E2E | Playwright (desktop 1440 e celular 390) | `npm run test:e2e` | login → mapa → ponto reincidente → previsão → cartaz → previsões → logout; senha errada; rota protegida; IA fora do ar; tiles fora do ar; sem internet |
+| Acessibilidade | axe-core (`@axe-core/playwright`) | `npm run test:e2e` | WCAG 2.1 A/AA nas telas principais, também no tema escuro com daltonismo: **0 violações críticas ou sérias** |
+
+`npm run test:all` roda tudo. O E2E sobe `npm run dev` sozinho; para testar uma URL publicada: `E2E_BASE_URL=https://londrina-limpa.vercel.app npx playwright test`. Na primeira vez, instale o navegador: `npx playwright install chromium`.
+
 ## Estrutura
 
 ```
@@ -41,7 +75,9 @@ backend/                  pacote FastAPI (routers, services, repositories, model
 data/                     JSON de seed (dados simulados)
 scripts/                  py.mjs (roda o Python do .venv) e generate_data.py (dados simulados)
 tests/                    pytest
-docs/                     DECISIONS.md e prompts das fases
+tests-ui/                 Vitest + Testing Library
+e2e/                      Playwright (E2E + axe)
+docs/                     DECISIONS.md, LGPD.md, DEMO.md e prompts das fases
 vercel.json               função Python + rewrites de /api/*
 ```
 
@@ -78,6 +114,7 @@ Abra <http://localhost:3000>. Em desenvolvimento, o Next encaminha `/api/*` para
 | `npm run build` | Build de produção do Next |
 | `npm run lint` | ESLint (frontend) + Ruff (Python) |
 | `npm test` | Testes da API, das regras de negócio e dos dados (pytest) |
+| `npm run test:ui` / `npm run test:e2e` / `npm run test:all` | Vitest, Playwright (com axe) ou tudo junto |
 | `npm run data` | Regera os dados simulados em `data/` |
 
 ## Dados simulados e modelos de previsão
@@ -158,13 +195,24 @@ Depois do deploy, confira `https://SEU-DOMINIO/api/health` e `https://SEU-DOMINI
 - **LGPD:** páginas `/privacidade` e `/termos`; Termo de Consentimento no primeiro login (data e versão); tela **Meus dados** (exportar JSON, pedir exclusão); trilha de auditoria (retenção de 6 meses). Detalhes em [docs/LGPD.md](docs/LGPD.md).
 - **Saúde do sistema** (só Administrador): versão, uptime, dados carregados, modo do LLM, contagem de erros por nível, últimos 20 erros da API e do navegador e a trilha de auditoria (`/api/admin/system-health`, `/api/admin/audit`).
 
+## Próximos passos
+
+- **Londrina ON (CTD):** receber relatos reais por integração, mantendo o sistema só de análise.
+- **Clima:** INMET/Simepar para chuva prevista real (hoje simulada).
+- **SIGLON** e bases da CMTU e da Defesa Civil (bocas de lobo, ordens de serviço).
+- **PostgreSQL/PostGIS:** trocar a implementação do Repository, sem mexer nas rotas.
+- **Atualização a cada 1 h** (hoje mostra "Atualizado às HH:MM" do momento de geração dos dados).
+- **Painel público** com dados agregados, sem login.
+- Persistência de decisões, auditoria e consentimento; MFA e SSO da Prefeitura.
+
 ## Limitações conhecidas do MVP
 
 - O sistema de arquivos da Vercel é somente leitura e efêmero: os JSON de `data/` são apenas o seed.
 - A partir da Fase 3, toda escrita vai para um store em memória, que zera a cada cold start.
 - Consentimento, auditoria, pedidos de exclusão e erros também ficam em memória (o aceite do termo acompanha o JWT, então sobrevive ao cold start na mesma sessão).
 - Todos os dados são simulados.
-- O projeto da Vercel não está conectado ao GitHub: cada fase é publicada manualmente com `vercel deploy --prod --yes`.
+- Revogação de token e limite de tentativas de login são por instância (memória).
+- A ferramenta de IA real (API do Claude) não foi exercitada em produção: sem chave, o modo é fallback.
 - Os marcadores do mapa têm cerca de 30 px (menos que 44 px) porque há centenas deles; a visão em lista tem alvos de 44 px e as mesmas informações.
 
 Decisões de projeto: [`docs/DECISIONS.md`](docs/DECISIONS.md).

@@ -53,3 +53,8 @@ next-env.d.ts
 .vercel
 .env*
 !.env.example
+
+# testes
+/test-results/
+/playwright-report/
+.coverage

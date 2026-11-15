@@ -72,7 +72,7 @@ function AlertBell() {
       {urgent !== undefined && urgent > 0 && (
         <span
           aria-hidden="true"
-          className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-critical px-1 text-[0.7rem] font-bold text-white ring-2 ring-background"
+          className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-critical px-1 text-[0.7rem] font-bold text-on-critical ring-2 ring-background"
         >
           {urgent}
         </span>
@@ -226,7 +226,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Barra lateral (tablet e computador) */}
       <aside className="sticky top-0 hidden h-screen flex-col gap-4 border-r border-border bg-surface p-4 md:flex">
-        <Link href="/" aria-label="Prevora — ir para o painel" className="rounded-lg py-1">
+        <Link href="/" title="Ir para o painel" className="rounded-lg py-1">
           <Logo />
         </Link>
         <nav aria-label="Navegação principal" className="flex flex-1 flex-col gap-1 overflow-y-auto">
@@ -241,7 +241,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <OfflineBanner />
         <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-border bg-surface/95 px-4 py-2.5 backdrop-blur md:px-6">
           <div className="md:hidden">
-            <Link href="/" aria-label="Prevora — ir para o painel" className="rounded-lg">
+            <Link href="/" title="Ir para o painel" className="rounded-lg">
               <Logo compact />
             </Link>
           </div>

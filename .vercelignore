@@ -3,3 +3,7 @@ work/
 output/
 prevora-pitch/
 .venv/
+e2e/
+tests-ui/
+test-results/
+playwright-report/

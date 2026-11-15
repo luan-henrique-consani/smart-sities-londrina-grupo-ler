@@ -9,6 +9,7 @@ import uuid
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 from backend import __version__
 from backend.core import config
@@ -68,6 +69,8 @@ def create_app() -> FastAPI:
         expose_headers=["X-Request-ID"],
         max_age=600,
     )
+    # Compressão das respostas JSON grandes (listas de pontos, previsões).
+    app.add_middleware(GZipMiddleware, minimum_size=1024)
     _init_sentry()
 
     @app.middleware("http")

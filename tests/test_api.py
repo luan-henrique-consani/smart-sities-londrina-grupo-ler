@@ -524,3 +524,12 @@ def test_vercel_config_bundles_seed_and_rewrites_api():
     fn = cfg["functions"]["api/index.py"]
     assert fn["includeFiles"] == "data/**"
     assert {"source": "/api/(.*)", "destination": "/api/index"} in cfg["rewrites"]
+
+
+def test_respostas_grandes_sao_comprimidas_com_gzip():
+    """Desempenho: JSON grande sai comprimido quando o cliente aceita gzip."""
+    r = make_client().get("/api/openapi.json", headers={"Accept-Encoding": "gzip"})
+    assert r.status_code == 200
+    assert r.headers.get("content-encoding") == "gzip"
+    assert r.headers.get("x-request-id")
+    assert "paths" in r.json()
