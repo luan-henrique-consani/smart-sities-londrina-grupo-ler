@@ -24,6 +24,7 @@ import type {
 import { KpiCard } from "@/components/KpiCard";
 import { ChartFigure } from "@/components/charts/ChartFigure";
 import { AiBadge } from "@/components/AiNotice";
+import { IotVisionButton } from "@/components/IotVisionDialog";
 import { ErrorState, LoadingBlock, StaleNotice } from "@/components/States";
 
 type Module = "ambos" | "residuos" | "alagamentos";
@@ -189,6 +190,7 @@ export function ForecastsView() {
           O que mudou desde que a Prevora passou a apoiar as decisões (julho de 2026) e o que esperar
           dos próximos três meses. Todos os dados são simulados.
         </p>
+        <IotVisionButton />
       </header>
 
       {(kpis.stale || yearly.stale || next.stale) && <StaleNotice />}
