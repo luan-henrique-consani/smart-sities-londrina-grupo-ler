@@ -123,10 +123,9 @@ body {
 .logo-chip img {
   display: block;
 }
-:root[data-theme="dark"] .logo-chip {
-  background: #ffffff;
-  border-radius: 0.6rem;
-  padding: 0.2rem 0.3rem;
+:root[data-theme="dark"] .logo-chip img {
+  /* Sem base branca: contorno claro fino para dar contraste ao azul no fundo escuro. */
+  filter: drop-shadow(0 0 1px #f4f6fb) drop-shadow(0 0 1px #f4f6fb) drop-shadow(0 0 2px rgba(244, 246, 251, 0.55));
 }
 
 .card {

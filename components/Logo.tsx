@@ -3,7 +3,7 @@ import Image from "next/image";
 /**
  * Logo oficial da Prevora (public/prevora-logo.png, PNG com transparência, proporção 720×634).
  * Componente único de marca: sidebar, cabeçalho, login, páginas legais e de erro usam este arquivo.
- * No tema escuro, a classe .logo-chip põe a logo sobre uma base clara para manter o contraste do azul.
+ * No tema escuro, .logo-chip aplica um contorno claro fino (sem base branca) para manter o contraste do azul.
  */
 const RATIO = 634 / 720;
 
