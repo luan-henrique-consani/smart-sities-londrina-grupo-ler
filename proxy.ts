@@ -28,5 +28,6 @@ export const config = {
     "/conscientizacao/:path*",
     "/saude/:path*",
     "/meus-dados/:path*",
+    "/convite/:path*",
   ],
 };

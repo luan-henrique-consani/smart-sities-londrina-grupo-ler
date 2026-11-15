@@ -133,3 +133,11 @@ export const IconUser = (p: IconProps) => (
     <path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5" />
   </Icon>
 );
+export const IconQrCode = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="3" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="3" width="7" height="7" rx="1" />
+    <rect x="3" y="14" width="7" height="7" rx="1" />
+    <path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1" />
+  </Icon>
+);

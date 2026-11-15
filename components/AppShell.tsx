@@ -16,6 +16,7 @@ import {
   IconMap,
   IconMegaphone,
   IconMore,
+  IconQrCode,
   IconRepeat,
   IconShield,
   IconUser,
@@ -47,6 +48,7 @@ const NAV: NavItem[] = [
   { href: "/conscientizacao", label: "Conscientização", Icon: IconMegaphone, hideFor: ["visitante"] },
   { href: "/saude", label: "Saúde do sistema", Icon: IconShield, roles: ["admin"] },
   { href: "/meus-dados", label: "Meus dados", Icon: IconUser, hideFor: ["visitante"] },
+  { href: "/convite", label: "Convite", Icon: IconQrCode, roles: ["admin", "gestor"] },
 ];
 
 /** Itens fixos da barra inferior no celular (os demais ficam em "Mais"). */
