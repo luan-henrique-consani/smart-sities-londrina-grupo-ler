@@ -211,6 +211,7 @@ Depois do deploy, confira `https://SEU-DOMINIO/api/health` e `https://SEU-DOMINI
 - A partir da Fase 3, toda escrita vai para um store em memória, que zera a cada cold start.
 - Consentimento, auditoria, pedidos de exclusão e erros também ficam em memória (o aceite do termo acompanha o JWT, então sobrevive ao cold start na mesma sessão).
 - Todos os dados são simulados.
+- O projeto da Vercel não faz deploy automático a cada push: publique pela CLI (`vercel deploy --prod --yes`) ou pelo painel/MCP da Vercel apontando o commit da `main`.
 - Revogação de token e limite de tentativas de login são por instância (memória).
 - A ferramenta de IA real (API do Claude) não foi exercitada em produção: sem chave, o modo é fallback.
 - Os marcadores do mapa têm cerca de 30 px (menos que 44 px) porque há centenas deles; a visão em lista tem alvos de 44 px e as mesmas informações.
