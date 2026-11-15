@@ -7,7 +7,7 @@ import re
 import time
 import uuid
 
-from fastapi import FastAPI, Request, Response
+from fastapi import Depends, FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 
@@ -15,6 +15,7 @@ from backend import __version__
 from backend.core import config
 from backend.core.errors import AppError, error_response, register_error_handlers
 from backend.core.logging import logger, request_id_var, setup_logging
+from backend.core.security import visitor_write_guard
 from backend.core.security_headers import apply_security_headers, csrf_valid
 from backend.repositories import get_repository
 from backend.routers import admin, ai, auth, health, logs, overview, points, privacy
@@ -27,7 +28,8 @@ API de gestão preventiva de **resíduos** e **alagamentos** de Londrina (PR).
 
 - **Sessão:** `POST /api/auth/login` grava um cookie httpOnly com JWT (8 h).
   As demais rotas exigem esse cookie, exceto `/api/health`, `/api/meta` e `/api/logs/client`.
-- **Perfis (RBAC):** `admin`, `gestor`, `tecnico`, `defesa_civil`.
+- **Perfis (RBAC):** `admin`, `gestor`, `tecnico`, `defesa_civil` e `visitante` (somente leitura,
+  entra por `POST /api/auth/visitor`, sem credenciais, sessão de 2 h).
 - **Erros:** sempre `{"error": {"code", "message", "request_id"}}`.
 - **Rastreamento:** toda resposta traz o cabeçalho `X-Request-ID`.
 - **Escritas** (decisões, logs do cliente) ficam em memória e zeram no cold start.
@@ -57,6 +59,7 @@ def create_app() -> FastAPI:
         docs_url="/api/docs",
         openapi_url="/api/openapi.json",
         redoc_url=None,
+        dependencies=[Depends(visitor_write_guard)],
     )
     register_error_handlers(app)
     # CORS restrito ao domínio do app (same-origin na Vercel; nada de "*").

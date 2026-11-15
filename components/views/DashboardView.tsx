@@ -91,7 +91,7 @@ export function DashboardView() {
     <div className="mx-auto flex max-w-7xl flex-col gap-7">
       <header>
         <h1 className="font-display text-3xl font-bold">
-          Painel de gestão{user ? ` — olá, ${user.name.split(" ")[0]}` : ""}
+          Painel de gestão{user && user.role !== "visitante" ? ` — olá, ${user.name.split(" ")[0]}` : ""}
         </h1>
         <p className="mt-1 max-w-3xl text-muted">
           Visão geral de Londrina para decidir onde agir primeiro: risco de alagamento, lixo que
@@ -114,7 +114,7 @@ export function DashboardView() {
         {kpis.error ? (
           <ErrorState title="Indicadores indisponíveis" error={kpis.error} onRetry={kpis.reload} />
         ) : (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <KpiCard
               category="alagamento"
               label="Áreas com risco alto (72 h)"
@@ -151,7 +151,7 @@ export function DashboardView() {
       </Section>
 
       <Section id="kpi-base" title="Base monitorada e alertas">
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <KpiCard
             label="Pontos de descarte monitorados"
             loading={meta.loading}
@@ -179,7 +179,7 @@ export function DashboardView() {
         </div>
       </Section>
 
-      <div className="grid gap-7 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-7 xl:grid-cols-2">
         <Section id="condicoes" title="Condições urbanas monitoradas">
           <div className="card flex flex-col gap-5 p-4">
             {floods.loading || points.loading ? (
@@ -292,7 +292,7 @@ export function DashboardView() {
         {alerts.loading && <LoadingBlock className="h-40" label="Carregando alertas…" />}
         {alerts.error && <ErrorState title="Alertas indisponíveis" error={alerts.error} onRetry={alerts.reload} />}
         {alerts.data && (
-          <ul className="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3">
             {alerts.data.items.slice(0, 6).map((a) => (
               <AlertCard key={a.id} alert={a} />
             ))}

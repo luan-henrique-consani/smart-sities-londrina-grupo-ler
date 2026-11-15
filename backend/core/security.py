@@ -24,7 +24,12 @@ _hasher = PasswordHasher()
 # Hash de uma senha aleatória: usado para gastar o mesmo tempo quando o e-mail não existe.
 _DUMMY_HASH = _hasher.hash(secrets.token_urlsafe(16))
 
-ALL_ROLES: tuple[Role, ...] = ("admin", "gestor", "tecnico", "defesa_civil")
+STAFF_ROLES: tuple[Role, ...] = ("admin", "gestor", "tecnico", "defesa_civil")
+# Leitura: servidores + visitante (demonstração, somente leitura).
+ALL_ROLES: tuple[Role, ...] = (*STAFF_ROLES, "visitante")
+
+# Visitante só altera estado nestas rotas (encerrar a sessão, log de erros do navegador).
+VISITOR_WRITE_ALLOWED = {"/api/auth/logout", "/api/auth/visitor", "/api/logs/client"}
 
 
 def verify_password(password_hash: str | None, password: str) -> bool:
@@ -36,14 +41,17 @@ def verify_password(password_hash: str | None, password: str) -> bool:
 
 
 def create_session_token(
-    user_id: str, role: str, consent: dict[str, str] | None = None
+    user_id: str,
+    role: str,
+    consent: dict[str, str] | None = None,
+    hours: float | None = None,
 ) -> tuple[str, datetime, str]:
     """Cria o JWT de sessão. Retorna (token, expira_em, jti).
 
     `consent` ({"version", "accepted_at"}) leva o aceite do termo já registrado para a sessão.
     """
     now = datetime.now(UTC)
-    expires = now + timedelta(hours=config.SESSION_HOURS)
+    expires = now + timedelta(hours=hours or config.SESSION_HOURS)
     jti = secrets.token_urlsafe(12)
     claims: dict[str, Any] = {"sub": user_id, "role": role, "iat": now, "exp": expires, "jti": jti}
     if consent:
@@ -131,6 +139,16 @@ login_limiter = RateLimiter(config.LOGIN_MAX_FAILURES, config.LOGIN_WINDOW_SECON
 client_log_limiter = RateLimiter(config.CLIENT_LOG_MAX_PER_MINUTE, 60)
 
 
+visitor_limiter = RateLimiter(config.VISITOR_MAX_PER_MINUTE, 60)
+
+
+def visitor_user(subject: str) -> User:
+    """Usuário sintético do visitante: sem cadastro, sem dados pessoais."""
+    return User(
+        id=subject, name="Visitante", email="", role="visitante", job_title="Modo demonstração"
+    )
+
+
 def client_ip(request: Request) -> str:
     """IP do cliente (na Vercel, o primeiro valor de X-Forwarded-For)."""
     forwarded = request.headers.get("x-forwarded-for", "")
@@ -149,7 +167,16 @@ def get_current_user(
     claims = decode_session_token(token)
     if repo.is_token_revoked(str(claims["jti"])):
         raise UnauthorizedError()
-    record = repo.user_by_id(str(claims["sub"]))
+    subject = str(claims["sub"])
+    if claims.get("role") == "visitante":
+        # Sessão de visitante: sem cadastro; o prefixo do sub impede forjar um servidor.
+        if not subject.startswith(config.VISITOR_ID_PREFIX):
+            raise UnauthorizedError()
+        user = visitor_user(subject)
+        request.state.user_id = None  # nada de identificador de visitante nos logs
+        request.state.user_role = user.role
+        return user
+    record = repo.user_by_id(subject)
     if record is None:
         raise UnauthorizedError()
     user = User.model_validate(record)
@@ -170,3 +197,26 @@ def require_roles(*roles: Role) -> Callable[..., User]:
 
 
 require_any_role = require_roles(*ALL_ROLES)
+# Dados pessoais/privacidade e escrita: só servidores (visitante recebe 403).
+require_staff = require_roles(*STAFF_ROLES)
+
+
+def visitor_write_guard(request: Request) -> None:
+    """Defesa em profundidade (dependência global): visitante nunca altera estado.
+
+    Independe das dependências de cada rota: qualquer método que não seja de leitura é 403
+    para sessão de visitante, salvo encerrar a sessão e enviar logs de erro do navegador.
+    """
+    if request.method in ("GET", "HEAD", "OPTIONS"):
+        return
+    if request.url.path.rstrip("/") in VISITOR_WRITE_ALLOWED:
+        return
+    token = request.cookies.get(config.SESSION_COOKIE)
+    if not token:
+        return
+    try:
+        claims = decode_session_token(token)
+    except UnauthorizedError:
+        return
+    if claims.get("role") == "visitante":
+        raise ForbiddenError("O modo visitante é somente leitura.")

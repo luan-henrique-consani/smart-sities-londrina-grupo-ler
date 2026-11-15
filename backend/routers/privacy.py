@@ -8,13 +8,14 @@ from fastapi import APIRouter, Depends, Request, Response
 
 from backend.core import config
 from backend.core.errors import ErrorResponse, ValidationAppError
-from backend.core.security import get_current_user, reissue_with_consent, session_claims
+from backend.core.security import reissue_with_consent, require_staff, session_claims
 from backend.models.schemas import Accepted, ConsentIn, DeletionRequest, MyDataResponse, User
 from backend.repositories import Repository, get_repository
 from backend.routers.auth import clear_cookie, set_cookie
 from backend.routers.common import AUTH_ERRORS
 from backend.services.audit import record_audit
 
+# Privacidade/LGPD é dos servidores: o visitante (sem dados pessoais) recebe 403.
 router = APIRouter(prefix="/privacy", tags=["privacidade (LGPD)"], responses=AUTH_ERRORS)
 
 RETENTION = {
@@ -33,7 +34,7 @@ def accept_consent(
     body: ConsentIn,
     request: Request,
     response: Response,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_staff),
     repo: Repository = Depends(get_repository),
 ) -> Accepted:
     """Registra data e versão do aceite e o grava também na sessão (o JWT leva a versão aceita)."""
@@ -59,7 +60,7 @@ def accept_consent(
 @router.get("/my-data", response_model=MyDataResponse, summary="Exporta os próprios dados (JSON)")
 def my_data(
     request: Request,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_staff),
     repo: Repository = Depends(get_repository),
 ) -> Response:
     """Tudo o que o sistema guarda sobre o servidor logado: cadastro, consentimento, decisões
@@ -109,7 +110,7 @@ def my_data(
 def delete_my_data(
     request: Request,
     response: Response,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_staff),
     repo: Repository = Depends(get_repository),
 ) -> DeletionRequest:
     """Registra o pedido, remove do store em memória as decisões e o consentimento do usuário

@@ -86,15 +86,21 @@ def get_point(
     episodes_limit: Annotated[int, Query(ge=0, le=500)] = 50,
     cleanings_limit: Annotated[int, Query(ge=0, le=500)] = 50,
     repo: Repository = Depends(get_repository),
-    _: User = Depends(require_any_role),
+    user: User = Depends(require_any_role),
 ) -> dict:
     """Histórico de episódios e limpezas, previsão, reincidência e padrão de horário."""
-    return views.point_detail(
+    detail = views.point_detail(
         repo,
         _get_point(repo, point_id),
         episodes_limit=episodes_limit,
         cleanings_limit=cleanings_limit,
     )
+    if user.role == "visitante":
+        # Visitante vê o histórico de decisões, sem autor e sem observações em texto livre.
+        detail["decisions"] = [
+            {**d, "notes": None, "created_by_id": ""} for d in detail["decisions"]
+        ]
+    return detail
 
 
 @router.post(

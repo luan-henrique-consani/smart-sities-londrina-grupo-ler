@@ -1,6 +1,6 @@
 /** Tipos dos contratos da API (espelham backend/models/schemas.py). */
 
-export type Role = "admin" | "gestor" | "tecnico" | "defesa_civil";
+export type Role = "admin" | "gestor" | "tecnico" | "defesa_civil" | "visitante";
 export type RiskLevel = "baixo" | "médio" | "alto";
 export type Horizon = "now" | "24h" | "72h" | "3m";
 export type Severity = "critical" | "high" | "medium" | "info";

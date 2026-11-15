@@ -13,6 +13,10 @@ SESSION_COOKIE = "ll_session"
 SESSION_HOURS = 8
 JWT_ALGORITHM = "HS256"
 
+VISITOR_SESSION_HOURS = 2  # sessão de visitante (demonstração pública): curta
+VISITOR_MAX_PER_MINUTE = 30  # entradas como visitante por IP/minuto (Wi-Fi de evento é NAT)
+VISITOR_ID_PREFIX = "visitante-"
+
 LOGIN_MAX_FAILURES = 5  # tentativas falhas por IP...
 LOGIN_WINDOW_SECONDS = 60  # ...por minuto
 CLIENT_LOG_MAX_PER_MINUTE = 30

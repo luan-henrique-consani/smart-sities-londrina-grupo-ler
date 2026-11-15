@@ -22,7 +22,7 @@ from backend.models.schemas import (
 )
 from backend.repositories import Repository, get_repository
 from backend.routers.common import AUTH_ERRORS, NOT_FOUND
-from backend.services import llm, views
+from backend.services import llm, text_templates, views
 
 _require_editor = require_roles("admin", "gestor")
 
@@ -92,7 +92,7 @@ def explain(
         Query(pattern=FLOOD_AREA_ID_PATTERN, description='Obrigatório em "flood_area"'),
     ] = None,
     repo: Repository = Depends(get_repository),
-    _: User = Depends(require_any_role),
+    user: User = Depends(require_any_role),
 ) -> dict:
     """Texto curto, em linguagem simples, sobre o que os números dizem e o que fazer."""
     cache_key = context
@@ -117,7 +117,12 @@ def explain(
     else:
         facts = views.forecasts_facts(repo)
 
-    result = llm.explain(context, facts, cache_key)
+    if user.role == "visitante":
+        # Visitante só lê o texto pronto: nenhuma chamada ao LLM é disparada por ele.
+        title, text = text_templates.explain(context, facts)
+        result = llm.TextResult(title=title, text=text, mode="fallback")
+    else:
+        result = llm.explain(context, facts, cache_key)
     return {
         "context": context,
         "facts": facts,

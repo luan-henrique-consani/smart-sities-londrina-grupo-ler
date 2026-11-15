@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const login = vi.fn();
+const loginAsVisitor = vi.fn();
 const replace = vi.fn();
 
 vi.mock("next/link", () => ({
@@ -17,7 +18,7 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 vi.mock("@/lib/auth", () => ({
-  useAuth: () => ({ status: "anonymous", login, expired: false }),
+  useAuth: () => ({ status: "anonymous", login, loginAsVisitor, expired: false }),
 }));
 
 import { LoginForm } from "@/app/login/LoginForm";
@@ -25,6 +26,7 @@ import { LoginForm } from "@/app/login/LoginForm";
 describe("Formulário de login", () => {
   beforeEach(() => {
     login.mockReset();
+    loginAsVisitor.mockReset();
     replace.mockReset();
   });
 
@@ -65,6 +67,35 @@ describe("Formulário de login", () => {
     await user.type(screen.getByLabelText("E-mail"), "gestor@londrinalimpa.example");
     await user.type(screen.getByLabelText("Senha"), "errada");
     await user.click(screen.getByRole("button", { name: "Entrar" }));
+    expect(await screen.findByRole("alert")).toBeInTheDocument();
+    expect(replace).not.toHaveBeenCalled();
+  });
+
+  it("mostra o botão de visitante abaixo de Entrar, com a descrição", () => {
+    render(<LoginForm />);
+    const entrar = screen.getByRole("button", { name: "Entrar" });
+    const visitante = screen.getByRole("button", { name: "Explorar como visitante" });
+    expect(entrar.compareDocumentPosition(visitante) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(
+      screen.getByText("Explore a Prevora em modo demonstração. Nenhuma alteração será salva."),
+    ).toBeInTheDocument();
+  });
+
+  it("entra como visitante sem credenciais e vai ao painel", async () => {
+    loginAsVisitor.mockResolvedValue(undefined);
+    const user = userEvent.setup();
+    render(<LoginForm />);
+    await user.click(screen.getByRole("button", { name: "Explorar como visitante" }));
+    await waitFor(() => expect(loginAsVisitor).toHaveBeenCalledTimes(1));
+    expect(login).not.toHaveBeenCalled();
+    expect(replace).toHaveBeenCalledWith("/");
+  });
+
+  it("mostra erro amigável se a entrada de visitante falhar", async () => {
+    loginAsVisitor.mockRejectedValue(new Error("falhou"));
+    const user = userEvent.setup();
+    render(<LoginForm />);
+    await user.click(screen.getByRole("button", { name: "Explorar como visitante" }));
     expect(await screen.findByRole("alert")).toBeInTheDocument();
     expect(replace).not.toHaveBeenCalled();
   });

@@ -127,7 +127,7 @@ export function AwarenessView() {
       </header>
 
       <form
-        className="card grid gap-3 p-4 sm:grid-cols-3 print:hidden"
+        className="card grid grid-cols-1 gap-3 p-4 sm:grid-cols-3 print:hidden"
         aria-label="Opções do material"
         onSubmit={(e) => e.preventDefault()}
       >

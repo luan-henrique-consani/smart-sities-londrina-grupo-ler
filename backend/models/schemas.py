@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 T = TypeVar("T")
 
-Role = Literal["admin", "gestor", "tecnico", "defesa_civil"]
+Role = Literal["admin", "gestor", "tecnico", "defesa_civil", "visitante"]
 RiskLevel = Literal["baixo", "médio", "alto"]
 Horizon = Literal["now", "24h", "72h", "3m"]
 WasteType = Literal["entulho", "volumosos", "domestico", "poda", "misto", "pneus"]

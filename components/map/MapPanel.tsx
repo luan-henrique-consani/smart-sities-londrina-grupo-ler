@@ -183,7 +183,7 @@ export function MapPanel() {
   const hiddenLow = !levels.has("baixo") ? counts.byLevel.baixo : 0;
 
   return (
-    <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_23rem]">
+    <div className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_23rem]">
       <div className="flex min-w-0 flex-col gap-4">
         {(floods.stale || points.stale) && <StaleNotice />}
 
@@ -192,7 +192,7 @@ export function MapPanel() {
           <h2 id="filtros-titulo" className="font-display text-lg font-semibold">
             Filtros do mapa
           </h2>
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <fieldset className="flex flex-col gap-2">
               <legend className="mb-1 text-sm font-semibold text-muted">
                 Categoria <span className="font-normal">(forma)</span>
@@ -397,7 +397,7 @@ export function MapPanel() {
               criticidade. Exemplo: círculo vermelho = alagamento de criticidade alta; quadrado
               âmbar = entulho de criticidade média.
             </p>
-            <div className="mt-2 grid gap-4 sm:grid-cols-2">
+            <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <ul className="flex flex-col gap-1.5 text-sm">
                 {CATEGORIES.map((c) => (
                   <li key={c} className="flex items-center gap-2">

@@ -20,7 +20,7 @@ function safeNext(value: string | null): string {
 }
 
 export function LoginForm() {
-  const { status, login, expired } = useAuth();
+  const { status, login, loginAsVisitor, expired } = useAuth();
   const router = useRouter();
   const params = useSearchParams();
   const next = safeNext(params.get("next"));
@@ -31,6 +31,7 @@ export function LoginForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [enteringAsVisitor, setEnteringAsVisitor] = useState(false);
 
   // Já autenticado: segue para o destino.
   useEffect(() => {
@@ -58,6 +59,19 @@ export function LoginForm() {
     } catch (err) {
       setFormError(errorMessage(err));
       setSubmitting(false);
+    }
+  }
+
+  async function onVisitor() {
+    setFormError(null);
+    setEnteringAsVisitor(true);
+    try {
+      await loginAsVisitor();
+      // O visitante só acessa rotas de leitura: ignora `next` para páginas restritas.
+      router.replace("/");
+    } catch (err) {
+      setFormError(errorMessage(err));
+      setEnteringAsVisitor(false);
     }
   }
 
@@ -178,6 +192,21 @@ export function LoginForm() {
                 {submitting ? "Entrando…" : "Entrar"}
               </button>
             </form>
+
+            <div className="mt-5 border-t border-border pt-5">
+              <button
+                type="button"
+                onClick={onVisitor}
+                disabled={enteringAsVisitor || submitting}
+                aria-describedby={`${id}-visitor-desc`}
+                className="min-h-12 w-full rounded-lg border-2 border-primary bg-brand-yellow px-4 text-base font-bold text-on-brand-yellow hover:brightness-95 disabled:opacity-60"
+              >
+                {enteringAsVisitor ? "Abrindo a demonstração…" : "Explorar como visitante"}
+              </button>
+              <p id={`${id}-visitor-desc`} className="mt-2 text-center text-sm text-muted">
+                Explore a Prevora em modo demonstração. Nenhuma alteração será salva.
+              </p>
+            </div>
 
             <p className="mt-5 text-xs text-muted">
               A Prevora não coleta dados de cidadãos. Dos servidores, guarda apenas nome, e-mail e

@@ -25,6 +25,7 @@ import { PrefsButtons } from "@/components/PrefsButtons";
 import { StatusBadges } from "@/components/StatusBadges";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ConsentGate } from "@/components/ConsentGate";
+import { AccessRestricted } from "@/components/AccessRestricted";
 import { Skeleton } from "@/components/States";
 
 type NavItem = {
@@ -33,6 +34,8 @@ type NavItem = {
   Icon: ComponentType<{ size?: number }>;
   soon?: boolean;
   roles?: Role[];
+  /** Perfis que não veem o item (ex.: visitante). */
+  hideFor?: Role[];
 };
 
 const NAV: NavItem[] = [
@@ -41,13 +44,20 @@ const NAV: NavItem[] = [
   { href: "/alertas", label: "Alertas", Icon: IconBell },
   { href: "/previsoes", label: "Previsões e resultados", Icon: IconChart },
   { href: "/pontos", label: "Pontos reincidentes", Icon: IconRepeat },
-  { href: "/conscientizacao", label: "Conscientização", Icon: IconMegaphone },
+  { href: "/conscientizacao", label: "Conscientização", Icon: IconMegaphone, hideFor: ["visitante"] },
   { href: "/saude", label: "Saúde do sistema", Icon: IconShield, roles: ["admin"] },
-  { href: "/meus-dados", label: "Meus dados", Icon: IconUser },
+  { href: "/meus-dados", label: "Meus dados", Icon: IconUser, hideFor: ["visitante"] },
 ];
 
 /** Itens fixos da barra inferior no celular (os demais ficam em "Mais"). */
 const BOTTOM_HREFS = ["/", "/mapa", "/alertas", "/pontos"];
+
+/** Rotas liberadas ao visitante (somente leitura). Qualquer outra mostra "Acesso restrito". */
+const VISITOR_ROUTES = ["/", "/mapa", "/previsoes", "/pontos", "/alertas"];
+
+export function visitorCanOpen(pathname: string): boolean {
+  return VISITOR_ROUTES.some((r) => (r === "/" ? pathname === "/" : pathname === r || pathname.startsWith(`${r}/`)));
+}
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
@@ -111,7 +121,7 @@ function UserBox({ onLogout }: { onLogout: () => void }) {
     <div className="border-t border-border pt-3">
       <p className="truncate text-sm font-semibold">{user.name}</p>
       <p className="truncate text-xs text-muted">
-        {ROLE_LABEL[user.role]} · {user.job_title}
+        {user.role === "visitante" ? "Modo demonstração" : `${ROLE_LABEL[user.role]} · ${user.job_title}`}
       </p>
       <button
         type="button"
@@ -206,7 +216,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   // Termo de Consentimento: obrigatório antes de usar o sistema.
   if (consent && !consent.accepted) return <ConsentGate />;
 
-  const visible = NAV.filter((item) => !item.roles || item.roles.includes(user.role));
+  const visible = NAV.filter(
+    (item) => (!item.roles || item.roles.includes(user.role)) && !item.hideFor?.includes(user.role),
+  );
+  const isVisitor = user.role === "visitante";
+  const restricted = isVisitor && !visitorCanOpen(pathname);
   const bottom = visible.filter((item) => BOTTOM_HREFS.includes(item.href));
   const more = visible.filter((item) => !BOTTOM_HREFS.includes(item.href));
 
@@ -245,7 +259,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Logo compact />
             </Link>
           </div>
-          <StatusBadges className="order-last w-full md:order-none md:w-auto" />
+          <div className="order-last flex w-full flex-wrap items-center gap-2 md:order-none md:w-auto">
+            {isVisitor && (
+              <span className="rounded-full border-2 border-primary bg-brand-yellow px-2.5 py-1 text-xs font-bold text-on-brand-yellow">
+                Modo Visitante
+              </span>
+            )}
+            <StatusBadges />
+          </div>
           <div className="ml-auto flex items-center gap-2">
             <AlertBell />
             <PrefsButtons />
@@ -253,7 +274,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
 
         <main id="conteudo" tabIndex={-1} className="flex-1 px-4 py-5 pb-28 outline-none md:px-6 md:pb-10">
-          <ErrorBoundary component="AppShell.main">{children}</ErrorBoundary>
+          <ErrorBoundary component="AppShell.main">
+            {restricted ? <AccessRestricted /> : children}
+          </ErrorBoundary>
         </main>
 
         <footer className="hidden border-t border-border px-6 py-3 text-xs text-muted md:block">

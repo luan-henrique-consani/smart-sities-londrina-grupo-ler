@@ -24,6 +24,9 @@ type AuthContextValue = {
   consent: ConsentStatus | null;
   acceptConsent: () => Promise<void>;
   login: (email: string, password: string) => Promise<User>;
+  /** Entrada pública, sem credenciais: cria uma sessão real de visitante (somente leitura). */
+  loginAsVisitor: () => Promise<User>;
+  isVisitor: boolean;
   logout: () => Promise<void>;
 };
 
@@ -82,6 +85,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return session.user;
   }, []);
 
+  const loginAsVisitor = useCallback(async () => {
+    const session = await api.post<SessionResponse>("/api/auth/visitor", undefined, {
+      silent401: true,
+    });
+    clearApiCache();
+    setUser(session.user);
+    setConsent(session.consent);
+    setStatus("authenticated");
+    setExpired(false);
+    return session.user;
+  }, []);
+
   const acceptConsent = useCallback(async () => {
     const required = consent?.required_version;
     if (!required) return;
@@ -108,8 +123,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ status, user, expired, consent, acceptConsent, login, logout }),
-    [status, user, expired, consent, acceptConsent, login, logout],
+    () => ({
+      status,
+      user,
+      expired,
+      consent,
+      acceptConsent,
+      login,
+      loginAsVisitor,
+      isVisitor: user?.role === "visitante",
+      logout,
+    }),
+    [status, user, expired, consent, acceptConsent, login, loginAsVisitor, logout],
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

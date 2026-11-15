@@ -51,6 +51,7 @@ export const ROLE_LABEL: Record<Role, string> = {
   gestor: "Gestor",
   tecnico: "Técnico de campo",
   defesa_civil: "Defesa Civil",
+  visitante: "Visitante",
 };
 
 /** "Atualizado às HH:MM" a partir do horário de geração dos dados. */

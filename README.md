@@ -155,6 +155,10 @@ Contas fictícias, uma por perfil. Em `data/users.json` ficam só os hashes Argo
 
 Para trocar as senhas, rode o gerador com `DEMO_PASSWORDS="admin=...,gestor=...,tecnico=...,defesa_civil=..."` e atualize esta tabela.
 
+### Modo Visitante (demonstração pública)
+
+Na tela de login, **Explorar como visitante** cria uma sessão real de visitante (cookie httpOnly, 2 h) sem e-mail nem senha. É somente leitura: painel, mapa e filtros, alertas, previsões e pontos reincidentes (com decisões sem autor). Não há Conscientização, Meus dados, Saúde do sistema, registro de decisões nem geração por IA; a interface esconde esses itens e o backend responde 403. Detalhes e limite de abuso em `docs/DECISIONS.md` (itens 22–26). Para o QR Code, aponte para https://londrina-limpa.vercel.app.
+
 ## Variáveis de ambiente
 
 Copie `.env.example` para `.env.local` e preencha. Nunca faça commit de valores reais.

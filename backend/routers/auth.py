@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import secrets
 from datetime import UTC, datetime
 
 import jwt
@@ -16,6 +17,8 @@ from backend.core.security import (
     get_current_user,
     login_limiter,
     verify_password,
+    visitor_limiter,
+    visitor_user,
 )
 from backend.models.schemas import ConsentStatus, LoginRequest, SessionResponse, User
 from backend.repositories import Repository, get_repository
@@ -27,6 +30,14 @@ router = APIRouter(prefix="/auth", tags=["autenticação"])
 
 def consent_from_claims(claims: dict) -> ConsentStatus:
     """Consentimento aceito, lido do JWT (sobrevive ao cold start, pois vai no cookie)."""
+    if claims.get("role") == "visitante":
+        # Visitante não tem dado pessoal tratado: não há termo a aceitar.
+        return ConsentStatus(
+            accepted=True,
+            required_version=config.CONSENT_VERSION,
+            accepted_version=None,
+            accepted_at=None,
+        )
     version = claims.get("consent")
     accepted_at = None
     if claims.get("consent_at"):
@@ -42,11 +53,11 @@ def consent_from_claims(claims: dict) -> ConsentStatus:
     )
 
 
-def set_cookie(response: Response, token: str) -> None:
+def set_cookie(response: Response, token: str, hours: float | None = None) -> None:
     response.set_cookie(
         config.SESSION_COOKIE,
         token,
-        max_age=config.SESSION_HOURS * 3600,
+        max_age=int((hours or config.SESSION_HOURS) * 3600),
         httponly=True,
         secure=config.cookie_secure(),
         samesite="lax",
@@ -109,6 +120,51 @@ def login(
     return SessionResponse(user=user, expires_at=expires_at, consent=status)
 
 
+@router.post(
+    "/visitor",
+    response_model=SessionResponse,
+    summary="Entrar como visitante (demonstração, somente leitura)",
+    responses=RATE_LIMITED,
+)
+def visitor_login(request: Request, response: Response) -> SessionResponse:
+    """Cria uma sessão real de visitante: JWT assinado em cookie httpOnly, 2 h, perfil
+    `visitante` (somente leitura). Sem credenciais, sem cadastro, sem estado no servidor.
+
+    Limite: 30 entradas por minuto por IP em cada instância; o limite global fica no
+    Firewall da Vercel (ver docs/DECISIONS.md). Se o navegador já tem uma sessão de visitante
+    válida, ela é reaproveitada (não gera nova)."""
+    ip = client_ip(request)
+    existing = request.cookies.get(config.SESSION_COOKIE)
+    if existing:
+        try:
+            claims = jwt.decode(
+                existing, config.jwt_secret(), algorithms=[config.JWT_ALGORITHM]
+            )
+            if claims.get("role") == "visitante" and str(claims.get("sub", "")).startswith(
+                config.VISITOR_ID_PREFIX
+            ):
+                return SessionResponse(
+                    user=visitor_user(str(claims["sub"])),
+                    expires_at=datetime.fromtimestamp(claims["exp"], UTC),
+                    consent=consent_from_claims(claims),
+                )
+        except (jwt.PyJWTError, KeyError):
+            pass
+    visitor_limiter.check(ip)
+    visitor_limiter.hit(ip)
+    subject = config.VISITOR_ID_PREFIX + secrets.token_hex(6)
+    token, expires_at, _ = create_session_token(
+        subject, "visitante", hours=config.VISITOR_SESSION_HOURS
+    )
+    set_cookie(response, token, hours=config.VISITOR_SESSION_HOURS)
+    logger.info("sessão de visitante criada", extra={"role": "visitante"})
+    return SessionResponse(
+        user=visitor_user(subject),
+        expires_at=expires_at,
+        consent=consent_from_claims({"role": "visitante"}),
+    )
+
+
 @router.post("/logout", status_code=204, summary="Sair (encerra a sessão)")
 def logout(request: Request, repo: Repository = Depends(get_repository)) -> Response:
     """Apaga o cookie e revoga o token (lista em memória, por instância)."""
@@ -119,9 +175,10 @@ def logout(request: Request, repo: Repository = Depends(get_repository)) -> Resp
                 token, config.jwt_secret(), algorithms=[config.JWT_ALGORITHM]
             )
             repo.revoke_token(str(claims.get("jti")), float(claims.get("exp", 0)))
-            record_audit(
-                repo, request, "logout", user_id=str(claims.get("sub")), role=claims.get("role")
-            )
+            if claims.get("role") != "visitante":  # visitante não gera trilha (sem dado pessoal)
+                record_audit(
+                    repo, request, "logout", user_id=str(claims.get("sub")), role=claims.get("role")
+                )
         except jwt.PyJWTError:
             pass  # token inválido: basta apagar o cookie
     response = Response(status_code=204)
