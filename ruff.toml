@@ -1,6 +1,6 @@
 target-version = "py311"
 line-length = 100
-extend-exclude = [".venv", "node_modules", ".next"]
+extend-exclude = [".venv", "node_modules", ".next", "work", "output", "prevora-pitch"]
 
 [lint]
 select = ["E", "F", "I", "B", "UP"]

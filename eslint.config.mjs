@@ -15,6 +15,10 @@ const eslintConfig = defineConfig([
     // Python (backend) e ambientes locais:
     ".venv/**",
     ".vercel/**",
+    // Material de apresentação (pitch) e scripts descartáveis: não fazem parte do produto.
+    "work/**",
+    "output/**",
+    "prevora-pitch/**",
   ]),
 ]);
 

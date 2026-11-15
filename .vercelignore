@@ -1,0 +1,5 @@
+# Material de apresentação: não faz parte do app e não deve ir no deploy.
+work/
+output/
+prevora-pitch/
+.venv/
