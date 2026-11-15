@@ -152,7 +152,9 @@ export default function MapView({
           center={[item.lat, item.lon]}
           radius={item.radius}
           interactive={false}
-          pathOptions={{ className: `halo halo-${RISK_CLASS[item.level]}` }}
+          // className precisa ir como prop (opção de criação): o Leaflet só a lê ao criar a camada,
+          // e pathOptions é aplicado depois via setStyle (em produção a classe se perdia).
+          className={`halo halo-${RISK_CLASS[item.level]}`}
         />
       ))}
 
